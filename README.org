@@ -5,8 +5,7 @@
 #+startup: overview indent
 #+attr_html: :width 500px
 [[./img/cover.jpg]]
-[[https://unsplash.com/@aaronburden
-  ][Photo by Aaron Burden on Unsplash.]]
+[[https://unsplash.com/@aaronburden  ][Photo by Aaron Burden on Unsplash.]]
 * What's in this repo?
 
   * Repository for CSC 105 - Digital humanities
