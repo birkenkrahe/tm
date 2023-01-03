@@ -270,100 +270,37 @@
 
 ** SCHEDULE AND SESSION CONTENT
 
-   Changes are possible - an [[https://github.com/birkenkrahe/ds205/blob/main/schedule.org][updated schedule is available on GitHub]].
-
-  | NO | WEEK | DATE       | LECTURE/LAB[fn:7]          | ASSIGNMENT[fn:8]                                          | TESTS[fn:9] |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  |  1 |    1 | Wed-12-Jan | Introduction               | GitHub Hello World                                        | Entry Quiz  |
-  |  2 |      | Fri-14-Jan |                            |                                                           | Quiz 1      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  |  3 |    2 | Wed-19-Jan | Emacs IDE                  | Emacs Tutorial                                            |             |
-  |  4 |      | Fri-21-Jan |                            |                                                           | Quiz 2      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  |  5 |    3 | Mon-24-Jan | Writing your own functions | Intermediate R: Conditionals and Control Flow             |             |
-  |  6 |      | Wed-26-Jan |                            |                                                           |             |
-  |  7 |      | Fri-28-Jan |                            |                                                           | Quiz 3      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  |  8 |    4 | Mon-31-Jan | If, Else, Ifelse           | Intermediate R: Loops                                     |             |
-  |  9 |      | Wed-02-Feb |                            |                                                           |             |
-  | 10 |      | Fri-04-Feb |                            |                                                           | Test 1      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 11 |    5 | Mon-07-Feb | 'For' loops                | Intermediate R: Functions                                 |             |
-  | 12 |      | Wed-09-Feb |                            |                                                           |             |
-  | 13 |      | Fri-11-Feb |                            |                                                           | Quiz 4      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 14 |    6 | Mon-14-Feb | The ~tapply~ function      | Intermediate R: apply family                              |             |
-  | 15 |      | Wed-16-Feb |                            |                                                           |             |
-  | 16 |      | Fri-18-Feb |                            |                                                           | Quiz 5      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 17 |    7 | Mon-21-Feb | Time and date              | Intermediate R: Utilities                                 |             |
-  | 18 |      | Wed-23-Feb |                            |                                                           |             |
-  | 19 |      | Fri-25-Feb |                            |                                                           | Quiz 6      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 20 |    8 | Mon-28-Feb | Gapminder and ~dplyr~      | Introduction to the Tidyverse: Data Wrangling             |             |
-  | 21 |      | Wed-02-Mar |                            |                                                           |             |
-  | 22 |      | Fri-04-Mar |                            |                                                           | Test 2      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 23 |    9 | Mon-07-Mar | Graphics with ~ggplot2~    | Introduction to the Tidyverse: Data Visualization         |             |
-  | 24 |      | Wed-09-Mar |                            |                                                           |             |
-  | 25 |      | Fri-11-Mar |                            |                                                           | Quiz 7      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 26 |   10 | Mon-14-Mar | Row operations             | Introduction to the Tidyverse: Grouping and Summarizing   |             |
-  | 27 |      | Wed-16-Mar |                            |                                                           |             |
-  | 28 |      | Fri-18-Mar |                            |                                                           | Quiz 8      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 29 |   11 | Mon-28-Mar | Different types of plots   | Introduction to the Tidyverse: Types of Visualizations    |             |
-  | 30 |      | Wed-30-Mar |                            |                                                           |             |
-  | 31 |      | Fri-01-Apr |                            |                                                           | Quiz 9      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 32 |   12 | Mon-04-Apr | Text processing            | Exploratory Data Analysis in R: Categorical Data          |             |
-  | 33 |      | Wed-06-Apr |                            |                                                           |             |
-  | 34 |      | Fri-08-Apr |                            |                                                           | Test 3      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 35 |   13 | Mon-11-Apr | Linear regression          | Exploratory Data Analysis in R: Numerical Data            |             |
-  | 36 |      | Wed-13-Apr |                            |                                                           | Quiz 10     |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 37 |   14 | Wed-20-Apr | Logistic regression        | Exploratory Data Analysis in R: Numerical Summaries       |             |
-  | 38 |      | Fri-22-Apr |                            |                                                           | Quiz 11     |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 39 |   15 | Mon-25-Apr | Functional programming     | Exploratory Data Analysis in R: Case Study Spam Detection |             |
-  | 40 |      | Wed-27-Apr |                            |                                                           |             |
-  | 41 |      | Fri-29-Apr |                            |                                                           | Quiz 12     |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-  | 42 |   16 | Mon-02-May | Summary and Outlook        |                                                           |             |
-  | 43 |      | Wed-04-May |                            |                                                           | Test 4      |
-  |----+------+------------+----------------------------+-----------------------------------------------------------+-------------|
-   
-* FOOTNOTES
-
-[fn:1]I could not settle on any particular textbook. I considered
-several: R for Data Science by Grolemund/Wickham (2017), EDA using R
-by Pearson, and the Art of R Programming by Matloff (2011). In the
-end, I remembered the difficulties that many students had with
-splitting their attention between datacamp assignments and classroom
-lectures, and I decided to use lectures/lab to work through the
-DataCamp material with you using my own interactive notebooks and
-exercises.
-
-[fn:2]the assignments cover three complete certificate courses that
-you can readily add to your resume!
-
-[fn:3]schedule may change depending on course load and progress.
-
-[fn:4]sent by the interim provost, anthony grafton. updated jan 2022.
-
-# 
-[fn:5]Taken from David Sonnier with minor modifications.
-
-[fn:6]Academic calendar sent by the Provost, Melissa Taverner.
-
-[fn:7]Lab work includes classroom assignments in the form of
-interactive notebooks, and deepening of the advanced DataCamp
-material.
-
-[fn:8]Some of the DataCamp assignments are heavily influenced by the
-"Tidyverse" approach to data science with R as explained in "R for
-Data Science" (r4ds) by [[https://r4ds.had.co.nz/introduction.html][Grolemund/Wickham (2017)]].
-
-[fn:9]Quiz: covers the material of the past week. Usually 5 min at the
-beginning of class, multiple choice. Test: in class exercises.
+| WEEK | DATE          | DATACAMP ASSIGNMENT                                       | TESTS   |
+|------+---------------+-----------------------------------------------------------+---------|
+|    1 | Jan 10,12     |                                                           |         |
+|------+---------------+-----------------------------------------------------------+---------|
+|    2 | Jan 17,19     | Intermediate R: Conditionals and Control Flow             | Test 1  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    3 | Jan 24,26     | Intermediate R: Loops                                     | Test 2  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    4 | Jan 31, Feb 2 | Intermediate R: Functions                                 | Test 3  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    5 | Feb 7,9       | Sprint review 1: literature review                        |         |
+|------+---------------+-----------------------------------------------------------+---------|
+|    6 | Feb 14,16     | Intermediate R: apply family                              | Test 4  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    7 | Feb 21,23     | Intermediate R: Utilities                                 | Test 5  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    8 | Mar 2         | Introduction to the Tidyverse: Data Wrangling             | Test 6  |
+|------+---------------+-----------------------------------------------------------+---------|
+|    9 | Mar 7,9       | Sprint review 2: methodology                              |         |
+|------+---------------+-----------------------------------------------------------+---------|
+|   10 | Mar 14,16     | Exploratory Data Analysis in R: Categorical Data          | Test 7  |
+|------+---------------+-----------------------------------------------------------+---------|
+|   11 | Mar 28,30     | Exploratory Data Analysis in R: Numerical Data            | Test 8  |
+|------+---------------+-----------------------------------------------------------+---------|
+|   12 | Apr 4,6       | Exploratory Data Analysis in R: Numerical Summaries       | Test 9  |
+|------+---------------+-----------------------------------------------------------+---------|
+|   13 | Apr 11,13     | Sprint review 3: abstract                                 |         |
+|------+---------------+-----------------------------------------------------------+---------|
+|   14 | Apr 18,20     | Exploratory Data Analysis in R: Case Study Spam Detection | Test 10 |
+|------+---------------+-----------------------------------------------------------+---------|
+|   15 | Apr 25,27     | Sprint review 4: final presentation                       |         |
+|------+---------------+-----------------------------------------------------------+---------|
+|   16 | May 2         |                                                           |         |
+|------+---------------+-----------------------------------------------------------+---------|
