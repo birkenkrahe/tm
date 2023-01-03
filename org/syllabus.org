@@ -1,306 +1,340 @@
-#+TITLE:DSC 205/CSC 482 Spring 2023 Syllabus
+#+TITLE: CSC 105 Digital Humanities - Spring 2023 Syllabus
 #+AUTHOR: Marcus Birkenkrahe
-#+SUBTITLE: Introduction to Advanced Data Science (DSC 205/CSC 482) Spring 2023
 #+options: toc:nil
 #+startup: overview
 * General Course Information
 
-  * Meeting Times: Monday/Wednesday/Friday, 15:00-15:50 hrs
-  * Meeting place: Lyon Building Computer Lab 104
-  * Professor: Marcus Birkenkrahe
-  * Office: Derby Science Building 210
-  * Phone: (870) 307-7254 (Office) / (501 422-4725 (Private)
-  * Office Hours: Mon/Wed/Fri 12:00-12:30 PM; Tue/Thu 2.30-3.00 PM
-  * Textbook: ~NA~[fn:1]
-        
-** Objectives
+- Meeting Times: Tue/Thu from 2.30 - 3.45 pm
+- Meeting place: Derby science building computer lab 209
+- Professor: Marcus Birkenkrahe
+- Office: Derby Science Building 210
+- Phone: (870) 307-7254 (Office) / (501 422-4725 (Private)
+- Office Hours: Tue/Thu 4-4.30 pm, Mon/Wed/Fri 4.15-4.45 pm
+- Textbooks: Text mining in Practice with R (Kwartler, 2017), Text
+  mining with R - A Tidy Approach (Silge/Robinson, 2017)
+- Lesson plan: follows "Text mining with R" track in DataCamp
+  
+* Objectives
 
-   For those who took DSC 101 in fall 2021 (data science tools and
-   methods), this course continues the journey into data science using
-   the functional programming language R. The focus of this advanced
-   introduction is data exploration, with excursions into data
-   wrangling, programming, and modeling using R. However, this is not
-   an R course, but a course on exploring data. In contrast to DSC
-   101, we will be using both the "Tidyverse" methodology, and IDEs
-   (Rstudio, Emacs). You will practice using classroom assignments and
-   weekly programming assignments in DataCamp[fn:2]. See prerequisites
-   below.
+Understanding and practicing the basis of current AI technologies used
+in Natural Language Processing applications like DALL-E, ChatGPT,
+Alexa or Siri. Applying text mining techniques to sentiment analysis,
+word association, and pattern matching.
 
-   #+Attr_Html: :Width 600px
-   [[./img/datacamp.png]]
+* Student learning outcomes
 
-   /Image: All DataCamp assignments Jan 31-May 2, 2022 ([[https://app.datacamp.com/groups/lyon-college-data-science-spring-2022/assignments][Source]])/
+Students who complete CSC 105, "Digital Humanities - working with
+text data", will be able to:
 
-** Student learning outcomes
+- Wrangle, visualize and model text data analysis problems
+- Manipulate string data with the ~stringr~ R package
+- Mine text data with the Bag-of-Words technique
+- Carry out simple sentiment analysis of text data
+- Know how to effectively present assignment results
+- Complete an independent research project and present results
+- Master data science infrastructure for editing and graphing
 
-   Students who complete dsc 205, "advanced introduction to data
-   science", will be able to:
+* Course requirements
 
-   * Import data into R, store them, and transform them for analysis
-   * Visualize data as part of advanced explorative data analysis
-   * Understand basic predictive modeling strategies and methods
-   * Master statistical programming in R using the "Tidyverse" package
-   * Master the infrastructure for advanced statistical computing
-   * Know how to effectively present assignment results
+None. Some basic proficiency in R and the "Tidyverse" packages is
+useful but not required (use DataCamp lessons or Matloff's "fasteR"
+online tutorial on GitHub).
 
-** Course requirements
+Some knowledge of, and experience with computers is useful but not
+critical. Curiosity and discipline are essential. You will gain
+data literacy skills by taking this course. The course will prepare
+you for further studies in computer and data science, or in other
+disciplines that use modern computing, i.e. every discipline, from
+accounting to zoology).
 
-   To join this course without having completed DSC 101, complete the
-   DataCamp courses "Datascience for Everyone", and "Introduction to
-   R", and pass the entry quiz in week 1 of the course (with > 50%).
-   
-   Some knowledge of, and experience with computers is useful but not
-   critical. Curiosity and discipline are essential. You will gain
-   data literacy skills by taking this course. The course will prepare
-   you for further studies in computer and data science, or in other
-   disciplines that use modern computing, i.e. every discipline, from
-   accounting to zoology).
+* Grading system
 
-** GRADING SYSTEM
+| REQUIREMENT           | UNITS | PPU | TOTAL | % of TOTAL |
+|-----------------------+-------+-----+-------+------------|
+| Final exam            |     1 | 100 |   100 |        20. |
+| Home assignments      |    15 |  10 |   150 |        30. |
+| Class assignments     |    10 |  10 |   100 |        20. |
+| Final project         |     1 |  50 |    50 |        10. |
+| Multiple-choice tests |    10 |  10 |   100 |        20. |
+|-----------------------+-------+-----+-------+------------|
+| TOTAL                 |       |     |   500 |       100. |
+|-----------------------+-------+-----+-------+------------|
+#+TBLFM: @2$4=$2*$3::@2$5=(@2$4/@7$4)*100::@3$4=$2*$3::@3$5=(@3$4/@7$4)*100::@4$4=$2*$3::@4$5=(@4$4/@7$4)*100::@5$4=$2*$3::@5$5=(@5$4/@7$4)*100::@6$5=(@6$4/@7$4)*100::@7$4=vsum(@2..@6)::@7$5=vsum(@2..@6)
 
-   | WHEN[fn:3]    | DESCRIPTION          | IMPACT |
-   |---------------+----------------------+--------|
-   | EVERY SESSION | CLASS ASSIGNMENTS    |    10% |
-   | BI-/WEEKLY    | DATACAMP ASSIGNMENTS |    30% |
-   | MONTHLY       | TESTS                |    30% |
-   | END OF TERM   | FINAL EXAM           |    30% |
+You should be able to see your current grade at any time using the
+Schoology gradebook for the course.
 
-   You should be able to see your current grade at any time using the
-   Schoology gradebook for the course.
+* Grading table
 
-*** GRADING TABLE
+This table is used to convert completion rates into letter grades. for
+the midterm results, letter grades still carry signs, while for the
+term results, only straight letters are given (by rounding up).
 
-    THIS TABLE IS USED TO CONVERT COMPLETION RATES INTO LETTER
-    GRADES. FOR THE MIDTERM RESULTS, LETTER GRADES STILL CARRY SIGNS,
-    WHILE FOR THE TERM RESULTS, ONLY STRAIGHT LETTERS ARE GIVEN (BY
-    ROUNDING UP).
+|--------+---------------+---------------|
+|      *%* | *MIDTERM GRADE* | *FINAL GRADE*   |
+|--------+---------------+---------------|
+| 100-98 | A+            |               |
+|  97-96 | A             | A (PASSED -   |
+|  95-90 | A-            | VERY GOOD)    |
+|--------+---------------+---------------|
+|  89-86 | B+            |               |
+|  85-80 | B             | B (PASSED -   |
+|  79-76 | B-            | GOOD)         |
+|--------+---------------+---------------|
+|  75-70 | C+            |               |
+|  69-66 | C             | C (PASSED -   |
+|  65-60 | C-            | SATISFACTORY) |
+|--------+---------------+---------------|
+|  59-56 | D+            |               |
+|  55-50 | D             | D (PASSED)    |
+|--------+---------------+---------------|
+|   49-0 | F             | F (FAILED)    |
+|--------+---------------+---------------|
+* Standard Policies
+** Honor Code
 
-    |--------+-----------------+---------------|
-    |    *%* | *MIDTERM GRADE* | *FINAL GRADE* |
-    |--------+-----------------+---------------|
-    | 100-98 | A+              |               |
-    |  97-96 | A               | A (PASSED -   |
-    |  95-90 | A-              | VERY GOOD)    |
-    |--------+-----------------+---------------|
-    |  89-86 | B+              |               |
-    |  85-80 | B               | B (PASSED -   |
-    |  79-76 | B-              | GOOD)         |
-    |--------+-----------------+---------------|
-    |  75-70 | C+              |               |
-    |  69-66 | C               | C (PASSED -   |
-    |  65-60 | C-              | SATISFACTORY) |
-    |--------+-----------------+---------------|
-    |  59-56 | D+              |               |
-    |  55-50 | D               | D (PASSED)    |
-    |--------+-----------------+---------------|
-    |   49-0 | F               | F (FAILED)    |
-    |--------+-----------------+---------------|
+All graded work in this class is to be pledged in accordance with the
+Lyon College Honor Code. The use of a phone for any reason during the
+course of an exam is considered an honor code violation.
 
-*** CLASS ASSIGNMENTS (10%)
+** Class Attendance Policy
 
-    - COMPLETE SMALL ASSIGNMENTS IN CLASS (PARTICIPATION)
-    - COMPLETE ASSIGNMENTS OUTSIDE OF CLASS (HOMEWORK)
-    - BE READY TO PRESENT YOUR RESULTS AT ANY TIME
+Students are expected to attend all class periods for the courses in
+which they are enrolled. They are responsible for conferring with
+individual professors regarding any missed assignments. Faculty
+members are to notify the Registrar when a student misses the
+equivalent of one, two, three, and four weeks of class periods in a
+single course. Under this policy, there is no distinction between
+“excused” and “unexcused” absences, except that a student may make up
+work missed during an excused absence. A reminder of the college’s
+attendance policy will be issued to the student at one week, a second
+reminder at two weeks, a warning at three weeks, and notification of
+administrative withdrawal and the assigning of an “F” grade at four
+weeks. Students who are administratively withdrawn from more than one
+course will be placed on probation or suspended.
 
-*** WEEKLY DATACAMP ASSIGNMENTS (30%)
+** Academic Support
 
-    - COMPLETE WEEKLY CHAPTERS OF DATACAMP ASSIGNMENTS
-    - SPEND 30-45 MIN PER WEEK ON AN ASSIGNMENT
-    - BRING QUESTIONS AND COMMENTS TO CLASS FOR DISCUSSION
-    - Late DataCamp submissions will be accepted but you'll lose 1
-      point for every day that your submission is late.
+The Morrow Academic Center (MAC) helps students who want to improve
+grades by providing peer-led services including Supplemental
+Instruction (SI), tutoring, the Writing Center, and academic coaching
+as well providing 24-hour, online tutoring for all subjects through
+Tutor.com. A schedule of peer-led services is available at
+lyon.edu/mac and Tutor.com is accessed through courses in
+Schoology. Contact Donald Taylor, Director of Academic Support, at
+870-307-7319 or donald.taylor@lyon.edu for more information about MAC
+services.
 
-*** MONTHLY TESTS (30%)
+** Technology Support
 
-    - COMPLETE 45 MIN ONLINE TEST IN CLASS
-    - RECALL LAST MONTH OF LECTURES AND LABS
-    - READ RELEVANT TEXTBOOK CHAPTERS
+For general technology support, you can contact the IT department by
+emailing support@lyon.edu or by calling 870-307-7555. For assistance
+with classroom-related technologies, such as the learning management
+system (LMS), you can request support using the methods above, or you
+can contact sarah.williams@lyon.edu directly for assistance. Your
+course content will be accessible digitally using either the Schoology
+or Canvas LMS. Both LMS platforms will use your myLyon credentials for
+your student login.
 
-*** FINAL EXAM (30%)
+- For Canvas, login at lyon.instructure.com
+- For Schoology, login at lyon.schoology.com
 
-    - 120 MIN MULTIPLE CHOICE EXAM
-    - ONLINE IN SCHOOLOGY IN THE CLASSROOM
-    - SOURCED FROM THE WEEKLY QUIZ QUESTIONS
+** Disabilities
 
-* STANDARD POLICIES[fn:4]
-** HONOR CODE
+Students seeking reasonable accommodations based on documented
+learning disabilities must contact Interim Director of Academic
+Support Donald Taylor in the Morrow Academic Center at (870) 307-7019
+or at donald.taylor@lyon.edu.
 
-   ALL GRADED WORK IN THIS CLASS IS TO BE PLEDGED IN ACCORDANCE WITH
-   THE LYON COLLEGE HONOR CODE. THE USE OF A PHONE FOR ANY REASON
-   DURING THE COURSE OF AN EXAM IS CONSIDERED AN HONOR CODE
-   VIOLATION.
+** Harassment, Discrimination, and Sexual Misconduct
 
-** CLASS ATTENDANCE POLICY
+Lyon College seeks to provide all members of the community with a safe
+and secure learning and work environment that is free of crime and/or
+policy violations motivated by discrimination, sexual and bias-related
+harassment, and other violations of rights. The College has a
+zero-tolerance policy against gender-based misconduct, sexual assault,
+and interpersonal violence toward any member or guest of the Lyon
+College community. Any individual who has been the victim of an act of
+violence or intimidation is urged to make an official report by
+contacting a campus Title IX coordinator or by visiting
+www.lyon.edu/file-a-title-ix-report. A report of an act of violence or
+intimidation will be dealt with promptly. Confidentiality will be
+maintained to the greatest extent possible within the constraints of
+the law. For more information regarding the College’s Title IX
+policies and procedures, visit www.lyon.edu/title-ix.
 
-   STUDENTS ARE EXPECTED TO ATTEND ALL CLASS PERIODS FOR THE COURSES
-   IN WHICH THEY ARE ENROLLED. THEY ARE RESPONSIBLE FOR CONFERRING
-   WITH INDIVIDUAL PROFESSORS REGARDING ANY MISSED
-   ASSIGNMENTS. FACULTY MEMBERS ARE TO NOTIFY THE REGISTRAR WHEN A
-   STUDENT MISSES THE EQUIVALENT OF ONE, TWO, THREE, AND FOUR WEEKS
-   OF CLASS PERIODS IN A SINGLE COURSE. UNDER THIS POLICY, THERE IS
-   NO DISTINCTION BETWEEN “EXCUSED” AND “UNEXCUSED” ABSENCES, EXCEPT
-   THAT A STUDENT MAY MAKE UP WORK MISSED DURING AN EXCUSED
-   ABSENCE. A REMINDER OF THE COLLEGE’S ATTENDANCE POLICY WILL BE
-   ISSUED TO THE STUDENT AT ONE WEEK, A SECOND REMINDER AT TWO WEEKS,
-   A WARNING AT THREE WEEKS, AND NOTIFICATION OF ADMINISTRATIVE
-   WITHDRAWAL AND THE ASSIGNING OF AN “F” GRADE AT FOUR
-   WEEKS. STUDENTS WHO ARE ADMINISTRATIVELY WITHDRAWN FROM MORE THAN
-   ONE COURSE WILL BE PLACED ON PROBATION OR SUSPENDED.
+** Mental & Behavioral Health
 
-** DISABILITIES
+Lyon College is dedicated to ensuring each student has access to
+mental and behavioral health resources. The College’s Mental and
+Behavioral Health Office is located in Edwards Commons and is
+partnered with White River Health System’s Behavioral Health
+Clinic. The office is committed to helping the Lyon community achieve
+maximum mental and behavioral wellness through both preventative and
+reactive care. A full-time, licensed, professional counselor provides
+counseling, consultations, outreach, workshops, and many more mental
+and behavioral services to Lyon students, faculty, and staff at no
+cost. The Mental and Behavioral Health Office also provides access to
+White River Health System’s services and facilities, including
+medication management and in-patient and out-patient care. To make an
+appointment, contact counseling@lyon.edu.
 
-   STUDENTS SEEKING REASONABLE ACCOMMODATIONS BASED ON DOCUMENTED
-   LEARNING DISABILITIES MUST CONTACT INTERIM DIRECTOR OF ACADEMIC
-   SUPPORT COURTNEY BEAL IN THE MORROW ACADEMIC CENTER AT (870)
-   307-7016 OR AT COURTNEY.BEAL@LYON.EDU.
+** College-Wide COVID-19 Policies
 
-** HARASSMENT, DISCRIMINATION, AND SEXUAL MISCONDUCT
+The College does not require masks in instructional and meeting spaces
+inside academic buildings. However, if instructors require masks in
+their classroom, lab, or studio, then students and guests must comply
+with that requirement.  Vaccines are strongly encouraged for all
+faculty, staff, and students. Vaccines are not mandated for Lyon
+College community members, although there may be specific courses
+involving interactions with vulnerable, external populations where a
+vaccine may be required.  The College will continue to offer
+symptomatic testing for students, faculty and staff.
 
-   TITLE IX AND LYON’S POLICY PROHIBIT HARASSMENT, DISCRIMINATION AND
-   SEXUAL MISCONDUCT. LYON ENCOURAGES ANYONE EXPERIENCING HARASSMENT,
-   DISCRIMINATION OR SEXUAL MISCONDUCT TO TALK TO DANELL HETRICK,
-   TITLE IX COORDINATOR AND INTERIM VICE-PRESIDENT FOR STUDENT LIFE,
-   OR SH’NITA MITCHELL, TITLE IX INVESTIGATOR AND ASSOCIATE DEAN FOR
-   STUDENTS, ABOUT WHAT HAPPENED SO THEY CAN GET THE SUPPORT THEY NEED
-   AND LYON CAN RESPOND APPROPRIATELY.  LYON IS LEGALLY OBLIGATED TO
-   RESPOND TO REPORTS OF SEXUAL MISCONDUCT, AND THEREFORE WE CANNOT
-   GUARANTEE THE CONFIDENTIALITY OF A REPORT, UNLESS MADE TO A
-   CONFIDENTIAL RESOURCE (CHAPLAIN, COUNSELOR, OR NURSE). AS A FACULTY
-   MEMBER, I AM REQUIRED TO REPORT POSSIBLE TITLE IX VIOLATIONS AND
-   MUST PROVIDE OUR TITLE IX COORDINATOR WITH ALL RELEVANT DETAILS.  I
-   CANNOT, THEREFORE, GUARANTEE CONFIDENTIALITY.
+** Details
 
-** COLLEGE-WIDE COVID-19 POLICIES FOR SPRING, 2022
+Details specific to this course may be found in the subsequent pages
+of this syllabus. Those details will include at least the following:
+- A description of the course consistent with the Lyon College
+  catalog.
+- A list of student learning outcomes for the course.
+- A summary of all course requirements.
+- An explanation of the grading system to be used in the course.
+- Any course-specific attendance policies that go beyond the College
+  policy.
+- Details about what constitutes acceptable and unacceptable student
+  collaboration on graded work.
+- A clear statement about which LMS is being used for the course.
 
-   - MASKS ARE MANDATED WHEN INDOORS IN ALL CAMPUS BUILDINGS,
-     INCLUDING ACADEMIC BUILDINGS, EDWARDS COMMONS, BECKNELL GYMNASIUM
-     AND RESIDENCE HALLS. REFER TO THE FULL CAMPUS POLICY ONLINE FOR
-     MORE DETAILS.
-   - PARTICIPATION IN COMMUNITY SURVEILLANCE TESTING IS MANDATORY.
-   - VACCINES ARE STRONGLY ENCOURAGED FOR ALL FACULTY, STAFF, AND
-     STUDENTS. VACCINES ARE NOT MANDATED FOR LYON COLLEGE COMMUNITY
-     MEMBERS.
+** Learning Management System (LMS)
 
-     #+BEGIN_QUOTE
-   DETAILS SPECIFIC TO THIS COURSE MAY BE FOUND IN THE SUBSEQUENT
-   PAGES OF THIS SYLLABUS. THOSE DETAILS WILL INCLUDE AT LEAST THE
-   FOLLOWING:
-   - A DESCRIPTION OF THE COURSE CONSISTENT WITH THE LYON COLLEGE CATALOG.
-   - A LIST OF STUDENT LEARNING OUTCOMES FOR THE COURSE.
-   - A SUMMARY OF ALL COURSE REQUIREMENTS.
-   - AN EXPLANATION OF THE GRADING SYSTEM TO BE USED IN THE COURSE.
-   - ANY COURSE-SPECIFIC ATTENDANCE POLICIES THAT GO BEYOND THE COLLEGE POLICY.
-   - DETAILS ABOUT WHAT CONSTITUTES ACCEPTABLE AND UNACCEPTABLE
-     STUDENT COLLABORATION ON GRADED WORK.
-     #+END_QUOTE
+We will use Canvas in this course.
+** Assignments and Honor Code
 
-* COURSE SPECIFIC INFORMATION
-** ASSIGNMENTS AND HONOR CODE[fn:5]
+There will be several assignments during the summer school,
+including programming assignments and multiple-choice tests. They
+are due at the beginning of the class period on the due date. Once
+class begins, the assigment will be considered one day late if it
+has not been turned in.  Late programs will not be accepted without
+an extension. Extensions will *not* be granted for reasons such as:
 
-   THERE WILL BE NUMEROUS ASSIGNMENTS DURING THE SEMESTER - E.G.
-   PROGRAMMING, LESSONS, TESTS, AND SPRINT REVIEWS. THEY ARE DUE AT
-   THE BEGINNING OF THE CLASS PERIOD ON THE DUE DATE. ONCE CLASS
-   BEGINS, THE ASSIGMENT WILL BE CONSIDERED ONE DAY LATE IF IT HAS NOT
-   BEEN TURNED IN.  LATE PROGRAMS WILL NOT BE ACCEPTED WITHOUT AN
-   EXTENSION. EXTENSIONS WILL *NOT* BE GRANTED FOR REASONS SUCH AS:
+- You could not get to a computer
+- You could not get a computer to do what you wanted it to do
+- The network was down
+- The printer was out of paper or toner
+- You erased your files, lost your homework, or misplaced your
+  flash drive
+- You had other coursework or family commitments that interfered
+  with your work in this course
 
-   * YOU COULD NOT GET TO A COMPUTER
-   * YOU COULD NOT GET A COMPUTER TO DO WHAT YOU WANTED IT TO DO
-   * THE NETWORK WAS DOWN
-   * THE PRINTER WAS OUT OF PAPER OR TONER
-   * YOU ERASED YOUR FILES, LOST YOUR HOMEWORK, OR MISPLACED YOUR
-     FLASH DRIVE
-   * YOU HAD OTHER COURSEWORK OR FAMILY COMMITMENTS THAT INTERFERED
-     WITH YOUR WORK IN THIS COURSE
+Put “Pledged” and a note of any collaboration in the comments of any
+program you turn in. Programming assignments are individual efforts,
+but you may seek assistance from another student or the course
+instructor.  You may not copy someone else’s solution. If you are
+having trouble finishing an assignment, it is far better to do your
+own work and receive a low score than to go through an honor trial and
+suffer the penalties that may be involved.
 
-   PUT “PLEDGED” AND A NOTE OF ANY COLLABORATION IN THE COMMENTS OF
-   ANY PROGRAM YOU TURN IN. PROGRAMMING ASSIGNMENTS ARE INDIVIDUAL
-   EFFORTS, BUT YOU MAY SEEK ASSISTANCE FROM ANOTHER STUDENT OR THE
-   COURSE INSTRUCTOR.  YOU MAY NOT COPY SOMEONE ELSE’S SOLUTION. IF
-   YOU ARE HAVING TROUBLE FINISHING AN ASSIGNMENT, IT IS FAR BETTER TO
-   DO YOUR OWN WORK AND RECEIVE A LOW SCORE THAN TO GO THROUGH AN
-   HONOR TRIAL AND SUFFER THE PENALTIES THAT MAY BE INVOLVED.
+What is cheating on an assignment? Here are a few examples:
 
-   WHAT IS CHEATING ON AN ASSIGNMENT? HERE ARE A FEW EXAMPLES:
+- Having someone else write your assignment, in whole or in part
+- Copying an assignment someone else wrote, in whole or in part
+- Collaborating with someone else to the extent that your
+  submissions are identifiably very similar, in whole or in part
+- Turning in a submission with the wrong name on it
 
-   * HAVING SOMEONE ELSE WRITE YOUR ASSIGNMENT, IN WHOLE OR IN PART
-   * COPYING AN ASSIGNMENT SOMEONE ELSE WROTE, IN WHOLE OR IN PART
-   * COLLABORATING WITH SOMEONE ELSE TO THE EXTENT THAT YOUR
-     SUBMISSIONS ARE IDENTIFIABLY VERY SIMILAR, IN WHOLE OR IN PART
-   * TURNING IN A SUBMISSION WITH THE WRONG NAME ON IT
+What is not cheating?  Here are some examples:
+- Talking to someone in general terms about concepts involved in an
+  assignment
+- Asking someone for help with a specific error message or bug in
+  your program
+- Getting help with the specifics of language syntax or citation
+  style
+- Utilizing information given to you by the instructor
 
-   WHAT IS NOT CHEATING?  HERE ARE SOME EXAMPLES:
+Any assistance must be clearly explained in the comments at the
+beginning of your submission.  If you have any questions about this,
+please ask or review the policies relating to the Honor Code.
 
-   * TALKING TO SOMEONE IN GENERAL TERMS ABOUT CONCEPTS INVOLVED IN AN
-     ASSIGNMENT
-   * ASKING SOMEONE FOR HELP WITH A SPECIFIC ERROR MESSAGE OR BUG IN
-     YOUR PROGRAM
-   * GETTING HELP WITH THE SPECIFICS OF LANGUAGE SYNTAX OR CITATION
-     STYLE
-   * UTILIZING INFORMATION GIVEN TO YOU BY THE INSTRUCTOR
+Absences on Days of Exams: Test “make-ups” will only be allowed if
+arrangements have been made prior to the scheduled time.  If you are
+sick the day of the test, please e-mail me or leave a message on my
+phone before the scheduled time, and we can make arrangements when
+you return.
 
-   ANY ASSISTANCE MUST BE CLEARLY EXPLAINED IN THE COMMENTS AT THE
-   BEGINNING OF YOUR SUBMISSION.  IF YOU HAVE ANY QUESTIONS ABOUT
-   THIS, PLEASE ASK OR REVIEW THE POLICIES RELATING TO THE HONOR CODE.
+** Attendance policy
 
-   ABSENCES ON DAYS OF EXAMS:
+In accordance with college policy, if you miss 4 weeks of class, you
+fail the course automatically. Any missed meetings result in an [[https://catalog.lyon.edu/class-attendance]["Early
+Alert" report]].
 
-   TEST “MAKE-UPS” WILL ONLY BE ALLOWED IF ARRANGEMENTS HAVE BEEN
-   MADE PRIOR TO THE SCHEDULED TIME.  IF YOU ARE SICK THE DAY OF THE
-   TEST, PLEASE E-MAIL ME OR LEAVE A MESSAGE ON MY PHONE BEFORE THE
-   SCHEDULED TIME, AND WE CAN MAKE ARRANGEMENTS WHEN YOU RETURN.
+You should take care not to miss consecutive sessions if at all
+possible - otherwise you risk losing touch with the class and falling
+behind.
+* Important Dates
 
-** Important dates
+| DATE           | DAY              | DESCRIPTION                                 |
+|----------------+------------------+---------------------------------------------|
+| 3 January      | Tuesday          | Last day to deposit for '22 spring semester |
+| 10 January     | Tuesday          | Classes begin                               |
+| 16 January     | Monday           | MLK Day - no classes                        |
+| 17 January     | Tuesday          | Last day to add a class                     |
+| 24 January     | Tuesday          | Last day to drop without record of course   |
+|                |                  | Last day to declare a course pass-fail      |
+|                |                  | Deadline for removal of incompletes         |
+| 25-28 February | Saturday-Tuesday | Mental-Health break (no classes)            |
+| 1 March        | Wednesday        | Mid-term grades available by noon           |
+| 8 March        | Wednesday        | Lst day to drop a course with a "W"         |
+| 18-26 March    | Saturday-Sunday  | Spring break                                |
+| 7-9 April      | Friday-Sunday    | Easter break                                |
+| 18 April       | Tuesday          | Honors Convocation                          |
+| 4 May          | Wednesday        | Last day of spring classes                  |
+| 4-7 May        | Thursday-Sunday  | Final exams for graduating seniors          |
+|                |                  | (start 6pm Thu, no exams before 1pm Sun)    |
+| 5-10 May       | Thursday-Tuesday | Final exams for non-graduating students     |
+|                |                  | (no exams before 1pm on Sunday)             |
+| 9 May          | Tuesday          | Senior grades due by noon                   |
+| 12 May         | Friday           | Baccalaureate                               |
+| 13 May         | Saturday         | Spring commencement                         |
+| 17 May         | Wednesday        | All final grades due by noon                |
 
-   | DATE        | DAY              | DESCRIPTION                                  |
-   |-------------+------------------+----------------------------------------------|
-   | 4 January   | Tuesday          | Last day to deposit for 2022 spring semester |
-   | 11 January  | Tuesday          | Classes begin                                |
-   | 17 January  | Monday           | MLK Day - no classes                         |
-   | 18 January  | Tuesday          | Last day to add a class                      |
-   | 25 January  | Tuesday          | Last day to drop without record of a course  |
-   |             |                  | Last day to declare a course pass-fail       |
-   |             |                  | Deadline for removal of incompletes          |
-   | 19-27 March | Saturday-Sunday  | Spring break                                 |
-   | 15-18 April | Friday-Monday    | Easter break                                 |
-   | 4 May       | Wednesday        | Last day of classes                          |
-   | 5-10 May    | Thursday-Tuesday | Final exams                                  |
-   | 10 May      | Tuesday          | Senior grades due by noon                    |
-   | 18 May      | Wednesday        | All grades due by noon                       |
+* Schedule and session content
 
-** SCHEDULE AND SESSION CONTENT
+For this course, we use the DataCamp track "[[https://app.datacamp.com/learn/skill-tracks/text-mining-with-r][Text mining with R]]". Only
+a couple of courses are missing. If you complete them, too, you will
+emerge from this class with four text mining certificates.
 
-| WEEK | DATE          | DATACAMP ASSIGNMENT                                       | TESTS   |
-|------+---------------+-----------------------------------------------------------+---------|
-|    1 | Jan 10,12     |                                                           |         |
-|------+---------------+-----------------------------------------------------------+---------|
-|    2 | Jan 17,19     | Intermediate R: Conditionals and Control Flow             | Test 1  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    3 | Jan 24,26     | Intermediate R: Loops                                     | Test 2  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    4 | Jan 31, Feb 2 | Intermediate R: Functions                                 | Test 3  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    5 | Feb 7,9       | Sprint review 1: literature review                        |         |
-|------+---------------+-----------------------------------------------------------+---------|
-|    6 | Feb 14,16     | Intermediate R: apply family                              | Test 4  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    7 | Feb 21,23     | Intermediate R: Utilities                                 | Test 5  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    8 | Mar 2         | Introduction to the Tidyverse: Data Wrangling             | Test 6  |
-|------+---------------+-----------------------------------------------------------+---------|
-|    9 | Mar 7,9       | Sprint review 2: methodology                              |         |
-|------+---------------+-----------------------------------------------------------+---------|
-|   10 | Mar 14,16     | Exploratory Data Analysis in R: Categorical Data          | Test 7  |
-|------+---------------+-----------------------------------------------------------+---------|
-|   11 | Mar 28,30     | Exploratory Data Analysis in R: Numerical Data            | Test 8  |
-|------+---------------+-----------------------------------------------------------+---------|
-|   12 | Apr 4,6       | Exploratory Data Analysis in R: Numerical Summaries       | Test 9  |
-|------+---------------+-----------------------------------------------------------+---------|
-|   13 | Apr 11,13     | Sprint review 3: abstract                                 |         |
-|------+---------------+-----------------------------------------------------------+---------|
-|   14 | Apr 18,20     | Exploratory Data Analysis in R: Case Study Spam Detection | Test 10 |
-|------+---------------+-----------------------------------------------------------+---------|
-|   15 | Apr 25,27     | Sprint review 4: final presentation                       |         |
-|------+---------------+-----------------------------------------------------------+---------|
-|   16 | May 2         |                                                           |         |
-|------+---------------+-----------------------------------------------------------+---------|
+| WEEK | DATE          | DATACAMP ASSIGNMENT              | TESTS   |
+|------+---------------+----------------------------------+---------|
+|    1 | Jan 10,12     |                                  |         |
+|------+---------------+----------------------------------+---------|
+|    2 | Jan 17,19     | Wrangling text                   | Test 1  |
+|------+---------------+----------------------------------+---------|
+|    3 | Jan 24,26     | Visualizing text                 | Test 2  |
+|------+---------------+----------------------------------+---------|
+|    4 | Jan 31, Feb 2 | Sentiment analysis               | Test 3  |
+|------+---------------+----------------------------------+---------|
+|    5 | Feb 7,9       | String basics                    |         |
+|------+---------------+----------------------------------+---------|
+|    6 | Feb 14,16     | Introduction to ~stringr~          | Test 4  |
+|------+---------------+----------------------------------+---------|
+|    7 | Feb 21,23     | Pattern matching with regexp     | Test 5  |
+|------+---------------+----------------------------------+---------|
+|    8 | Mar 2         | More advanced matching           | Test 6  |
+|------+---------------+----------------------------------+---------|
+|    9 | Mar 7,9       | Three case studies               |         |
+|------+---------------+----------------------------------+---------|
+|   10 | Mar 14,16     | Text mining with Bag-of-Words    | Test 7  |
+|------+---------------+----------------------------------+---------|
+|   11 | Mar 28,30     | Word clouds and other visuals    | Test 8  |
+|------+---------------+----------------------------------+---------|
+|   12 | Apr 4,6       | Word clustering and tokenization | Test 9  |
+|------+---------------+----------------------------------+---------|
+|   13 | Apr 11,13     | HR analytics case study          |         |
+|------+---------------+----------------------------------+---------|
+|   14 | Apr 18,20     | Polarity scoring                 | Test 10 |
+|------+---------------+----------------------------------+---------|
+|   15 | Apr 25,27     | Visualizing sentiment            |         |
+|------+---------------+----------------------------------+---------|
+|   16 | May 2         | Case study: Airbnb reviews       |         |
+|------+---------------+----------------------------------+---------|
