@@ -61,10 +61,10 @@ accounting to zoology).
 
 | REQUIREMENT           | UNITS | PPU | TOTAL | % of TOTAL |
 |-----------------------+-------+-----+-------+------------|
-| Final exam            |     1 | 100 |   100 |        20. |
+| Final exam            |     0 |   0 |     0 |          0 |
 | Home assignments      |    15 |  10 |   150 |        30. |
 | Class assignments     |    10 |  10 |   100 |        20. |
-| Final project         |     1 |  50 |    50 |        10. |
+| Final project         |     1 | 150 |   150 |        30. |
 | Multiple-choice tests |    10 |  10 |   100 |        20. |
 |-----------------------+-------+-----+-------+------------|
 | TOTAL                 |       |     |   500 |       100. |
