@@ -60,7 +60,7 @@ accounting to zoology).
 * Grading system
 
 | REQUIREMENT           | UNITS | PPU | TOTAL | % of TOTAL |
-|-----------------------+-------+-----+-------+------------|
+|-----------------------+-------+-----+p-------+------------|
 | Final exam            |     0 |   0 |     0 |          0 |
 | Home assignments      |    15 |  10 |   150 |        30. |
 | Class assignments     |    10 |  10 |   100 |        20. |
