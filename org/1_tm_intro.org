@@ -19,6 +19,9 @@ You will learn:
 
 /Source: Kwartler, 2019, chapter 1/
 * What is "text mining"?
+#+attr_latex: :width 400px
+#+caption: Four monks by Claudio Rinaldi (1852-1909), Dorotheum, Munich
+[[../img/1_monks.jpg]]
 #+begin_quote
 "Text mining is the process of distilling actionable insights from
 text." Kwartler, 2019
@@ -237,11 +240,27 @@ The "right circumstances": no assessment bias =
   #+caption: Amazon social media customer service examples (Facebook)
   [[../img/1_amazon.png]]
   
+* Final definition for "text mining"
+#+attr_latex: :width 400px
+#+caption: Four monks by Claudio Rinaldi (1852-1909), Dorotheum, Munich
+[[../img/1_monks.jpg]]
+#+begin_quote
+"Text mining represents the ability to take large amounts of
+unstructured language and quickly extract useful and novel insights
+that can affect stakeholder decision-making."
+#+end_quote
+* Next
+#+attr_latex: :width 400px
+[[../img/1_tidyverse.png]]
+
+Introduction to R and the tidyverse to make you fit for the first
+DataCamp challenge.
+
 * TM Glossary
 
 | TERM                     | MEANING                             |
 |--------------------------+-------------------------------------|
-| Text mining              | Identify patterns in text           |
+| Text mining              | Identify useful patterns in text    |
 | Structured data          | Tabular data (rows and columns)     |
 | Semi-structured data     | Markup with meta data               |
 | Wisdom of crowds         | Intelligence exhibited by groups    |
