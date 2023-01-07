@@ -120,24 +120,136 @@ The "right circumstances": no assessment bias =
 - Lists should always be ordered (explicitly or implicitly)
 
 - [ ] How could one order the list of example use cases?
+
 * Language is not like other data
+#+attr_html: :width 600px
+[[../img/1_babel.jpg]]
 
 - [ ] What is special about language data?[fn:7]
 
-- The origin of language is not known (ChatGPT 01/06/2023)
+- "The true origin of language may never be known." ([[https://github.com/birkenkrahe/tm/blob/main/img/1_language.png][ChatGPT]])
     
-* TODO Summary
+- Text mining reduces the information available in language
 
+* Avoid word clouds - beware of the cliché
+#+attr_html: :width 400px
+#+caption: Wordcloud on the words of this lecture - wordclouds.com
+[[../img/1_wordcloud.png]]
 
-* TODO TM Glossary
+- Use them in conjunction with other methods to confirm the
+  correctness of a conclusion
 
-| TERM                 | MEANING                         |
-|----------------------+---------------------------------|
-| Text mining          | Identify patterns in text       |
-| Structured data      | Tabular data (rows and columns) |
-| Semi-structured data | Markup with meta data           |
-|                      |                                 |
+- [ ] What do you think why word clouds are still so attractive?
 
+* Basic text mining workflow
+#+attr_latex: :width 400px
+#+caption: Source Kwartler (2019)
+[[../img/1_workflow.png]]
+
+1. Define the problem and specific goals (e.g. how best to market)
+2. Identify the text that needs to be collected (e.g. Twitter API)
+3. Organize the text (e.g. into a corpus for "bag of words")
+4. Extract features for analysis (e.g. make text lower case)
+5. Apply techniques to the prepared text (e.g. keyword search)
+6. Reach an insight or recommendation (e.g. marketing focus)
+* Which tools are needed?
+
+- Sufficient RAM for R (all processing is done in memory)
+- Installation of R and an IDE like RStudio or Emacs + ESS + Org-mode
+- Set of R packages and example data
+- Any operating system (Linux is to be preferred)
+* Simple example: mining customer reviews
+#+attr_latex: :width 200px
+[[../img/1_nike.jpg]]
+
+- You're a Nike employee who wants to know how consumers are viewing
+  the Nike Men's Roshe Run Shoes. Follow these steps:
+
+  1) Goal definition: Using online reviews, identify overall positive
+     or negative views. For negative views, identify cause to be
+     shared with the product manager.
+
+  2) Data collection: For a mass market product, use retail website like Amazon for
+     hundreds of timestamped reviews (to ensure currency).
+
+  3) Text organisation: Web scrape all reviews into a CSV file with one
+     review per row, timestamp and star rating to later subset corpus
+     by these features.
+
+  4) Feature extraction: clean reviews to analyze text features,
+     e.g. removing common words with little benefit ("shoe", "nike",
+     "running" etc.). Check for spelling and make all text lowercase.
+
+  5) Text analysis: scan for specific group of keywords depending on
+     product issues ("fit", "rip", "tear", "narrow", "wide",
+     "sole"). Sum group counts to order problematic features.
+
+  6) Insight generation: present findings to product manager that the
+     top consumer issue is "narrow" and "fit" to aid product design,
+     marketing or improvement decisions.
+
+* Real world example: competitive intelligence
+
+- Text mining can help to understand the basics of a competitor's text
+  based marketing (for further analysis, contrast or imitation)
+
+- When creating Amazon.com's social customer service team, they were
+  "obsessed with how others were doing it".
+
+- They read and reviewed other companies customer replies and learnt
+  from their missteps.[fn:8]
+
+- In 2012, social media based customer service was considered to be
+  highly risky, involving legal counsel, branding, and leadership.
+
+- In 2012, Wal-Mart, Dell and Delta Airlines were considered best in
+  class social customer service companies.
+
+- Each brand owner (Amazon Prime, Amazon Kindle etc.) had cultivated
+  their own style of communicating via social media (like dialects).
+
+- Every communication channel was supposed to execute flawlessly and
+  be 100% customer-centric.
+
+- Goal: develop social media cautiously to maintain current quality
+  set by multiple stakeholders.
+
+- Initial channels: two help forums, retail and Kindle Facebook pages
+  and Twitter.
+
+- Text mining was a tool to analyze competitors' use of social media
+  for customer services: grasp length of a reply (e.g. Twitter limit),
+  language used, typical customer agent workload, and if posting
+  similar links repeatedly made sense, what types of help links to
+  post (forms, resource links?), how many people should be doing this,
+  etc.
+
+- Text mining focused on three questions for about one year:
+  1) What is the average length of a social customer service reply?
+
+  2) What links were referenced most often?
+
+  3) How many social replies is reasonable for a customer service
+     agent to handle?
+
+- By 2017, Amazon was a leading force in this space ([[https://etaileast.wbresearch.com/blog/amazons-engaged-buyers-drive-social-media-revenue][WBR, 2023]])
+  #+attr_latex: :width 400px
+  #+caption: Amazon social media customer service examples (Facebook)
+  [[../img/1_amazon.png]]
+  
+* TM Glossary
+
+| TERM                     | MEANING                             |
+|--------------------------+-------------------------------------|
+| Text mining              | Identify patterns in text           |
+| Structured data          | Tabular data (rows and columns)     |
+| Semi-structured data     | Markup with meta data               |
+| Wisdom of crowds         | Intelligence exhibited by groups    |
+| Use case                 | Illustrative application scenario   |
+| Feature extraction       | Preprocess text for analysis        |
+| Corpus                   | Body of text to be analyzed         |
+| Stakeholder              | Someone who cares                   |
+| Competitive intelligence | Information about one's competitors |
 
 * References
 
@@ -154,32 +266,6 @@ The "right circumstances": no assessment bias =
 
 * Footnotes
 
-[fn:7]Language is used for communication; it is thought to be divine
-or at least strongly linked to the divine ("In the beginning was the
-Word, and the Word was with God, and the Word was God." John 1:1); it
-may be that only humans have language; it is learnt.
-
-[fn:6]For me personally, knowledge about a source increases trust in
-believing that source while lack of knowledge decreases the trust. In
-the case of ChatGPT, I asked the bot about its sources but its answer
-was redundant and not overly satisfying ([[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt_1.png][see for yourself]]).
-
-[fn:5]ChatGPT is source from a very large number of textual documents
-but it is impossible to ascertain any of the criteria when identfying
-the chatbot as the "assessor".
-
-[fn:4] (1) reviews may not be independent since reviewers have access
-to old reviews, which may influence them (it's harder to have a
-different opinion from everyone else). (2) Diversity is hard to
-measure but in the case of Amazon.com, a national audience can be seen
-as highly diverse (there are nearly 150 mio subscribers of Amazon
-Prime in the US alone). (3) Local here means "not only at a
-distance" - only "verified purchase" reviews fulfil this condition in
-principle. (4) Tabulation of the reviews relies on text mining, and
-hence - unlike in the case of Galton - not on recording simple
-numbers. Stochastic procedures (probability distributions) are
-involved.
-
 [fn:1]Distillation is a process of extracting an essence (a wanted
 substance) and getting rid of unwanted substances. Actionable insights
 are insights that one can use to make decisions (action in business is
@@ -194,3 +280,33 @@ meta information in the form of markup - e.g. HTML, XML, JSON, or
 Org-mode: the header information at the top of the file structures the
 data, as does the Org-mode format itself, which comes with a markup
 language.
+
+[fn:4] (1) reviews may not be independent since reviewers have access
+to old reviews, which may influence them (it's harder to have a
+different opinion from everyone else). (2) Diversity is hard to
+measure but in the case of Amazon.com, a national audience can be seen
+as highly diverse (there are nearly 150 mio subscribers of Amazon
+Prime in the US alone). (3) Local here means "not only at a
+distance" - only "verified purchase" reviews fulfil this condition in
+principle. (4) Tabulation of the reviews relies on text mining, and
+hence - unlike in the case of Galton - not on recording simple
+numbers. Stochastic procedures (probability distributions) are
+involved.
+
+[fn:5]ChatGPT is source from a very large number of textual documents
+but it is impossible to ascertain any of the criteria when identfying
+the chatbot as the "assessor".
+
+[fn:6]For me personally, knowledge about a source increases trust in
+believing that source while lack of knowledge decreases the trust. In
+the case of ChatGPT, I asked the bot about its sources but its answer
+was redundant and not overly satisfying ([[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt_1.png][see for yourself]]).
+
+[fn:7]Language is used for communication; it is thought to be divine
+or at least strongly linked to the divine ("In the beginning was the
+Word, and the Word was with God, and the Word was God." John 1:1); it
+may be that only humans have language; it is learnt.
+
+[fn:8]This reminds me of my own experience with CISCO customer
+services when working at Shell and visiting CISCO to (openly) learn
+from their knowledge sharing experiences.

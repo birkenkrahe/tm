@@ -1,0 +1,6 @@
+#+TITLE:Introduction to R (and the Tidyverse) 
+#+AUTHOR:Marcus Birkenkrahe
+#+SUBTITLE:Introduction to R (and the Tidyverse) 
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
