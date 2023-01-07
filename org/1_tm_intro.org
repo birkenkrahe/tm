@@ -21,29 +21,38 @@ You will learn:
 * What is "text mining"?
 #+begin_quote
 "Text mining is the process of distilling actionable insights from
- text." Kwartler, 2019
+text." Kwartler, 2019
 #+end_quote
 
 - [ ] What does "distilling actionable insights" mean?[fn:1]
 
 #+begin_quote
 "Text [data] mining is the process of transforming unstructured text
- into a structured format to identify meaningful patterns and new
- insights." IBM, 2023
+into a structured format to identify meaningful patterns and new
+insights." IBM, 2023
 #+end_quote
 
 - [ ] What does "structured" and "unstructured data" mean? What are
   "meaningful patterns"?[fn:2]
 
 - [ ] What about the text on this page: structured or not?[fn:3]
-  
+
 * What is text mining in practice (= business)?
 
 - Identify useful social media posts for customer services
-
-- Match job descriptions to resumes for human resources
+  #+attr_latex: :width 250px
+  #+caption: twitter.com/DataCamp featuring interview with me
+  [[../img/1_datacamp.png]]
 
 - Measure campaign success for marketing purposes
+  #+attr_latex: :width 250px
+  #+caption: twitter.com/birkenkrahe campaigning for fsf.org
+  [[../img/1_fsf.png]]
+  
+- Match job descriptions to resumes for human resources
+  #+attr_latex: :width 250px
+  #+caption: automatic job alert by LinkedIn.com
+  [[../img/1_linkedin.png]]
 
 * Why should you care about text mining?
 #+begin_quote
@@ -75,7 +84,7 @@ Concrete examples:
 are often smarter than the smartest people in them." Surowiecki, 2005
 #+end_quote
 
-The "right circumstances": no assessment bias = 
+The "right circumstances": no assessment bias =
 1) Assessors need to exercise /independent/ judgements
 2) Assessors need to possess /diverse/ information understanding
 3) Assessors need to rely on /decentralized/, /local/ knowledge.
@@ -84,22 +93,39 @@ The "right circumstances": no assessment bias =
 - [ ] How about Amazon.com reviews - do they meet these
   conditions?[fn:4]
 
-* Benefits of text mining
-
-1) Trust among stakeholders because little to no /sampling/ is needed to
-   extract information (all available text sources can be used).
-2) The methodologies can be applied quickly (text processes fast).
-3) Using R allows for /auditable/ and /repeatable/ methods.
-4) Text mining identifies novel /insights/ or reinforces existing
-   perceptions based on all relevant information.
-
-The "opinion" of ChatGPT looks comprehensive as always - does this
-chatbot represent "vox populi"? Are all criteria fulfilled?[fn:5]
+* Beneficiaries and benefits of text mining
 #+attr_html: :width 500px
-[[../img/1_chatgpt.png]]
+[[../img/1_benefits.jpg]]
 
-- [ ] Whom would you trust more - the expert author or the chatbot?[fn:6]
+- Benefits include:
+  1) Trust among stakeholders because little to no /sampling/ is needed
+     to extract information (all available text sources can be used).
+  2) The methodologies can be applied quickly (text processes fast).
+  3) Using R allows for /auditable/ and /repeatable/ methods.
+  4) Text mining identifies novel /insights/ or reinforces existing
+     perceptions based on all relevant information.
 
+- [[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt.png][The "opinion" of ChatGPT]] looks comprehensive as always - does this
+  chatbot represent "vox populi"? Are all criteria fulfilled?[fn:5]
+
+- [ ] Whom would you trust more - the expert author or the
+  chatbot?[fn:6]
+
+* When to use and when not to use text mining
+#+attr_html: :width 600px
+[[../img/1_use_cases.png]]
+
+- "Use case": an application scenario used for illustration
+
+- Lists should always be ordered (explicitly or implicitly)
+
+- [ ] How could one order the list of example use cases?
+* Language is not like other data
+
+- [ ] What is special about language data?[fn:7]
+
+- The origin of language is not known (ChatGPT 01/06/2023)
+    
 * TODO Summary
 
 
@@ -122,19 +148,25 @@ chatbot represent "vox populi"? Are all criteria fulfilled?[fn:5]
 - Patten, S B (2015). The Wisdom of Crowds (Vox Populi) and
   Antidepressant Use. Clin Pract Epidemiol Ment Health (11):1-3. URL:
   [[https://doi.org/10.2174%2F1745017901510011001][doi.org/10.2174%2F1745017901510011001]]
-  
+
 - Surowiecki J (ed) (2005). The wisdom of crowds. New York First
   Anchor Books.  crowds.
 
 * Footnotes
+
+[fn:7]Language is used for communication; it is thought to be divine
+or at least strongly linked to the divine ("In the beginning was the
+Word, and the Word was with God, and the Word was God." John 1:1); it
+may be that only humans have language; it is learnt.
+
 [fn:6]For me personally, knowledge about a source increases trust in
 believing that source while lack of knowledge decreases the trust. In
 the case of ChatGPT, I asked the bot about its sources but its answer
-was redundant and not overly satisfying (see for yourself).
+was redundant and not overly satisfying ([[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt_1.png][see for yourself]]).
 
 [fn:5]ChatGPT is source from a very large number of textual documents
 but it is impossible to ascertain any of the criteria when identfying
-the chatbot as the "assessor". 
+the chatbot as the "assessor".
 
 [fn:4] (1) reviews may not be independent since reviewers have access
 to old reviews, which may influence them (it's harder to have a
