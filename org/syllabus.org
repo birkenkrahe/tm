@@ -60,7 +60,7 @@ accounting to zoology).
 * Grading system
 
 You should be able to see your current grade at any time using the
-Schoology gradebook for the course.
+Canvas gradebook for the course.
 
 | REQUIREMENT           | UNITS | PPU | TOTAL | % of TOTAL |
 |-----------------------+-------+-----+-------+------------|
