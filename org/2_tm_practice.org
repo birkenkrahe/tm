@@ -1,0 +1,55 @@
+#+TITLE: Text mining in practice
+#+AUTHOR:Marcus Birkenkrahe
+#+SUBTITLE:Introduction to R (and the Tidyverse) 
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* Two techniques
+
+- Recall: tm takes unorganized sources of text and reorganizes them,
+  then applies a sequence of analytical steps to gain insights.
+
+- There are two types of text mining: Bag of Words and Syntactic
+  Parsing
+
+- *Bag of Words* treats every word or group of words (n-gram) as
+  unique. It is easy to understand, can be done quickly, and provides
+  useful input for machine learning frameworks.
+
+- *Syntactic Parsing* (syntactic = grammatical) is based on word syntax
+  and uses part of speech (POS) tagging to identify words in
+  sentences.
+
+- *Semantic Parsing* (semantic = meaning) is similar but may be built on
+  the task for which inference is required rather than just tag words
+  according to their grammatical function.
+  
+* Bag of Words - simple example
+
+- Bag of Words generates document term matrics (DTM) or their
+  transposition (TDM).
+
+- In a DTM, each row represents a document or individual /corpus/,
+  e.g. a tweet, and each column represents a word. In a TDM, rows and
+  columns are switched.
+
+- Example: three tweets form a /corpus/ or body of text for analysis
+  #+attr_latex: :width 650px
+  [[../img/2_tweets.png]]
+
+- A document term matrix (DTM) for this corpus:
+    #+attr_latex: :width 500px
+  [[../img/2_dtm.png]]
+
+- The transposed DTM or transposed document matrix (TDM):
+  #+attr_latex: :width 250px
+  [[../img/2_tdm.png]]
+    
+- These DTM and TDM examples only show word counts. Now, without
+  reading all the tweets (perhaps a much larger number than three),
+  you can surmise that the tweets are related to R.
+
+* Syntactic parsing - simple example
+
+
+

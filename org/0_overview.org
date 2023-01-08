@@ -22,8 +22,8 @@
 [[../img/0_datacamp.png]]
 
 - We're going to work with text data only (no maps[fn:1])
-- You can complete the "Text mining with R" track
-- You will complete one DataCamp chapter per week
+- We will complete 50% of the "Text mining with R" track
+- You will complete one DataCamp chapter per fortnight
 - In class, we will prepare and review the online material
 - You will cover some of the most important AI/ML applications
   
@@ -34,6 +34,7 @@
 [[../img/0_grades.png]]
 
 - All course requirements have deadlines
+- 8/10 home assignments are DataCamp lessons
 - Late submissions will be penalized (loss of points)
 - No final exam! But weekly tests are graded
 - The project topic can come from any of the course sub-topics
@@ -51,9 +52,9 @@
 - [[https://lyon.instructure.com/][Canvas]] (learning management system)
 
 * How can you register at DataCamp?
-#+attr_html: :width 400px
+#+attr_html: :width 500px
 #+attr_latex: :width 400px
-#+caption: DataCamp assignments for January
+#+caption: DataCamp assignment for January
 [[../img/0_assignments.png]]
 
 - You find the invitation link to the group for Spring 23 [[https://lyon.instructure.com/courses/1015/pages/course-links][in Canvas]].
@@ -66,7 +67,7 @@
 #+attr_latex: :width 300px
 [[../img/0_test.jpg]]
 
-- The first DataCamp home assignment is due on January 17. For late
+- The first DataCamp home assignment is due on January 19. For late
   submissions, you lose 1 point per day (out of 10 possible points)
 
 - The first in-class assignment is due on January 19. For late
@@ -132,6 +133,10 @@
 #+attr_latex: :width 250px
 #+Caption: Cover of Text Mining In Practice With R by Ted Kwartler (Wiley, 2010)
 [[../img/0_kwartler.jpg]]
+
+- Text mining in practice: Bag of Words and Syntactic Parsing
+
+- Base R data structures, functions and packages, importing data
 
 * Footnotes
 

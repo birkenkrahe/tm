@@ -10,6 +10,6 @@
 
 - [ ] Course overview - assignments, grading, topics, platforms
 - [ ] Introduction to text mining with examples
-- [ ] First DataCamp assignment "Wrangling text"
+- [ ] DataCamp assignment "Jumping into Text Mining with Bag-of-Words"
 - [ ] Introduction to R programming for the assignment
     
