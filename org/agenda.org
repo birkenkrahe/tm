@@ -12,4 +12,13 @@
 - [ ] Introduction to text mining with examples
 - [ ] DataCamp assignment "Jumping into Text Mining with Bag-of-Words"
 - [ ] Introduction to R programming for the assignment
-    
+
+* Week 2 - Text mining in practice & example  
+
+- [ ] Text mining with Bag of Words explained
+- [ ] Text mining with syntactic or semantic parsing explained
+- [ ] Extended example: airline customer service tweets
+- [ ] R ennvironment information: console, packages and help
+- [ ] String manipulation functions
+
+  
