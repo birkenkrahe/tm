@@ -124,7 +124,7 @@
 
 - Open a Windows CMD line terminal, enter ~R~ to open the R console, and
   then run these three commands to install string manipulation
-  packages.
+  packages[fn:2].
   #+begin_example R
     install.packages("stringi")
     install.packages("stringr")
@@ -245,6 +245,9 @@
 | ~<-~, ~->~            | R assignment operator                          |
 
 * Footnotes
+[fn:2]On Linux (or Windows WSL), run ~update.packages()~ before to
+update all dependencies - since here, source code is compiled and
+linked.
 
 [fn:1]If you need extra motivation to learn Emacs, [[https://unkertmedia.com/10-reasons-why-learning-emacs-is-worth-it/][read this]] or
 [[https://howardism.org/Technical/Emacs/why-emacs.html][this]]. Alternatively (or in addition) you can take a look at [[https://youtu.be/48JlgiBpw_I][this video]]
