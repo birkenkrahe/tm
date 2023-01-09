@@ -1,6 +1,6 @@
 #+TITLE:COURSE OVERVIEW
 #+AUTHOR: Marcus Birkenkrahe
-#+SUBTITLE: CSC 105 - DIGITAL HUMANITIES - SPRINT 23
+#+SUBTITLE: CSC 105 - DIGITAL HUMANITIES - SPRING 23
 #+STARTUP: overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
 #+attr_html: :width 600px
