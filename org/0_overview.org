@@ -16,6 +16,7 @@
 
 - Compare: [[https://github.com/birkenkrahe/tm/blob/main/img/0_chatgpt.png][Curriculum suggestion by ChatGPT]] (01-06-2023)
 
+
 * What will we do in this course?
 #+attr_latex: :width 350px
 #+caption: Source: syllabus, Canvas (lyon.instructure.com) or GitHub (github.com/birkenkrahe/ml)
@@ -46,7 +47,7 @@
 
 - The project topic can come from any of the course sub-topics
 
-- The project deliverable is an essay of at least 5,000 words
+- The project deliverable is an essay of at least 8 pages
 
 * Which tools are you going to use?
 #+attr_latex: :width 300px
@@ -79,13 +80,13 @@
 #+attr_latex: :width 300px
 [[../img/0_test.jpg]]
 
-- The first DataCamp home assignment is due on *January 19*. For late
+- The first DataCamp home assignment is due on *January 24*. For late
   submissions, you lose 1 point per day (out of 10 possible points)
 
-- The first in-class assignment is due on January 19. For late
+- The first in-class assignment is due on January 24. For late
   submissions, you lose 1 point per day (out of 10 possible points)
 
-- We'll write the first weekly multiple-choice test on January 19.
+- We'll write the first weekly multiple-choice test on January 24.
 
 * What should we do as a project?
 #+attr_html: :width 400px
@@ -126,7 +127,7 @@
 
 Complete/review introductory R or statistics courses:
 
-- [[https://app.datacamp.com/learn/courses/free-introduction-to-r][Introduction to R" in DataCamp]] (data structures)
+- [[https://app.datacamp.com/learn/courses/free-introduction-to-r]["Introduction to R" in DataCamp]] (data structures)
 
 - [[https://app.datacamp.com/learn/courses/introduction-to-statistics][Introduction to statistics]] (no code)
 
