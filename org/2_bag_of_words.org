@@ -174,9 +174,9 @@
 - Open it in Emacs from the command line (using auto completion with
   ~TAB~) with the command:
   #+begin_example bash
-    emacs -nw --file 2_bag_of_words_practice.or
+    emacs -nw --file 2_bag_of_words_practice.org
   #+end_example
-
+  
 - *If you have never used the Emacs editor before*, you should have a
   look at the on-board tutorial. Open it with the keyboard sequence
   ~CTRL-h t~. It teaches you the basics and will take about 1

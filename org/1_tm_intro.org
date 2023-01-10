@@ -4,7 +4,7 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
-#+attr_html: :width 500px
+#+attr_html: :width 400px
 [[../img/0_tm.jpg]]
 
 You will learn:
@@ -18,6 +18,7 @@ You will learn:
 - [ ] When text mining is appropriate
 
 /Source: Kwartler, 2019, chapter 1/
+
 * What is "text mining"?
 #+attr_latex: :width 400px
 #+caption: Four monks by Claudio Rinaldi (1852-1909), Dorotheum, Munich
@@ -38,50 +39,56 @@ insights." IBM, 2023
 - [ ] What does "structured" and "unstructured data" mean? What are
   "meaningful patterns"?[fn:2]
 
-- [ ] What about the text on this page: structured or not?[fn:3]
+- [ ] What about the text on this page (Org-mode file): structured or
+  not?[fn:3]
 
 * What is text mining in practice (= business)?
+* Customer services
+#+attr_latex: :width 250px
+#+caption: twitter.com/DataCamp featuring interview with me
+[[../img/1_datacamp.png]]
 
-- Identify useful social media posts for customer services
-  #+attr_latex: :width 250px
-  #+caption: twitter.com/DataCamp featuring interview with me
-  [[../img/1_datacamp.png]]
+Identify useful social media posts for customer services.
 
-- Measure campaign success for marketing purposes
-  #+attr_latex: :width 250px
-  #+caption: twitter.com/birkenkrahe campaigning for fsf.org
-  [[../img/1_fsf.png]]
-  
-- Match job descriptions to resumes for human resources
-  #+attr_latex: :width 250px
-  #+caption: automatic job alert by LinkedIn.com
-  [[../img/1_linkedin.png]]
+* Marketing
+#+attr_latex: :width 250px
+#+caption: twitter.com/birkenkrahe campaigning for fsf.org
+[[../img/1_fsf.png]]
+
+Measure campaign success for marketing purposes.
+
+* Human resources
+#+attr_latex: :width 250px
+#+caption: automatic job alert by LinkedIn.com
+[[../img/1_linkedin.png]]
+
+Match job descriptions to resumes for human resources.
 
 * Why should you care about text mining?
 #+begin_quote
-" To be truly customer-centric in a hyper-competitive environment, an
+"To be truly *customer-centric* in a *hyper-competitive* environment, an
 organization should be listening to their constituents whenever
 possible. Yet the amount of textual information from these
 interactions can be immense, so text mining offers a way to extract
 insights quickly." Kwartler, 2019
 #+end_quote
 
-Concrete examples:
+*Examples:*
 
-- Relevance of social media for public opinion (e.g. Twitter)
+- *Relevance* of social media for public opinion (e.g. Twitter)
 
-- Growth of online content from an organization (e.g. blogs)
+- *Growth* of online content from an organization (e.g. blogs)
 
-- Digitization of paper records (e.g. healthcare)
+- *Digitization* of paper records (e.g. healthcare)
 
-- Automatic translation of natural language (e.g. Google Translate)
+- *Automatic* translation of natural language (e.g. Google Translate)
 
-- Augmentation of human work through chatbots (e.g. ChatGPT)
+- *Augmentation* of human work through chatbots (e.g. ChatGPT)
 
 Source: [[https://www.expert.ai/blog/10-text-mining-examples/]["10 practical text mining examples to leverage right now"]]
 
 * Vox populi - the "wisdom of crowds"
-#+attr_html: :width 600
+#+attr_latex: :width 400px
 #+caption: Source: Patten, 2015
 [[../img/1_galton.png]]
 #+begin_quote
@@ -99,7 +106,8 @@ The "right circumstances": no assessment bias =
   conditions?[fn:4]
 
 * Beneficiaries and benefits of text mining
-#+attr_html: :width 500px
+#+attr_latex: :width 400px
+#+caption: Applications that use text mining
 [[../img/1_benefits.jpg]]
 
 - Benefits include:
@@ -111,29 +119,31 @@ The "right circumstances": no assessment bias =
      perceptions based on all relevant information.
 
 - [[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt.png][The "opinion" of ChatGPT]] looks comprehensive as always - does this
-  chatbot represent "vox populi"? Are all criteria fulfilled?[fn:5]
+  chatbot represent *"vox populi"*? Are all criteria fulfilled?[fn:5]
 
 - [ ] Whom would you trust more - the expert author or the
-  chatbot?[fn:6]
+  chatbot, and why?[fn:6]
 
 * When to use and when not to use text mining
-#+attr_html: :width 600px
+#+attr_html: :width 400px
+#+caption: Example use cases and recommendations for text mining
 [[../img/1_use_cases.png]]
 
-- "Use case": an application scenario used for illustration
+- /"Use case"/: an application scenario used for illustration
 
-- Lists should always be ordered (explicitly or implicitly)
+- /Lists/ should always be ordered (explicitly or implicitly)
 
-- [ ] How could one order the list of example use cases?
+- [ ] How could one order the list of example use cases?[fn:9]
 
 * Language is not like other data
-#+attr_html: :width 600px
+#+attr_html: :width 400px
+#+caption: Pieter Brueghel the Elder, The Tower of Babel
 [[../img/1_babel.jpg]]
 
 - [ ] What is special about language data?[fn:7]
 
 - "The true origin of language may never be known." ([[https://github.com/birkenkrahe/tm/blob/main/img/1_language.png][ChatGPT]])
-    
+
 - Text mining reduces the information available in language
 
 * Avoid word clouds - beware of the cliché
@@ -148,21 +158,34 @@ The "right circumstances": no assessment bias =
 
 * Basic text mining workflow
 #+attr_latex: :width 400px
-#+caption: Source Kwartler (2019)
+#+caption: Tex mining workflow from Kwartler (2019)
 [[../img/1_workflow.png]]
 
-1. Define the problem and specific goals (e.g. how best to market)
-2. Identify the text that needs to be collected (e.g. Twitter API)
-3. Organize the text (e.g. into a corpus for "bag of words")
-4. Extract features for analysis (e.g. make text lower case)
-5. Apply techniques to the prepared text (e.g. keyword search)
-6. Reach an insight or recommendation (e.g. marketing focus)
+1. *Define* the problem and specific goals (e.g. how best to market)
+
+2. *Identify* the text that needs to be collected (e.g. Twitter API)
+
+3. *Organize* the text (e.g. into a corpus for "bag of words")
+
+4. *Extract* features for analysis (e.g. make text lower case)
+
+5. *Apply* techniques to the prepared text (e.g. keyword search)
+
+6. *Reach* an insight or recommendation (e.g. marketing focus)
+
 * Which tools are needed?
+#+attr_latex: :width 400px
+#+caption: Photo by Hunter Haley on Unsplash
+[[../img/1_tools.jpg]]
 
 - Sufficient RAM for R (all processing is done in memory)
+
 - Installation of R and an IDE like RStudio or Emacs + ESS + Org-mode
+
 - Set of R packages and example data
+
 - Any operating system (Linux is to be preferred)
+
 * Simple example: mining customer reviews
 #+attr_latex: :width 200px
 [[../img/1_nike.jpg]]
@@ -170,26 +193,27 @@ The "right circumstances": no assessment bias =
 - You're a Nike employee who wants to know how consumers are viewing
   the Nike Men's Roshe Run Shoes. Follow these steps:
 
-  1) Goal definition: Using online reviews, identify overall positive
+  1) *Goal definition*: Using online reviews, identify overall positive
      or negative views. For negative views, identify cause to be
      shared with the product manager.
 
-  2) Data collection: For a mass market product, use retail website like Amazon for
-     hundreds of timestamped reviews (to ensure currency).
+  2) *Data collection*: For a mass market product, use retail website
+     like Amazon for hundreds of timestamped reviews (to ensure
+     currency).
 
-  3) Text organisation: Web scrape all reviews into a CSV file with one
+  3) *Text organisation*: Web scrape all reviews into a CSV file with one
      review per row, timestamp and star rating to later subset corpus
      by these features.
 
-  4) Feature extraction: clean reviews to analyze text features,
+  4) *Feature extraction*: clean reviews to analyze text features,
      e.g. removing common words with little benefit ("shoe", "nike",
      "running" etc.). Check for spelling and make all text lowercase.
 
-  5) Text analysis: scan for specific group of keywords depending on
+  5) *Text analysis*: scan for specific group of keywords depending on
      product issues ("fit", "rip", "tear", "narrow", "wide",
      "sole"). Sum group counts to order problematic features.
 
-  6) Insight generation: present findings to product manager that the
+  6) *Insight generation*: present findings to product manager that the
      top consumer issue is "narrow" and "fit" to aid product design,
      marketing or improvement decisions.
 
@@ -223,7 +247,7 @@ The "right circumstances": no assessment bias =
   and Twitter.
 
 - Text mining was a tool to analyze competitors' use of social media
-  for customer services: grasp length of a reply (e.g. Twitter limit),
+  for customer services: length of a reply (e.g. Twitter limit),
   language used, typical customer agent workload, and if posting
   similar links repeatedly made sense, what types of help links to
   post (forms, resource links?), how many people should be doing this,
@@ -231,9 +255,7 @@ The "right circumstances": no assessment bias =
 
 - Text mining focused on three questions for about one year:
   1) What is the average length of a social customer service reply?
-
   2) What links were referenced most often?
-
   3) How many social replies is reasonable for a customer service
      agent to handle?
 
@@ -241,7 +263,7 @@ The "right circumstances": no assessment bias =
   #+attr_latex: :width 400px
   #+caption: Amazon social media customer service examples (Facebook)
   [[../img/1_amazon.png]]
-  
+
 * Final definition for "text mining"
 #+attr_latex: :width 400px
 #+caption: Four monks by Claudio Rinaldi (1852-1909), Dorotheum, Munich
@@ -252,11 +274,11 @@ unstructured language and quickly extract useful and novel insights
 that can affect stakeholder decision-making."
 #+end_quote
 * Next
-#+attr_latex: :width 400px
-[[../img/1_tidyverse.png]]
+#+attr_latex: :width 600px
+#+caption: Source: 10 practical text mining examples (2022)
+[[../img/2_mess.jpg]]
 
-Introduction to R and the tidyverse to make you fit for the first
-DataCamp challenge.
+Bag-Of-Words text mining technique - concepts and example with R.
 
 * TM Glossary
 
@@ -284,11 +306,13 @@ DataCamp challenge.
 
 - Selig J (13 May 2022). 10 practical text mining examples to leverage
   right now. URL: [[https://www.expert.ai/blog/10-text-mining-examples/][expert.ai]].
-  
+
 - Surowiecki J (ed) (2005). The wisdom of crowds. New York First
   Anchor Books.  crowds.
 
 * Footnotes
+[fn:9]Alphabetically, by importance (to someone), by number of
+applications, by number of users, by time (history).
 
 [fn:1]Distillation is a process of extracting an essence (a wanted
 substance) and getting rid of unwanted substances. Actionable insights
