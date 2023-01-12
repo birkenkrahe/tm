@@ -93,7 +93,7 @@
 #+Caption: Source: learning.edanz.com
 [[../img/0_imrad.png]]
 
-- The *final essay* (5,000+ words) or the *researched presentation* should
+- The *final essay* or the *researched presentation* should
   be about one of the areas of Digital Humanities that we did *not*
   cover in our course
 
