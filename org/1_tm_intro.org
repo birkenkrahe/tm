@@ -28,7 +28,7 @@ You will learn:
 text." Kwartler, 2019
 #+end_quote
 
-- [ ] What does "distilling actionable insights" mean?[fn:1]
+- [X] What does "distilling actionable insights" mean?[fn:1]
 
 #+begin_quote
 "Text [data] mining is the process of transforming unstructured text
@@ -36,7 +36,7 @@ into a structured format to identify meaningful patterns and new
 insights." IBM, 2023
 #+end_quote
 
-- [ ] What does "structured" and "unstructured data" mean? What are
+- [X] What does "structured" and "unstructured data" mean? What are
   "meaningful patterns"?[fn:2]
 
 - [ ] What about the text on this page (Org-mode file): structured or
@@ -121,7 +121,7 @@ The "right circumstances": no assessment bias =
 - [[https://github.com/birkenkrahe/tm/blob/main/img/1_chatgpt.png][The "opinion" of ChatGPT]] looks comprehensive as always - does this
   chatbot represent *"vox populi"*? Are all criteria fulfilled?[fn:5]
 
-- [ ] Whom would you trust more - the expert author or the
+- [X] Whom would you trust more - the expert author or the
   chatbot, and why?[fn:6]
 
 * When to use and when not to use text mining
@@ -140,7 +140,7 @@ The "right circumstances": no assessment bias =
 #+caption: Pieter Brueghel the Elder, The Tower of Babel
 [[../img/1_babel.jpg]]
 
-- [ ] What is special about language data?[fn:7]
+- [X] What is special about language data?[fn:7]
 
 - "The true origin of language may never be known." ([[https://github.com/birkenkrahe/tm/blob/main/img/1_language.png][ChatGPT]])
 
@@ -154,7 +154,7 @@ The "right circumstances": no assessment bias =
 - Use them in conjunction with other methods to confirm the
   correctness of a conclusion
 
-- [ ] What do you think why word clouds are still so attractive?
+- [X] What do you think why word clouds are still so attractive?
 
 * Basic text mining workflow
 #+attr_latex: :width 400px
