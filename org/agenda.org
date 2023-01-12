@@ -8,7 +8,7 @@
 #+attr_html: :width 500px
 [[../img/cover.jpg]]
 
-- [ ] Course overview - assignments, grading, topics, platforms
+- [X] Course overview - assignments, grading, topics, platforms
 - [ ] Introduction to text mining with examples
 - [ ] DataCamp assignment "Jumping into Text Mining with Bag-of-Words"
 - [ ] Introduction to R programming for the assignment
