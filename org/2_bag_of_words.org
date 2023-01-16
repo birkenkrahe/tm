@@ -117,12 +117,65 @@
    3. Analyze the agents' signature as a time series ~ts~ to find out
       how many people should be on a team.
 
-* Practice file
+* Get the practice file
 
-- To practice, we use Emacs Org-mode files. Download the practice file
-  for this 
+- To practice, we use Emacs Org-mode files. Save the practice file for
+  this lecture from [[https://tinyurl.com/4f56t7uz][tinyurl.com/4f56t7uz]] to the ~Downloads~ directory on
+  your PC.
 
-* R environment - console, packages, help
+- The file is probably in the directory ~Downloads~ and it's called
+  ~2_bag_of_words_practice.org.txt~
+
+- Open the Windows CMD line terminal and at the prompt enter ~cd
+  Downloads~ to get to the directory that contains the file
+  ~2_bag_of_words_practice.org.txt~ (a text file).
+
+- enter ~DIR *org*~ to check if the file is actually there. 
+
+* Open the practice file in Emacs
+
+- At the terminal prompt, open the GNU Emacs editor without GUI by
+  entering ~emacs -nw~
+
+- In Emacs, find the file with ~C-x C-f~ and then save it as an Org-mode
+  file with ~C-x C-w~ as ~2_bag_of_words_practice.org~ - you should see
+  something like this:
+  #+attr_latex: :width 400px
+  [[../img/2_emacs.png]]
+
+- If you have not used Emacs on your current PC before, you now need
+  to download this configuration file: [[https://tinyurl.com/3amrdz55][tinyurl.com/3amrdz55]] and
+  install it.
+
+- Open it in Emacs as the other one, with ~C-x C-f~ followed by the file
+  name and rename it with ~C-x C-w~ to ~~/.emacs~ so that it is located in
+  Emacs' home directory ~~/~.
+
+- Now either shut Emacs down (~C-x C-c~) and re-open it, or run the
+  functions in ~.emacs~ with ~M-x eval-buffer~.
+
+- *If you have never used the Emacs editor before*, you should have a
+  look at the on-board tutorial. Open it with the keyboard sequence
+  ~CTRL-h t~. It teaches you the basics and will take about 1
+  hour[fn:1].
+* Setting up literate programming in R
+
+- To test your ability to combine documentation, code and output in R,
+  create and run a code block in the Emac practice file
+
+- Create a new code block with ~<s TAB R~ and put two R commands into it:
+  #+begin_example sh
+    #+begin_src R
+      head(mtcars)
+    #+end_src
+  #+end_example
+
+- You should see the output below. Otherwise you need to check your
+  ~.emacs~ installation, then your R installation or your general setup.
+  #+attr_latex: :width 400px
+  [[../img/2_orgmode.png]]
+  
+* Setting up the text mining environment in R
 
 - Many R functions and packages must be installed and loaded before
   they can be used in an R session.
@@ -157,76 +210,20 @@
     search()
   #+end_src
 
+- To access the help documentation, enter ~?~ followed by the name in
+  the console window, e.g. ~?stringr~ for help on the ~stringr~ package,
+  or ~?library~ for the loading function.
+
 - Popular packages also have cheat sheets revealing their complexity:
   #+attr_latex: :width 300px
   #+caption: stringr cheat sheet at github.com/rstudio/cheatsheets
   [[../img/2_stringr.png]]
-
-- To get more information, look for the help, which is usually shipped
-  with the package itself: you have to load it before being able to
-  access it:
-  #+begin_src R
-    library(stringi)
-    library(stringr)
-    library(qdap)
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  Loading required package: qdapDictionaries
-  Loading required package: qdapRegex
-
-  Attaching package: 'qdapRegex'
-
-  The following object is masked from 'package:car':
-
-      S
-
-  The following object is masked from 'package:dplyr':
-
-      explain
-
-  Loading required package: qdapTools
-
-  Attaching package: 'qdapTools'
-
-  The following object is masked from 'package:dplyr':
-
-      id
-
-  Loading required package: RColorBrewer
-
-  Attaching package: 'qdap'
-
-  The following objects are masked from 'package:base':
-
-      Filter, proportions
-  #+end_example
-
-- To access the help documentation, enter ~?~ followed by the name in
-  the console window, e.g. ~?stringr~ for help on the ~stringr~ package,
-  or ~?library~ for the loading function.
   
-* Getting the data
+* NEXT Getting the data
 
 - Beginning with this section, you'll practice using your own literate
   programs: download the online CSV ("Comma Separated Values") dataset
   [[https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv][from this URL]] to your PC and name the file ~oct_delta.csv~.
-
-- Now go to this URL and download the Org-mode file as
-  ~2_bag_of_words_practice.org~. This is an Org-mode file. You can use
-  any name you like, of course.
-
-- Open it in Emacs from the command line (using auto completion with
-  ~TAB~) with the command:
-  #+begin_example bash
-    emacs -nw --file 2_bag_of_words_practice.org
-  #+end_example
-  
-- *If you have never used the Emacs editor before*, you should have a
-  look at the on-board tutorial. Open it with the keyboard sequence
-  ~CTRL-h t~. It teaches you the basics and will take about 1
-  hour[fn:1].
 
 - We'll load the CSV data into R as a data frame - a table whose rows
   correspond to the individual tweets, and whose columns correspond to
@@ -291,9 +288,6 @@
 | ~<-~, ~->~            | R assignment operator                          |
 
 * Footnotes
-[fn:2]On Linux (or Windows WSL), run ~update.packages()~ before to
-update all dependencies - since here, source code is compiled and
-linked.
 
 [fn:1]If you need extra motivation to learn Emacs, [[https://unkertmedia.com/10-reasons-why-learning-emacs-is-worth-it/][read this]] or
 [[https://howardism.org/Technical/Emacs/why-emacs.html][this]]. Alternatively (or in addition) you can take a look at [[https://youtu.be/48JlgiBpw_I][this video]]
@@ -302,3 +296,7 @@ tutorial (1 hr 12 min). I've described how to install Emacs on your PC
 review using Emacs in class at the start but taking a good look at the
 tutorial will help you get started and make it more likely that you'll
 have fun in class!
+
+[fn:2]On Linux (or Windows WSL), run ~update.packages()~ before to
+update all dependencies - since here, source code is compiled and
+linked.

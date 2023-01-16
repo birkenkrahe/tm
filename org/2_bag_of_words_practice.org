@@ -20,7 +20,24 @@ practice with R (Wiley, 2019). Solutions are on GitHub as PDF files.
    file by your own name and write ~(pledged)~ next to it
 2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
    by entering ~S-<right>~ ("Shift + right-arrow").
-* TODO Setting up the R environment
+* TODO Set up literate programming in R
+
+1) Test your Emacs configuration for literate programming in R by
+   creating and running a code block.
+
+2) Create a new code block with ~<s TAB R~ below the line and put
+   ~head(mtcars)~ into it:
+
+   -----
+
+   
+
+If you don't get any output consider the following fixes:
+- Is the correct ~.emacs~ installed in ~~/~?
+- After installing it, did you reopen Emacs or run the file?
+- Did the last step generate any warnings?
+
+* TODO Set up the text mining environment in R
 
 1) Open a command line terminal (enter ~CMD~ in the search field)
 2) Enter ~R~ at the prompt to start an R terminal (or shell)
@@ -32,12 +49,44 @@ practice with R (Wiley, 2019). Solutions are on GitHub as PDF files.
     install.packages("qdap")
   #+end_example
 
+4) Load each package with the ~library~ function applied to each of the
+   packages in turn:
+   #+begin_src R
+
+
+     
+   #+end_src
+
+5) Check which packages are loaded in your current R session with
+   ~search()~
+   #+begin_src R
+
+   #+end_src
+
+6) Go back to the R buffer ~*R*~ with ~C-x b~ - then cycle through the
+   open buffers with ~M-n~ and ~M-p~
+
+7) Open the documentation for ~stringi~, ~stringr~ and ~qdap~ with the ~help~
+   function (or the shortcut ~?~).
+   
 * TODO Getting the data
 
+1) Download the online CSV ("Comma Separated Values") dataset [[https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv][from
+   this URL]] to your PC and name the file ~oct_delta.csv~.
+
+2) Load the CSV data into an R data frame with ~read.csv~ and assign it
+   to an R object ~test.df~ using the ~<-~ assignment operator:
+   #+begin_src R
+
+   #+end_src
+   
+3) Look at the structure of ~test.df~ with ~str~:
+   #+begin_src R
+
+   #+end_src   
+
 * TODO String manipulation I
-
 * TODO String manipulation II
-
 * TODO Wow! Congratulations!
 
 Well done! You've reached the end of the first in-class practice file.
