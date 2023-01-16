@@ -3,9 +3,9 @@
 #+SUBTITLE: Lyon College, Spring 2023
 #+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
-#+PROPERTY: header-args:R :session *R* :results: output :exports both :noweb yes
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * Week 1 - Course overview & text mining overview
-#+attr_html: :width 500px
+#+attr_html: :width 400px
 [[../img/cover.jpg]]
 
 - [X] Course overview - assignments, grading, topics, platforms
@@ -14,11 +14,48 @@
 - [ ] Introduction to R programming for the assignment
 
 * Week 2 - Text mining in practice & example  
+#+attr_html: :width 400px
+[[../img/2_mess.jpg]]
 
 - [ ] Text mining with Bag of Words explained
 - [ ] Text mining with syntactic or semantic parsing explained
 - [ ] Extended example: airline customer service tweets
-- [ ] R ennvironment information: console, packages and help
+- [ ] R environment information: console, packages and help
+- [ ] Setting up Emacs + ESS + R on your PC
 - [ ] String manipulation functions
 
-  
+** Week 1 review:
+
+- [ ] What are topic/deliverables of your final project?[fn:1]
+- [ ] What are "structured data" in the context of text mining?[fn:2]
+- [ ] What does assessment bias refer to ("wisdom of crowds")[fn:3]
+
+* Footnotes
+
+[fn:3] No /assessment bias:/ independent judgements, diverse
+understanding, local knowledge and tabulated results.
+
+[fn:2] Structured data is data in rectangular structures (e.g. tables)
+whose rows are records or observations, and whose columns are feature
+vectors or attributes. A vector of length N can also be printed as a
+rectangular structure of dimension N x 1 (N rows, 1 column):
+#+begin_src R 
+  vec <- c("jim", "joe", "jan", "bud")
+  vec
+  matrix(vec)
+  matrix(vec,nrow=1)
+#+end_src
+
+#+RESULTS:
+: [1] "jim" "joe" "jan" "bud"
+:      [,1] 
+: [1,] "jim"
+: [2,] "joe"
+: [3,] "jan"
+: [4,] "bud"
+:      [,1]  [,2]  [,3]  [,4] 
+: [1,] "jim" "joe" "jan" "bud"
+
+[fn:1] Proposal, literature review, presentation or essay, IMRaD
+(Introduction, Method, Results and Discussion) structure.
+

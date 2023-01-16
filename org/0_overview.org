@@ -83,10 +83,10 @@
 - The first DataCamp home assignment is due on *January 24*. For late
   submissions, you lose 1 point per day (out of 10 possible points)
 
-- The first in-class assignment is due on January 24. For late
+- The first in-class assignment is due on *January 24*. For late
   submissions, you lose 1 point per day (out of 10 possible points)
 
-- We'll write the first weekly multiple-choice test on January 24.
+- We'll write the first weekly multiple-choice test on *January 24*.
 
 * What should we do as a project?
 #+attr_html: :width 400px

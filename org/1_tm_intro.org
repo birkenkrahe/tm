@@ -39,10 +39,14 @@ insights." IBM, 2023
 - [X] What does "structured" and "unstructured data" mean? What are
   "meaningful patterns"?[fn:2]
 
-- [ ] What about the text on this page (Org-mode file): structured or
+- [X] What about the text on this page (Org-mode file): structured or
   not?[fn:3]
 
 * What is text mining in practice (= business)?
+#+attr_latex: :width 400px
+#+caption: The Concert in the Egg by Hieronymus Bosch (1561)
+[[../img/1_egg.jpg]]
+
 * Customer services
 #+attr_latex: :width 250px
 #+caption: twitter.com/DataCamp featuring interview with me
@@ -156,7 +160,7 @@ The "right circumstances": no assessment bias =
 
 - [X] What do you think why word clouds are still so attractive?
 
-* Basic text mining workflow
+* NEXT Basic text mining workflow
 #+attr_latex: :width 400px
 #+caption: Tex mining workflow from Kwartler (2019)
 [[../img/1_workflow.png]]
@@ -266,8 +270,8 @@ The "right circumstances": no assessment bias =
 
 * Final definition for "text mining"
 #+attr_latex: :width 400px
-#+caption: Four monks by Claudio Rinaldi (1852-1909), Dorotheum, Munich
-[[../img/1_monks.jpg]]
+#+caption: Medieval lecture to monks
+[[../img/1_definition.png]]
 #+begin_quote
 "Text mining represents the ability to take large amounts of
 unstructured language and quickly extract useful and novel insights
