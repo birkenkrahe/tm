@@ -20,7 +20,24 @@ practice with R (Wiley, 2019). Solutions are on GitHub as PDF files.
    file by your own name and write ~(pledged)~ next to it
 2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
    by entering ~S-<right>~ ("Shift + right-arrow").
-* ----
+* TODO Setting up the R environment
+
+1) Open a command line terminal (enter ~CMD~ in the search field)
+2) Enter ~R~ at the prompt to start an R terminal (or shell)
+3) Install three packages: ~stringi~, ~stringr~ and ~qdap~ with the
+   following commands:
+   #+begin_example R
+    install.packages("stringi")
+    install.packages("stringr")
+    install.packages("qdap")
+  #+end_example
+
+* TODO Getting the data
+
+* TODO String manipulation I
+
+* TODO String manipulation II
+
 * TODO Wow! Congratulations!
 
 Well done! You've reached the end of the first in-class practice file.
