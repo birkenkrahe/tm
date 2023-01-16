@@ -17,6 +17,7 @@
 #+attr_html: :width 400px
 [[../img/2_mess.jpg]]
 
+- [ ] *new* Reduced the no. of home assignments from 10 to 8 (more pts)
 - [ ] Text mining with Bag of Words explained
 - [ ] Text mining with syntactic or semantic parsing explained
 - [ ] Extended example: airline customer service tweets
