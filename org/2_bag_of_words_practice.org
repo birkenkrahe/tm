@@ -30,7 +30,7 @@ practice with R (Wiley, 2019). Solutions are on GitHub as PDF files.
 
    -----
 
-   
+
 
 If you don't get any output consider the following fixes:
 - Is the correct ~.emacs~ installed in ~~/~?
@@ -54,7 +54,7 @@ If you don't get any output consider the following fixes:
    #+begin_src R
 
 
-     
+
    #+end_src
 
 5) Check which packages are loaded in your current R session with
@@ -68,25 +68,65 @@ If you don't get any output consider the following fixes:
 
 7) Open the documentation for ~stringi~, ~stringr~ and ~qdap~ with the ~help~
    function (or the shortcut ~?~).
-   
-* TODO Getting the data
+* TODO Quick taste of test mining
 
-1) Download the online CSV ("Comma Separated Values") dataset [[https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv][from
-   this URL]] to your PC and name the file ~oct_delta.csv~.
-
-2) Load the CSV data into an R data frame with ~read.csv~ and assign it
-   to an R object ~test.df~ using the ~<-~ assignment operator:
+1) Load ~qdap~
    #+begin_src R
 
    #+end_src
    
-3) Look at the structure of ~test.df~ with ~str~:
+2) Store this text in a vector ~text~: "DataCamp is the first online
+   learning platform that focuses on building the best learning
+   experience specifically for Data Science. We have offices in New
+   York, London, and Belgium, and to date, we trained over 11 million
+   (aspiring) data scientists in over 150 countries. These data
+   science enthusiasts completed more than 667 million exercises. You
+   can take free beginner courses, or subscribe for $25/month to get
+   access to all premium courses."
    #+begin_src R
 
-   #+end_src   
+   #+end_src
 
-* TODO String manipulation I
-* TODO String manipulation II
+3) Find the 10 most frequent terms and store them in ~term_count~:
+   #+begin_src 
+
+   #+end_src
+
+4) Plot the term count:
+   #+begin_src R :results graphics file :file term_count.png
+
+   #+end_src
+
+* TODO Getting the data
+
+1) Download the online CSV ("Comma Separated Values") dataset [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from
+   this URL]] to your PC and name the file ~coffee.csv~.
+
+2) Load the CSV data into an R data frame with ~read.csv~ and assign it
+   to an R object ~coffee_tweets.df~ using the ~<-~ assignment operator:
+   #+begin_src R
+
+   #+end_src
+
+* TODO First look at the data
+
+1) Look at the structure of ~coffee_tweets.df~ with ~str~:
+   #+begin_src R
+
+   #+end_src
+
+2) Store the tweets (~text~ column) in a vector ~coffee_tweets~ and view
+   first ~n=5~ tweets:
+   #+begin_src R
+
+     
+   #+end_src
+
+3) Print the structure of the vector with ~str~:
+  #+begin_src R
+
+  #+end_src
+
 * TODO Wow! Congratulations!
 
 Well done! You've reached the end of the first in-class practice file.

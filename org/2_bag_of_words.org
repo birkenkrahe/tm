@@ -158,6 +158,7 @@
   look at the on-board tutorial. Open it with the keyboard sequence
   ~CTRL-h t~. It teaches you the basics and will take about 1
   hour[fn:1].
+
 * Setting up literate programming in R
 
 - To test your ability to combine documentation, code and output in R,
@@ -219,73 +220,109 @@
   #+caption: stringr cheat sheet at github.com/rstudio/cheatsheets
   [[../img/2_stringr.png]]
   
-* NEXT Getting the data
+* Getting the data
 
 - Beginning with this section, you'll practice using your own literate
   programs: download the online CSV ("Comma Separated Values") dataset
-  [[https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv][from this URL]] to your PC and name the file ~oct_delta.csv~.
+  [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from this URL]] to your PC and name the file ~coffee.csv~.
 
 - We'll load the CSV data into R as a data frame - a table whose rows
   correspond to the individual tweets, and whose columns correspond to
   the features of each tweet.
   #+begin_src R :results silent
-    test.df <- read.csv(
-      file = "../data/oct_delta.csv")
+    coffee_tweets.df <- read.csv(
+      file = "../data/coffee.csv")
   #+end_src
 
 - Here, we assign the contents of the file as a data frame to the R
-  object ~test.df~ using the assignment operator ~<-~.
+  object ~coffee_tweets.df~ using the assignment operator ~<-~.
 
-- The string ~../data/oct_delta.csv~ is a relative address to the file
+- The string ~../data/coffee.csv~ is a relative address to the file
   on your PC. Instead, you could also use the URL (in between the
   double apostrophs): the following command stores the file in another
-  object ~test.df.1~
+  object ~coffee_tweets.df.1~ (the address comes from DataCamp):
   #+begin_src R :results silent
-    test.df.1 <-
-      read.csv(file =
-                 "https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv")
+    coffee_tweets.df.1 <- read.csv(file =
+      "https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv")
   #+end_src
+
+* First look at the data
 
 - To look at the object, you could type its name - not wise because
   you don't know yet if it has 1 million lines. Instead, use ~str~ to
   only look at its structure (and size):
   #+begin_src R
-    str(test.df)
+    str(coffee_tweets.df)
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':	1377 obs. of  5 variables:
-  :  $ weekday: chr  "Thu" "Thu" "Thu" "Thu" ...
-  :  $ month  : chr  "Oct" "Oct" "Oct" "Oct" ...
-  :  $ date   : int  1 1 1 1 1 1 1 1 1 1 ...
-  :  $ year   : int  2015 2015 2015 2015 2015 2015 2015 2015 2015 2015 ...
-  :  $ text   : chr  "@mjdout I know that can be frustrating..we hope to have you parked and deplaned shortly. Thanks for your patience.  *AA" "@rmarkerm Terribly sorry for the inconvenience. If we can be of assistance at this time, pls let us know.  *AA" "@checho85  I can check, pls follow and DM your confirmation # for review.  *AA" "@nealaa ...Alerts, pls check here: http://t.co/0jlcZnT95Q *JH 3/3" ...
+  #+begin_example
+  'data.frame':	1000 obs. of  15 variables:
+   $ num         : int  1 2 3 4 5 6 7 8 9 10 ...
+   $ text        : chr  "@ayyytylerb that is so true drink lots of coffee" "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast"| __truncated__ "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns"| __truncated__ "My cute coffee mug. http://t.co/2udvMU6XIG" ...
+   $ favorited   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSN   : chr  "ayyytylerb" NA NA NA ...
+   $ created     : chr  "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" ...
+   $ truncated   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSID  : num  3.66e+17 NA NA NA NA ...
+   $ id          : num  3.66e+17 3.66e+17 3.66e+17 3.66e+17 3.66e+17 ...
+   $ replyToUID  : int  1637123977 NA NA NA NA NA NA 1316942208 NA NA ...
+   $ statusSource: chr  "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "web" "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>" ...
+   $ screenName  : chr  "thejennagibson" "carolynicosia" "janeCkay" "AlexandriaOOTD" ...
+   $ retweetCount: int  0 1 0 0 2 0 0 0 1 2 ...
+   $ retweeted   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ longitude   : logi  NA NA NA NA NA NA ...
+   $ latitude    : logi  NA NA NA NA NA NA ...
+  #+end_example
 
-- We see that ~test.df~ has 1377 rows and 5 columns. Four of these
-  columns contain date information, and one contains the tweet text.
+- We see that ~coffee.df~ has 1000 rows and 15 columns or features
 
-* TODO String manipulation: ~nchar~, ~mean~, ~sub~, ~gsub~
-* TODO String manipulation: ~paste~, ~strsplit~, ~substr~, ~subset~
+- The features come in different data types: ~integer~, ~character~,
+  ~logical~, ~numeric~ (non-integer).
+
+- Store the tweets (~text~ column) in a vector ~coffee_tweets~ and view
+  first 5 tweets:
+  #+begin_src R
+    coffee_tweets <- coffee_tweets.df$text
+    head(coffee_tweets, n=5)
+  #+end_src
+
+  #+RESULTS:
+  : [1] "@ayyytylerb that is so true drink lots of coffee"                                                                                            
+  : [2] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [3] "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns+Coffee=#nosense @MomsDemand" 
+  : [4] "My cute coffee mug. http://t.co/2udvMU6XIG"                                                                                                  
+  : [5] "RT @slaredo21: I wish we had Starbucks here... Cause coffee dates in the morning sound perff!"
+
+- The vector has a simpler structure:
+  #+begin_src R
+    str(coffee_tweets)
+  #+end_src
+
+  #+RESULTS:
+  :  chr [1:1000] "@ayyytylerb that is so true drink lots of coffee" ...
+  
 * TM Glossary
 
-| TERM              | MEANING                                        |
-|-------------------+------------------------------------------------|
-| Meta data         | Tags stored alongside text data                |
-| OpenNLP           | Apache natural language processing library     |
-| Bag of Words      | No syntax just words read out as DTMs/TDMs     |
-| DTM               | Document term matrix (corpus vs. words)        |
-| TDM               | Transposed document matrix (words vs. corpus)  |
-| Syntactic parsing | Analyse language to discover grammar           |
-| Semantic parsing  | Analyse language to discover meaning           |
-| R console         | Shell application for interactive R use        |
-| ~install.packages~  | Install R package                              |
-| ~library~           | Load package                                   |
-| ~help~, ~?~           | Get help on package or function                |
-| ~search()~          | Show all loaded packages                       |
-| dataframe         | Table of records (rows) and features (columns) |
-| ~read.csv~          | R function to read CSV data to dataframe       |
-| ~str~               | R function to display structure of an R object |
-| ~<-~, ~->~            | R assignment operator                          |
+| TERM              | MEANING                                             |
+|-------------------+-----------------------------------------------------|
+| Meta data         | Tags stored alongside text data                     |
+| OpenNLP           | Apache natural language processing library          |
+| Bag of Words      | No syntax just words read out as DTMs/TDMs          |
+| DTM               | Document term matrix (corpus vs. words)             |
+| TDM               | Transposed document matrix (words vs. corpus)       |
+| Syntactic parsing | Analyse language to discover grammar                |
+| Semantic parsing  | Analyse language to discover meaning                |
+| R console         | Shell application for interactive R use             |
+| ~install.packages~  | Install R package                                   |
+| ~library~           | Load package                                        |
+| ~help~, ~?~           | Get help on package or function                     |
+| ~search()~          | Show all loaded packages                            |
+| dataframe         | Table of records (rows) and features (columns)      |
+| ~read.csv~          | R function to read CSV data to dataframe            |
+| ~str~               | R function to display structure of an R object      |
+| ~<-~, ~->~            | R assignment operator                               |
+| ~$~                 | Operator to extract vectors from dataframe          |
 
 * Footnotes
 

@@ -160,7 +160,7 @@ The "right circumstances": no assessment bias =
 
 - [X] What do you think why word clouds are still so attractive?
 
-* NEXT Basic text mining workflow
+* Basic text mining workflow
 #+attr_latex: :width 400px
 #+caption: Tex mining workflow from Kwartler (2019)
 [[../img/1_workflow.png]]

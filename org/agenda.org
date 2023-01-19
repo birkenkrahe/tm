@@ -9,7 +9,7 @@
 [[../img/cover.jpg]]
 
 - [X] Course overview - assignments, grading, topics, platforms
-- [ ] Introduction to text mining with examples
+- [X] Introduction to text mining with examples
 - [ ] DataCamp assignment "Jumping into Text Mining with Bag-of-Words"
 - [ ] Introduction to R programming for the assignment
 
@@ -17,19 +17,23 @@
 #+attr_html: :width 400px
 [[../img/2_mess.jpg]]
 
-- [ ] *new* Reduced the no. of home assignments from 10 to 8 (more pts)
-- [ ] Text mining with Bag of Words explained
+- [X] *new* Reduced the no. of home assignments from 10 to 8 (more pts)
+- [X] Text mining with Bag of Words explained
+- [X] R environment information: console, packages and help
+- [X] Setting up Emacs + ESS + R on your PC (Canvas announcement)
 - [ ] Text mining with syntactic or semantic parsing explained
 - [ ] Extended example: airline customer service tweets
-- [ ] R environment information: console, packages and help
-- [ ] Setting up Emacs + ESS + R on your PC
-- [ ] String manipulation functions
+- [ ] String manipulation functions in R
 
-** Week 1 review:
+* Review week 1
 
-- [ ] What are topic/deliverables of your final project?[fn:1]
-- [ ] What are "structured data" in the context of text mining?[fn:2]
-- [ ] What does assessment bias refer to ("wisdom of crowds")[fn:3]
+- [X] What are topic/deliverables of your final project?[fn:1]
+- [X] What are "structured data" in the context of text mining?[fn:2]
+- [X] What does assessment bias refer to ("wisdom of crowds")[fn:3]
+
+** Test 1 next week Tuesday (24 Jan)
+
+** DataCamp lesson due next Tuesday (24 Jan)
 
 * Footnotes
 
