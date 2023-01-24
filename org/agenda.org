@@ -35,6 +35,16 @@
 
 ** DataCamp lesson due next Tuesday (24 Jan)
 
+
+* Condition for repeating tests
+#+attr_latex: :width 400px
+#+caption: Late or missed the test? Talk to me!
+[[../img/late.jpg]]
+
+- If you inform me beforehand that you cannot attend an announced
+  test, we can make arrangements for you to take the test outside of
+  class.
+
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse

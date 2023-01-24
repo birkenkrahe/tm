@@ -92,7 +92,7 @@
 1) *Define problem and specific goals*: understand Delta Airline's
    customer service tweets to launch a competitive team:
    1. What is the average length of a social customer service reply?
-   2. What links were reference most often in the tweets?
+   2. What links were referenced most often in the tweets?
    3. How large should a social media customer service team be?
 
 2) *Identify the text that needs to be collected:* analysis is
