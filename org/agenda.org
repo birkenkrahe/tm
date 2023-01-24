@@ -25,17 +25,27 @@
 - [ ] Extended example: airline customer service tweets
 - [ ] String manipulation functions in R
 
-* Review week 1
+** Review week 1
 
 - [X] What are topic/deliverables of your final project?[fn:1]
 - [X] What are "structured data" in the context of text mining?[fn:2]
 - [X] What does assessment bias refer to ("wisdom of crowds")[fn:3]
 
-** Test 1 next week Tuesday (24 Jan)
+* Week 3 - Bag of words I
+#+attr_latex: :width 400px
+[[../img/bagofwords.png]]
 
-** DataCamp lesson due next Tuesday (24 Jan)
+- Download the (raw) practice file again (changes) from GitHub
 
+* Review questions week 2
 
+1) What is a /corpus/ in the context of text mining?
+2) Which two text mining /techniques/ did we discuss?
+3) What is a "Document Term Matrix" (DTM)
+4) What is the difference between /syntactical/ and /semantical/?
+
+* Test 1 on Tuesday (31 Jan)
+* DataCamp lesson due next Tuesday (31 Jan)
 * Condition for repeating tests
 #+attr_latex: :width 400px
 #+caption: Late or missed the test? Talk to me!
@@ -44,6 +54,56 @@
 - If you inform me beforehand that you cannot attend an announced
   test, we can make arrangements for you to take the test outside of
   class.
+
+* TODO How should you study for data science tests?
+#+attr_html: :width 200px
+[[../img/studying.jpg]]
+
+- If you were successful in the test: what did you do?
+- If not: what do you think you should have done?
+
+* TODO Project - first sprint review (Tuesday, Feb 7)
+#+attr_html: :width 400px
+[[../img/sprint.png]]
+
+- The term project purpose is down to you - or you can approach me for
+  an idea (but please do that sooner than later)!
+
+- There are many different ways to present a paper or a slide pack:
+  e.g. succinct, verbose, opinionated, objective, accessible or not.
+
+- Your first deliverable is a *project proposal* formatted as an
+  Org-mode file. Here is a template for such a file with definitions.
+
+  1) Meta data: preliminary title (~#+TITLE~), list of team members
+     (~#+AUTHOR:~), course title (~#+SUBTITLE~).
+
+  2) Headlines: ~Problem~, ~Reason~, ~Constraints~, ~Goals and Non-goals~,
+     ~Metrics~, ~References~
+
+     - *Problem*: describe the problem that you're trying to solve.
+
+     - *Reason*: why is this problem interesting (to you) right now?
+
+     - *Constraints:* which difficulties, e.g. technical or conceptual,
+       do you foresee right now?
+
+     - *Goals and non-goals*: list all goals that you might want to
+       achieve with this project. Order the goals by importance. Add a
+       list of non-goals, i.e. things that are outside the scope of
+       your project.
+
+     - *Metrics*: how would you measure the success of your project?
+
+     - *References*: list any references that you found already. Make
+       sure that they are consistent (same format) and complete
+       (author, date, title, place).
+
+- Upload your result to Canvas (*no later than Feb 7, 12 pm*). Missing
+  the deadline will cost you points.
+
+Source: Ellis, Data Science Project Proposals (2021). URL:
+[[https://crunchingthedata.com/data-science-project-proposals/][crunchingthedata.com]].
 
 * Footnotes
 

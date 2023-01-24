@@ -160,9 +160,6 @@ bottom of the dashboard page ([[https://app.datacamp.com/learn/courses/text-mini
 
   #+end_src
 
-* TODO Building our first corpus
-
-
 * TODO Wow! Congratulations!
 
 Well done! You've reached the end of the first in-class practice file.

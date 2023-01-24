@@ -176,7 +176,7 @@
   #+attr_latex: :width 400px
   [[../img/2_orgmode.png]]
   
-* Setting up the text mining environment in R
+* IN PROGRESS Setting up the text mining environment in R
 
 - Many R functions and packages must be installed and loaded before
   they can be used in an R session.
