@@ -1,4 +1,4 @@
-#+TITLE: Bag-of-Words extended example - Delta Airline Tweets
+#+TITLE: Bag-of-Words extended example
 #+AUTHOR: [yourname]
 #+SUBTITLE: In-class practice
 #+STARTUP:overview hideblocks indent
@@ -102,7 +102,10 @@ If you don't get any output consider the following fixes:
 
    #+end_src
 
-* TODO Getting the data (DataCamp lesson)
+* TODO Getting the data
+
+You can find links to the raw datasets for DataCamp lessons at the
+bottom of the dashboard page ([[https://app.datacamp.com/learn/courses/text-mining-with-bag-of-words-in-r][example]]).
 
 1) Download the online CSV ("Comma Separated Values") dataset [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from
    this URL]] to your PC and name the file ~coffee.csv~.
@@ -113,6 +116,31 @@ If you don't get any output consider the following fixes:
 
    #+end_src
 
+* TODO Review: ~factor~ vectors
+
+1) Define a vector, ~x~ with 4 string values, "good", "good", "bad",
+   "worst".
+     #+begin_src R
+
+   #+end_src
+
+2) Turn ~x~ into a nominal (non-ordered) ~factor~ named ~xf~:
+   #+begin_src R
+
+   #+end_src  
+
+3) The three levels of ~xf~ aren't semantically nominal - better to order
+   them properly:
+   - reorder the ~levels~ vector (attribute of ~xf~)
+   - print ~xf~
+   - look at the structure of ~xf~
+   - check if ~xf~ ~is.ordered~
+   - create an ordered version ~xfo~ of ~xf~
+   - print ~xfo~
+   #+begin_src R
+   
+   #+end_src
+  
 * TODO First look at the data
 
 1) Look at the structure of ~coffee_tweets.df~ with ~str~:
@@ -131,6 +159,9 @@ If you don't get any output consider the following fixes:
   #+begin_src R
 
   #+end_src
+
+* TODO Building our first corpus
+
 
 * TODO Wow! Congratulations!
 

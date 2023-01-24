@@ -234,6 +234,10 @@
       file = "../data/coffee.csv")
   #+end_src
 
+- In the DataCamp lesson, you read that ~read.csv~ "treats ~character~
+  strings as factor ~levels~" by default. This is *not true*. Check the
+  ~help~ for ~read.csv~
+  
 - Here, we assign the contents of the file as a data frame to the R
   object ~coffee_tweets.df~ using the assignment operator ~<-~.
 
@@ -246,7 +250,52 @@
       "https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv")
   #+end_src
 
-* First look at the data
+* Review: ~factor~ vectors
+
+- When storing categorical variables like ~male~ or ~female~, it is useful
+  to treat them as a finite collection instead of as strings - e.g. to
+  order them.
+
+- Example: let's define a vector, ~x~ with 4 string values, "good",
+  "good", "bad", "worst".
+    #+begin_src R
+      x <- c(rep("good", times=2), "bad","worst")
+      x
+  #+end_src
+
+  #+RESULTS:
+  : [1] "good"  "good"  "bad"   "worst"
+
+- Turn ~x~ into a nominal (non-ordered) ~factor~ named ~xf~:
+  #+begin_src R
+    xf <- factor(x)
+    xf
+  #+end_src  
+
+  #+RESULTS:
+  : [1] good  good  bad   worst
+  : Levels: bad good worst
+
+- The three levels of ~xf~ aren't semantically nominal - better to order
+  them properly:
+  #+begin_src R
+    levels(xf) <- c("worst", "bad", "good")
+    xf
+    str(xf)
+    is.ordered(xf)
+    xfo <- factor(xf, ordered=TRUE)
+    xfo
+  #+end_src
+
+  #+RESULTS:
+  : [1] bad   bad   worst good 
+  : Levels: worst bad good
+  :  Factor w/ 3 levels "worst","bad",..: 2 2 1 3
+  : [1] FALSE
+  : [1] bad   bad   worst good 
+  : Levels: worst < bad < good
+
+* First look at the data 
 
 - To look at the object, you could type its name - not wise because
   you don't know yet if it has 1 million lines. Instead, use ~str~ to
@@ -277,6 +326,9 @@
 
 - We see that ~coffee.df~ has 1000 rows and 15 columns or features
 
+- You can also see that all ~character~ variables are intact - none have
+  been turned into ~factor~ variables
+
 - The features come in different data types: ~integer~, ~character~,
   ~logical~, ~numeric~ (non-integer).
 
@@ -304,25 +356,26 @@
   
 * TM Glossary
 
-| TERM              | MEANING                                             |
-|-------------------+-----------------------------------------------------|
-| Meta data         | Tags stored alongside text data                     |
-| OpenNLP           | Apache natural language processing library          |
-| Bag of Words      | No syntax just words read out as DTMs/TDMs          |
-| DTM               | Document term matrix (corpus vs. words)             |
-| TDM               | Transposed document matrix (words vs. corpus)       |
-| Syntactic parsing | Analyse language to discover grammar                |
-| Semantic parsing  | Analyse language to discover meaning                |
-| R console         | Shell application for interactive R use             |
-| ~install.packages~  | Install R package                                   |
-| ~library~           | Load package                                        |
-| ~help~, ~?~           | Get help on package or function                     |
-| ~search()~          | Show all loaded packages                            |
-| dataframe         | Table of records (rows) and features (columns)      |
-| ~read.csv~          | R function to read CSV data to dataframe            |
-| ~str~               | R function to display structure of an R object      |
-| ~<-~, ~->~            | R assignment operator                               |
-| ~$~                 | Operator to extract vectors from dataframe          |
+| TERM              | MEANING                                        |
+|-------------------+------------------------------------------------|
+| Meta data         | Tags stored alongside text data                |
+| OpenNLP           | Apache natural language processing library     |
+| Bag of Words      | No syntax just words read out as DTMs/TDMs     |
+| DTM               | Document term matrix (corpus vs. words)        |
+| TDM               | Transposed document matrix (words vs. corpus)  |
+| Syntactic parsing | Analyse language to discover grammar           |
+| Semantic parsing  | Analyse language to discover meaning           |
+| R console         | Shell application for interactive R use        |
+| ~install.packages~  | Install R package                              |
+| ~library~           | Load package                                   |
+| ~help~, ~?~           | Get help on package or function                |
+| ~search()~          | Show all loaded packages                       |
+| dataframe         | Table of records (rows) and features (columns) |
+| ~read.csv~          | R function to read CSV data to dataframe       |
+| ~str~               | R function to display structure of an R object |
+| ~<-~, ~->~            | R assignment operator                          |
+| ~$~                 | Operator to extract vectors from dataframe     |
+| ~head~              | Display first few lines of an R object         |
 
 * Footnotes
 
