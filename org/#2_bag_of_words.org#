@@ -1,0 +1,339 @@
+#+TITLE: Text mining in practice - Bag of Words
+#+AUTHOR:Marcus Birkenkrahe
+#+SUBTITLE:Introduction to R (and the Tidyverse)
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- Text mining with Bag of Words explained
+- Text mining with syntactic or semantic parsing explained
+- Extended example: airline customer service tweets
+- R environment information: console, packages and help
+- String manipulation functions
+
+* Two techniques
+#+attr_latex: :width 600px
+#+caption: Source: 10 practical text mining examples (2022)
+[[../img/2_mess.jpg]]
+
+- Recall: tm takes unorganized sources of text and reorganizes them,
+  then applies a sequence of analytical steps to gain insights.
+
+- There are two types of text mining: Bag of Words and
+  Syntactic/Semantic Parsing.
+
+- *Bag of Words* treats every word or group of words (n-gram) as
+  unique. It is easy to understand, can be done quickly, and provides
+  useful input for machine learning frameworks.
+
+- *Syntactic Parsing* is the process of analyzing the structure of a
+  sentence to determine its grammatical structure.
+
+- *Semantic Parsing* is similar but may be built on
+  the task for which inference is required rather than just tag words
+  according to their grammatical function.
+
+* Bag of Words - simple example
+
+- Bag of Words generates document term matrics (DTM) or their
+  transposition (TDM).
+
+- In a DTM, each row represents a document or individual /corpus/,
+  e.g. a tweet, and each column represents a word. In a TDM, rows and
+  columns are switched.
+
+- Example: three tweets form a /corpus/ or body of text for analysis
+  #+attr_latex: :width 650px
+  [[../img/2_tweets.png]]
+
+- A document term matrix (DTM) for this corpus:
+  #+attr_latex: :width 500px
+  [[../img/2_dtm.png]]
+
+- The transposed DTM or transposed document matrix (TDM):
+  #+attr_latex: :width 250px
+  [[../img/2_tdm.png]]
+
+- These DTM and TDM examples only show word counts. Now, without
+  reading all the tweets (perhaps a much larger number than three),
+  you can surmise that the tweets are related to R.
+
+* Syntactic parsing - simple example
+#+attr_latex: :width 500px
+[[../img/2_parsing.png]]
+
+- Syntactic or semantic parsing has many more attributes assigned to a
+  sentence than Bag of Words, captures and retains more information.
+
+- Syntactic parsing involves determining the roles that each word
+  plays in a sentence (e.g. noun, verb, adjective, etc.) and their
+  relations.
+
+- It is often used as a first step in natural language processing
+  (NLP), before more advanced analysis can be applied.
+
+- Semantic parsing is the process of interpreting natural language
+  input and determining its meaning.
+
+- To do that, sentences have to be mapped to a representation, e.g. by
+  tagging parts of speech (POS) as building blocks.
+
+- R has a package linked to [[https://opennlp.apache.org/][Apache OpenNLP]], a library for the
+  processing of natural language text.
+
+- Tags are captured as /meta-data/ of the original sentence.
+
+* Example: airline customer service tweets
+#+attr_latex: :width 300px
+#+caption: Delta airline
+[[../img/2_delta.jpg]]
+
+1) *Define problem and specific goals*: understand Delta Airline's
+   customer service tweets to launch a competitive team:
+   1. What is the average length of a social customer service reply?
+   2. What links were referenced most often in the tweets?
+   3. How large should a social media customer service team be?
+
+2) *Identify the text that needs to be collected:* analysis is
+   restricted to Twitter but could be expanded to other feeds.
+
+3) *Organize the text:* The Delta tweets were taken from the Twitter API
+   between Oct 1 to Oct 15, 2015. The original JSON object was
+   transformed to a smaller CSV file with only tweets and date
+   information, ~oct_delta.csv~. The raw file can be downloaded online
+   [[https://raw.githubusercontent.com/kwartler/text_mining/master/oct_delta.csv][from this URL]] and stored in a file with this name on your PC.
+
+4) *Extract features:* We will introduce basic string manipulation and
+   bag of words text cleaning functions to extract the features.
+
+5) *Analyze:* We will analyze the corpus using R functions to answer our
+   questions.
+
+6) *Reach insight or recommendation:*
+   1. Using ~nchar~ and ~mean~ to assess average tweet length
+   2. Using ~grep~, ~grepl~ and ~sum~ to find out what links were most often
+      referenced.
+   3. Analyze the agents' signature as a time series ~ts~ to find out
+      how many people should be on a team.
+
+* Get the practice file
+
+- To practice, we use Emacs Org-mode files. Save the practice file for
+  this lecture from [[https://tinyurl.com/4f56t7uz][tinyurl.com/4f56t7uz]] to the ~Downloads~ directory on
+  your PC.
+
+- The file is probably in the directory ~Downloads~ and it's called
+  ~2_bag_of_words_practice.org.txt~
+
+- Open the Windows CMD line terminal and at the prompt enter ~cd
+  Downloads~ to get to the directory that contains the file
+  ~2_bag_of_words_practice.org.txt~ (a text file).
+
+- enter ~DIR *org*~ to check if the file is actually there. 
+
+* Open the practice file in Emacs
+
+- At the terminal prompt, open the GNU Emacs editor without GUI by
+  entering ~emacs -nw~
+
+- In Emacs, find the file with ~C-x C-f~ and then save it as an Org-mode
+  file with ~C-x C-w~ as ~2_bag_of_words_practice.org~ - you should see
+  something like this:
+  #+attr_latex: :width 400px
+  [[../img/2_emacs.png]]
+
+- If you have not used Emacs on your current PC before, you now need
+  to download this configuration file: [[https://tinyurl.com/3amrdz55][tinyurl.com/3amrdz55]] and
+  install it.
+
+- Open it in Emacs as the other one, with ~C-x C-f~ followed by the file
+  name and rename it with ~C-x C-w~ to ~~/.emacs~ so that it is located in
+  Emacs' home directory ~~/~.
+
+- Now either shut Emacs down (~C-x C-c~) and re-open it, or run the
+  functions in ~.emacs~ with ~M-x eval-buffer~.
+
+- *If you have never used the Emacs editor before*, you should have a
+  look at the on-board tutorial. Open it with the keyboard sequence
+  ~CTRL-h t~. It teaches you the basics and will take about 1
+  hour[fn:1].
+
+* Setting up literate programming in R
+
+- To test your ability to combine documentation, code and output in R,
+  create and run a code block in the Emac practice file
+
+- Create a new code block with ~<s TAB R~ and put two R commands into it:
+  #+begin_example sh
+    #+begin_src R
+      head(mtcars)
+    #+end_src
+  #+end_example
+
+- You should see the output below. Otherwise you need to check your
+  ~.emacs~ installation, then your R installation or your general setup.
+  #+attr_latex: :width 400px
+  [[../img/2_orgmode.png]]
+  
+* Setting up the text mining environment in R
+
+- Many R functions and packages must be installed and loaded before
+  they can be used in an R session.
+
+- Open a Windows CMD line terminal, enter ~R~ to open the R console, and
+  then run these three commands to install string manipulation
+  packages[fn:2].
+  #+begin_example R
+    install.packages("stringi")
+    install.packages("stringr")
+    install.packages("qdap")
+  #+end_example
+
+- The download results in a lengthy screen output that should complete
+  successfully. You can check that you can work with these packages by
+  running the following command in R:
+  #+begin_src R :results silent
+    library(stringi)
+    library(stringr)
+    library(qdap)
+  #+end_src
+
+- The output will include the information that some objects are
+  "masked" from certain packages. This means that one and the same
+  function name (e.g. ~explain~) is used in different packages. To use
+  ~explain~ from the ~dplyr~ package e.g., use ~dplyr::explain~ to resolve
+  the ambiguity.
+
+- To see which packages are loaded in your current R session, use
+  ~search()~:
+  #+begin_src R
+    search()
+  #+end_src
+
+- To access the help documentation, enter ~?~ followed by the name in
+  the console window, e.g. ~?stringr~ for help on the ~stringr~ package,
+  or ~?library~ for the loading function.
+
+- Popular packages also have cheat sheets revealing their complexity:
+  #+attr_latex: :width 300px
+  #+caption: stringr cheat sheet at github.com/rstudio/cheatsheets
+  [[../img/2_stringr.png]]
+  
+* Getting the data
+
+- Beginning with this section, you'll practice using your own literate
+  programs: download the online CSV ("Comma Separated Values") dataset
+  [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from this URL]] to your PC and name the file ~coffee.csv~.
+
+- We'll load the CSV data into R as a data frame - a table whose rows
+  correspond to the individual tweets, and whose columns correspond to
+  the features of each tweet.
+  #+begin_src R :results silent
+    coffee_tweets.df <- read.csv(
+      file = "../data/coffee.csv")
+  #+end_src
+
+- Here, we assign the contents of the file as a data frame to the R
+  object ~coffee_tweets.df~ using the assignment operator ~<-~.
+
+- The string ~../data/coffee.csv~ is a relative address to the file
+  on your PC. Instead, you could also use the URL (in between the
+  double apostrophs): the following command stores the file in another
+  object ~coffee_tweets.df.1~ (the address comes from DataCamp):
+  #+begin_src R :results silent
+    coffee_tweets.df.1 <- read.csv(file =
+      "https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv")
+  #+end_src
+
+* First look at the data
+
+- To look at the object, you could type its name - not wise because
+  you don't know yet if it has 1 million lines. Instead, use ~str~ to
+  only look at its structure (and size):
+  #+begin_src R
+    str(coffee_tweets.df)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  'data.frame':	1000 obs. of  15 variables:
+   $ num         : int  1 2 3 4 5 6 7 8 9 10 ...
+   $ text        : chr  "@ayyytylerb that is so true drink lots of coffee" "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast"| __truncated__ "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns"| __truncated__ "My cute coffee mug. http://t.co/2udvMU6XIG" ...
+   $ favorited   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSN   : chr  "ayyytylerb" NA NA NA ...
+   $ created     : chr  "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" ...
+   $ truncated   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSID  : num  3.66e+17 NA NA NA NA ...
+   $ id          : num  3.66e+17 3.66e+17 3.66e+17 3.66e+17 3.66e+17 ...
+   $ replyToUID  : int  1637123977 NA NA NA NA NA NA 1316942208 NA NA ...
+   $ statusSource: chr  "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "web" "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>" ...
+   $ screenName  : chr  "thejennagibson" "carolynicosia" "janeCkay" "AlexandriaOOTD" ...
+   $ retweetCount: int  0 1 0 0 2 0 0 0 1 2 ...
+   $ retweeted   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ longitude   : logi  NA NA NA NA NA NA ...
+   $ latitude    : logi  NA NA NA NA NA NA ...
+  #+end_example
+
+- We see that ~coffee.df~ has 1000 rows and 15 columns or features
+
+- The features come in different data types: ~integer~, ~character~,
+  ~logical~, ~numeric~ (non-integer).
+
+- Store the tweets (~text~ column) in a vector ~coffee_tweets~ and view
+  first 5 tweets:
+  #+begin_src R
+    coffee_tweets <- coffee_tweets.df$text
+    head(coffee_tweets, n=5)
+  #+end_src
+
+  #+RESULTS:
+  : [1] "@ayyytylerb that is so true drink lots of coffee"                                                                                            
+  : [2] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [3] "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns+Coffee=#nosense @MomsDemand" 
+  : [4] "My cute coffee mug. http://t.co/2udvMU6XIG"                                                                                                  
+  : [5] "RT @slaredo21: I wish we had Starbucks here... Cause coffee dates in the morning sound perff!"
+
+- The vector has a simpler structure:
+  #+begin_src R
+    str(coffee_tweets)
+  #+end_src
+
+  #+RESULTS:
+  :  chr [1:1000] "@ayyytylerb that is so true drink lots of coffee" ...
+  
+* TM Glossary
+
+| TERM              | MEANING                                             |
+|-------------------+-----------------------------------------------------|
+| Meta data         | Tags stored alongside text data                     |
+| OpenNLP           | Apache natural language processing library          |
+| Bag of Words      | No syntax just words read out as DTMs/TDMs          |
+| DTM               | Document term matrix (corpus vs. words)             |
+| TDM               | Transposed document matrix (words vs. corpus)       |
+| Syntactic parsing | Analyse language to discover grammar                |
+| Semantic parsing  | Analyse language to discover meaning                |
+| R console         | Shell application for interactive R use             |
+| ~install.packages~  | Install R package                                   |
+| ~library~           | Load package                                        |
+| ~help~, ~?~           | Get help on package or function                     |
+| ~search()~          | Show all loaded packages                            |
+| dataframe         | Table of records (rows) and features (columns)      |
+| ~read.csv~          | R function to read CSV data to dataframe            |
+| ~str~               | R function to display structure of an R object      |
+| ~<-~, ~->~            | R assignment operator                               |
+| ~$~                 | Operator to extract vectors from dataframe          |
+
+* Footnotes
+
+[fn:1]If you need extra motivation to learn Emacs, [[https://unkertmedia.com/10-reasons-why-learning-emacs-is-worth-it/][read this]] or
+[[https://howardism.org/Technical/Emacs/why-emacs.html][this]]. Alternatively (or in addition) you can take a look at [[https://youtu.be/48JlgiBpw_I][this video]]
+tutorial (1 hr 12 min). I've described how to install Emacs on your PC
+(or Mac) [[https://github.com/birkenkrahe/org/blob/master/FAQ.org#how-can-i-install-emacs-as-a-data-science-ide-on-windows-10][in my FAQ on GitHub]] here. Or you can just ask me. We'll
+review using Emacs in class at the start but taking a good look at the
+tutorial will help you get started and make it more likely that you'll
+have fun in class!
+
+[fn:2]On Linux (or Windows WSL), run ~update.packages()~ before to
+update all dependencies - since here, source code is compiled and
+linked.

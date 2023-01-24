@@ -75,14 +75,7 @@ If you don't get any output consider the following fixes:
 
    #+end_src
    
-2) Store this text in a vector ~text~: "DataCamp is the first online
-   learning platform that focuses on building the best learning
-   experience specifically for Data Science. We have offices in New
-   York, London, and Belgium, and to date, we trained over 11 million
-   (aspiring) data scientists in over 150 countries. These data
-   science enthusiasts completed more than 667 million exercises. You
-   can take free beginner courses, or subscribe for $25/month to get
-   access to all premium courses."
+2) Store this text in a vector ~text~: "DataCamp is the first online learning platform that focuses on building the best learning experience specifically for Data Science. We have offices in New York, London, and Belgium, and to date, we trained over 11 million (aspiring) data scientists in over 150 countries. These data science enthusiasts completed more than 667 million exercises. You can take free beginner courses, or subscribe for $25/month to get access to all premium courses."
    #+begin_src R
 
    #+end_src
