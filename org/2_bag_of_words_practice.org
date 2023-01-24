@@ -68,29 +68,41 @@ If you don't get any output consider the following fixes:
 
 7) Open the documentation for ~stringi~, ~stringr~ and ~qdap~ with the ~help~
    function (or the shortcut ~?~).
-* TODO Quick taste of test mining
+* TODO Quick taste of test mining with ~qdap~
 
-1) Load ~qdap~
-   #+begin_src R
+1) Load ~qdap~ and show all loaded packages.
+   #+begin_src R :results output :session *R*
 
    #+end_src
-   
+
 2) Store this text in a vector ~text~: "DataCamp is the first online learning platform that focuses on building the best learning experience specifically for Data Science. We have offices in New York, London, and Belgium, and to date, we trained over 11 million (aspiring) data scientists in over 150 countries. These data science enthusiasts completed more than 667 million exercises. You can take free beginner courses, or subscribe for $25/month to get access to all premium courses."
-   #+begin_src R
+
+   - In Emacs, mark the start of the text with ~C-SPC~ (CTRL + SPACEBAR)
+   - Go down to the end of the text with ~C-e~ (CTRL + e)
+   - Copy the text with ~M-w~ (ALT + w)
+   - Paste the text wherever you want to with ~C-y~ (CTRL + y)
+
+   #+begin_src R :session *R*
 
    #+end_src
 
-3) Find the 10 most frequent terms and store them in ~term_count~:
-   #+begin_src 
+3) Check the data type of ~text~, and print its ~length~ and the number of
+   its characters.
+   #+begin_src R :session :results output
 
    #+end_src
 
-4) Plot the term count:
-   #+begin_src R :results graphics file :file term_count.png
+4) Find the 10 most frequent terms and store them in ~term_count~:
+   #+begin_src R :session *R* :results output
 
    #+end_src
 
-* TODO Getting the data
+5) Plot the term count:
+   #+begin_src R :results graphics file :file ./img/term_count.png :session *R*
+
+   #+end_src
+
+* TODO Getting the data (DataCamp lesson)
 
 1) Download the online CSV ("Comma Separated Values") dataset [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from
    this URL]] to your PC and name the file ~coffee.csv~.
