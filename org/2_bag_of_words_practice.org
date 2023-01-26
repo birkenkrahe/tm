@@ -6,8 +6,8 @@
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
 
-This file covers the Delta airline tweet example from the introductory
-lecture on text mining with Bag-of-Words:
+This file covers the examples from the introductory lecture on text
+mining with Bag-of-Words:
 - Getting the data
 - String manipulation
 

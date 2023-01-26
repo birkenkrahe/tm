@@ -1,5 +1,6 @@
 #+TITLE: INTRODUCTION TO TEXT MINING
 #+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023 
 #+STARTUP: overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes

@@ -37,24 +37,59 @@
 
 - Download the (raw) practice file again (changes) from GitHub
 
-* Review questions week 2
+* NEXT Review questions week 2
+#+attr_latex: :width 400px
+[[../img/review.png]]
 
-1) What is a /corpus/ in the context of text mining?
-2) Which two text mining /techniques/ did we discuss?
-3) What is a "Document Term Matrix" (DTM)
-4) What is the difference between /syntactical/ and /semantical/?
+Introduction to Bag-of-Words:
+1) [X] What is a /corpus/ in the context of text mining?
+2) [X] Which two text mining /techniques/ did we discuss?
+3) [X] What is a "Document Term Matrix" (DTM)
+4) [X] What is the difference between /syntactic/ and /semantic/?
 
-* Test 1 on Tuesday (31 Jan)
-* DataCamp lesson due next Tuesday (31 Jan)
-* Condition for repeating tests
+Practice session:
+1) [ ] How can you see which R packages are currently loaded?
+2) [ ] How to get vector type, length and no. of characters?
+3) [ ] Which plot type is suitable to visualize a TDM?
+4) [ ] What is a nominal, what is an ordinal factor vector?
+
+DataCamp lesson review:
+1) [ ] What is a /volatile corpus/?
+2) [ ] What are steps to get a volatile corpus from a vector?
+3) [ ] What's the difference to getting a corpus from a dataframe?
+4) [ ] What data structure are source and corpus stored in?
+
+* TODO Test 1 on Tuesday (31 Jan)
+#+attr_latex: :width 400px
+[[../img/mining.png]]
+
+- 10 multiple choice questions, 15 minutes time
+- test online in class from 2.30 pm to 2.50 pm
+
+* TODO [[https://lyon.instructure.com/courses/1015/assignments/5895][DataCamp lesson due next Tuesday (31 Jan)]]
 #+attr_latex: :width 400px
 #+caption: Late or missed the test? Talk to me!
 [[../img/late.jpg]]
+
+* TODO Condition for repeating tests
+#+attr_latex: :width 400px
+#+caption: Late or missed the test? Talk to me!
+[[../img/late1.jpg]]
 
 - If you inform me beforehand that you cannot attend an announced
   test, we can make arrangements for you to take the test outside of
   class.
 
+* TODO Finish first practice file and upload it
+
+- Open your practice file with Emacs in ~Downloads~:
+  #+begin_example sh
+    emacs --file  1_bag_of_words_practice.org
+  #+end_example
+- Open Canvas, find the [[https://lyon.instructure.com/courses/1015/assignments/5896][assignment]] and upload the org file
+  #+attr_latex: :width 400px
+  [[../img/canvas.png]]
+  
 * TODO How should you study for data science tests?
 #+attr_html: :width 200px
 [[../img/studying.jpg]]

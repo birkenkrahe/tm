@@ -1,6 +1,6 @@
 #+TITLE: Text mining in practice - Bag of Words
 #+AUTHOR:Marcus Birkenkrahe
-#+SUBTITLE:Introduction to R (and the Tidyverse)
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023 
 #+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
@@ -13,7 +13,7 @@
 - String manipulation functions
 
 * Two techniques
-#+attr_latex: :width 600px
+#+attr_latex: :width 400px
 #+caption: Source: 10 practical text mining examples (2022)
 [[../img/2_mess.jpg]]
 
@@ -44,15 +44,15 @@
   columns are switched.
 
 - Example: three tweets form a /corpus/ or body of text for analysis
-  #+attr_latex: :width 650px
+  #+attr_latex: :width 400px
   [[../img/2_tweets.png]]
 
 - A document term matrix (DTM) for this corpus:
-  #+attr_latex: :width 500px
+  #+attr_latex: :width 400px
   [[../img/2_dtm.png]]
 
 - The transposed DTM or transposed document matrix (TDM):
-  #+attr_latex: :width 250px
+  #+attr_latex: :width 400px
   [[../img/2_tdm.png]]
 
 - These DTM and TDM examples only show word counts. Now, without
@@ -60,7 +60,7 @@
   you can surmise that the tweets are related to R.
 
 * Syntactic parsing - simple example
-#+attr_latex: :width 500px
+#+attr_latex: :width 400px
 [[../img/2_parsing.png]]
 
 - Syntactic or semantic parsing has many more attributes assigned to a
@@ -85,7 +85,7 @@
 - Tags are captured as /meta-data/ of the original sentence.
 
 * Example: airline customer service tweets
-#+attr_latex: :width 300px
+#+attr_latex: :width 400px
 #+caption: Delta airline
 [[../img/2_delta.jpg]]
 
@@ -176,7 +176,7 @@
   #+attr_latex: :width 400px
   [[../img/2_orgmode.png]]
   
-* IN PROGRESS Setting up the text mining environment in R
+* Setting up the text mining environment in R
 
 - Many R functions and packages must be installed and loaded before
   they can be used in an R session.
@@ -216,24 +216,111 @@
   or ~?library~ for the loading function.
 
 - Popular packages also have cheat sheets revealing their complexity:
-  #+attr_latex: :width 300px
+  #+attr_latex: :width 400px
   #+caption: stringr cheat sheet at github.com/rstudio/cheatsheets
   [[../img/2_stringr.png]]
   
+* Quick taste of test mining
+
+This is a quick example to demonstrate text mining using the ~qdap~
+package that we just installed.
+
+1) Load ~qdap~ and show all loaded packages.
+   #+begin_src R :results output :session *R*
+     library(qdap)
+     search()
+   #+end_src
+
+   #+RESULTS:
+   :  [1] ".GlobalEnv"               "package:qdap"            
+   :  [3] "package:RColorBrewer"     "package:qdapTools"       
+   :  [5] "package:qdapRegex"        "package:qdapDictionaries"
+   :  [7] "ESSR"                     "package:stats"           
+   :  [9] "package:graphics"         "package:grDevices"       
+   : [11] "package:utils"            "package:datasets"        
+   : [13] "package:methods"          "Autoloads"               
+   : [15] "package:base"
+
+2) Store this text in a vector ~text~: "DataCamp is the first online learning platform that focuses on building the best learning experience specifically for Data Science. We have offices in New York, London, and Belgium, and to date, we trained over 11 million (aspiring) data scientists in over 150 countries. These data science enthusiasts completed more than 667 million exercises. You can take free beginner courses, or subscribe for $25/month to get access to all premium courses."
+
+   - In Emacs, mark the start of the text with ~C-SPC~ (CTRL + SPACEBAR)
+   - Go down to the end of the text with ~C-e~ (CTRL + e)
+   - Copy the text with ~M-w~ (ALT + w)
+   - Paste the text wherever you want to with ~C-y~ (CTRL + y)
+
+   #+begin_src R :session *R*
+     text <- "DataCamp is the first online learning platform that focuses on building the best learning experience specifically for Data Science. We have offices in New York, London, and Belgium, and to date, we trained over 11 million (aspiring) data scientists in over 150 countries. These data science enthusiasts completed more than 667 million exercises. You can take free beginner courses, or subscribe for $25/month to get access to all premium courses."
+     text
+   #+end_src
+
+   #+RESULTS:
+   : [1] "DataCamp is the first online learning platform that focuses on building the best learning experience specifically for Data Science. We have offices in New York, London, and Belgium, and to date, we trained over 11 million (aspiring) data scientists in over 150 countries. These data science enthusiasts completed more than 667 million exercises. You can take free beginner courses, or subscribe for $25/month to get access to all premium courses."
+
+3) Check the data type of ~text~, and print its ~length~ and the number of
+   its characters.
+   #+begin_src R :session :results output
+     class(text)
+     length(text)
+     nchar(text)
+   #+end_src
+
+   #+RESULTS:
+   : [1] "character"
+   : [1] 1
+   : [1] 446
+
+4) Find the 10 most frequent terms and store them in ~term_count~:
+   #+begin_src R :session *R* :results output
+     term_count <- freq_terms(text, 10)
+     term_count
+   #+end_src
+
+   #+RESULTS:
+   #+begin_example
+      WORD     FREQ
+   1  data        3
+   2  to          3
+   3  and         2
+   4  courses     2
+   5  for         2
+   6  in          2
+   7  learning    2
+   8  million     2
+   9  over        2
+   10 science     2
+   11 the         2
+   12 we          2
+   #+end_example
+
+5) If you compare with what we said above, you can see that this table
+   is a transposed document matrix (TDM) with one feature (word
+   frequency ~FREQ~).
+
+6) Plot the term count:
+   #+begin_src R :results graphics file :file ../img/term_count.png :session *R*
+     plot(term_count)
+   #+end_src
+
+   #+RESULTS:
+   [[file:../img/term_count.png]]
+
 * Getting the data
 
 - Beginning with this section, you'll practice using your own literate
   programs: download the online CSV ("Comma Separated Values") dataset
   [[https://assets.datacamp.com/production/repositories/19/datasets/27a2a8587eff17add54f4ba288e770e235ea3325/coffee.csv][from this URL]] to your PC and name the file ~coffee.csv~.
 
+  #+attr_latex: :width 400px
+  #+caption: Top of the CSV file coffee.csvx
+  [[../img/2_coffee_tweets.png]]
+
 - We'll load the CSV data into R as a data frame - a table whose rows
   correspond to the individual tweets, and whose columns correspond to
   the features of each tweet.
   #+begin_src R :results silent
-    coffee_tweets.df <- read.csv(
-      file = "../data/coffee.csv")
+    coffee_tweets.df <- read.csv(file = "../data/coffee.csv")
   #+end_src
-
+  
 - In the DataCamp lesson, you read that ~read.csv~ "treats ~character~
   strings as factor ~levels~" by default. This is *not true*. Check the
   ~help~ for ~read.csv~
@@ -295,7 +382,7 @@
   : [1] bad   bad   worst good 
   : Levels: worst < bad < good
 
-* First look at the data 
+* NEXT First look at the data 
 
 - To look at the object, you could type its name - not wise because
   you don't know yet if it has 1 million lines. Instead, use ~str~ to
@@ -333,7 +420,7 @@
   ~logical~, ~numeric~ (non-integer).
 
 - Store the tweets (~text~ column) in a vector ~coffee_tweets~ and view
-  first 5 tweets:
+  first 5 tweets - you can use the ~$~ operator for that:
   #+begin_src R
     coffee_tweets <- coffee_tweets.df$text
     head(coffee_tweets, n=5)
@@ -376,6 +463,9 @@
 | ~<-~, ~->~            | R assignment operator                          |
 | ~$~                 | Operator to extract vectors from dataframe     |
 | ~head~              | Display first few lines of an R object         |
+| ~stringi~           | String manipulation package                    |
+| ~stringr~           | "Tidyverse" wrapper for ~stringi~                |
+| ~qdap~              | Analysis package for qualitative (text) data   |
 
 * Footnotes
 
@@ -390,3 +480,5 @@ have fun in class!
 [fn:2]On Linux (or Windows WSL), run ~update.packages()~ before to
 update all dependencies - since here, source code is compiled and
 linked.
+
+
