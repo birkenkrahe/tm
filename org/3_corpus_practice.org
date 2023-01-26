@@ -106,18 +106,13 @@ Text mining with Bag-of-Words.
 
 - Find the current working directory for your R session with ~getwd~:
   #+begin_src R
- 
+
   #+end_src
 
-- This should be the same directory that this file is currently in:
-  #+begin_src R
- 
+- This should be the same directory that this buffer is currently in:
+  #+begin_src emacs-lisp 
+
   #+end_src  
-
-- You can check that without reading the output of the commands:
-  #+begin_src R
-
-  #+end_src
   
 * TODO Making a ~VectorSource~ from ~tweets~
 

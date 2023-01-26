@@ -145,12 +145,12 @@
     str(tweets)
   #+end_src
 
-  - Be mindful that this only works if the computer can find the file:
-    in my code example, I stored it in the ~data~ directory, which is at
-    the same level as the directory this Org-mode file is in, ~org~:
-    #+attr_latex: :width 400px
-    #+caption: Directories tm and tm/data with coffee.csv
-    [[../img/3_dired.png]]
+- Be mindful that this only works if the computer can find the file:
+  in my code example, I stored it in the ~data~ directory, which is at
+  the same level as the directory this Org-mode file is in, ~org~:
+  #+attr_latex: :width 400px
+  #+caption: Directories tm and tm/data with coffee.csv
+  [[../img/3_dired.png]]
 
 - This Org-mode file ~3_corpus.org~ expects to find the R console in the
   buffer ~*R*~. If the current working directory, which you can get with
@@ -164,18 +164,10 @@
     getwd()
   #+end_src
 
-- This should be the same directory that this file is currently in:
-  #+begin_src R
-    shell("cd",intern=TRUE)
+- This should be the same directory that this buffer is currently in:
+  #+begin_src emacs-lisp 
+    (symbol-value 'default-directory)
   #+end_src  
-  
-- You can check that without reading the output of the commands:
-  #+begin_src R
-    identical(getwd(), # current R working directory
-              gsub("\\\\", # find \\ and replace it by 
-                   "/",    # /
-                   shell("cd",intern=TRUE))) # where you are
-  #+end_src
 
 * TODO Making a ~VectorSource~ from ~tweets~
 
