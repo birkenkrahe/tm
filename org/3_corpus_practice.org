@@ -114,6 +114,11 @@ Text mining with Bag-of-Words.
  
   #+end_src  
 
+- You can check that without reading the output of the commands:
+  #+begin_src R
+
+  #+end_src
+  
 * TODO Making a ~VectorSource~ from ~tweets~
 
 - Extract the ~text~ vector from ~tweets~ and put it into
