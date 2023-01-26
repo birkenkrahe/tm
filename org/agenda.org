@@ -1,4 +1,4 @@
-#+TITLE: Agenda - Digital Humanities (CSC 105) 
+#+TITLE: Agenda - Digital Humanities (CSC 105)
 #+AUTHOR: Marcus Birkenkrahe
 #+SUBTITLE: Lyon College, Spring 2023
 #+STARTUP:overview hideblocks indent
@@ -13,7 +13,7 @@
 - [ ] DataCamp assignment "Jumping into Text Mining with Bag-of-Words"
 - [ ] Introduction to R programming for the assignment
 
-* Week 2 - Text mining in practice & example  
+* Week 2 - Text mining in practice & example
 #+attr_html: :width 400px
 [[../img/2_mess.jpg]]
 
@@ -68,8 +68,12 @@ DataCamp lesson review:
 
 * TODO [[https://lyon.instructure.com/courses/1015/assignments/5895][DataCamp lesson due next Tuesday (31 Jan)]]
 #+attr_latex: :width 400px
-#+caption: Late or missed the test? Talk to me!
+#+caption: Time for the next DataCamp assignment may be running out
 [[../img/late.jpg]]
+
+- You only have to complete the first third of the lesson
+- Send me a screenshot for proof
+- See [[https://lyon.instructure.com/courses/1015/discussion_topics/2088][Canvas announcement]]
 
 * TODO Condition for repeating tests
 #+attr_latex: :width 400px
@@ -93,56 +97,13 @@ DataCamp lesson review:
 
 - Download the next practice file [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/3_corpus_practice.org][from GitHub]], save it as
   ~3_corpus_practice.org~ and open it in Emacs during the lecture.
-  
+
 * TODO How should you study for data science tests?
-#+attr_html: :width 200px
+#+attr_html: :width 400px
 [[../img/studying.jpg]]
 
 - If you were successful in the test: what did you do?
 - If not: what do you think you should have done?
-
-* TODO Project - first sprint review (Tuesday, Feb 7)
-#+attr_html: :width 400px
-[[../img/sprint.png]]
-
-- The term project purpose is down to you - or you can approach me for
-  an idea (but please do that sooner than later)!
-
-- There are many different ways to present a paper or a slide pack:
-  e.g. succinct, verbose, opinionated, objective, accessible or not.
-
-- Your first deliverable is a *project proposal* formatted as an
-  Org-mode file. Here is a template for such a file with definitions.
-
-  1) Meta data: preliminary title (~#+TITLE~), list of team members
-     (~#+AUTHOR:~), course title (~#+SUBTITLE~).
-
-  2) Headlines: ~Problem~, ~Reason~, ~Constraints~, ~Goals and Non-goals~,
-     ~Metrics~, ~References~
-
-     - *Problem*: describe the problem that you're trying to solve.
-
-     - *Reason*: why is this problem interesting (to you) right now?
-
-     - *Constraints:* which difficulties, e.g. technical or conceptual,
-       do you foresee right now?
-
-     - *Goals and non-goals*: list all goals that you might want to
-       achieve with this project. Order the goals by importance. Add a
-       list of non-goals, i.e. things that are outside the scope of
-       your project.
-
-     - *Metrics*: how would you measure the success of your project?
-
-     - *References*: list any references that you found already. Make
-       sure that they are consistent (same format) and complete
-       (author, date, title, place).
-
-- Upload your result to Canvas (*no later than Feb 7, 12 pm*). Missing
-  the deadline will cost you points.
-
-Source: Ellis, Data Science Project Proposals (2021). URL:
-[[https://crunchingthedata.com/data-science-project-proposals/][crunchingthedata.com]].
 
 * Footnotes
 
@@ -153,7 +114,7 @@ understanding, local knowledge and tabulated results.
 whose rows are records or observations, and whose columns are feature
 vectors or attributes. A vector of length N can also be printed as a
 rectangular structure of dimension N x 1 (N rows, 1 column):
-#+begin_src R 
+#+begin_src R
   vec <- c("jim", "joe", "jan", "bud")
   vec
   matrix(vec)
@@ -162,14 +123,13 @@ rectangular structure of dimension N x 1 (N rows, 1 column):
 
 #+RESULTS:
 : [1] "jim" "joe" "jan" "bud"
-:      [,1] 
+:      [,1]
 : [1,] "jim"
 : [2,] "joe"
 : [3,] "jan"
 : [4,] "bud"
-:      [,1]  [,2]  [,3]  [,4] 
+:      [,1]  [,2]  [,3]  [,4]
 : [1,] "jim" "joe" "jan" "bud"
 
 [fn:1] Proposal, literature review, presentation or essay, IMRaD
 (Introduction, Method, Results and Discussion) structure.
-

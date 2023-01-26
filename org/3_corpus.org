@@ -165,9 +165,15 @@
   #+end_src
 
 - This should be the same directory that this buffer is currently in:
+  #+name: default_directory
   #+begin_src emacs-lisp 
     (symbol-value 'default-directory)
   #+end_src  
+
+- Reset the current working directory with ~setwd~, e.g. to ~Downloads~:
+  #+begin_example R
+    setwd("~/Downloads")
+  #+end_example
 
 * TODO Making a ~VectorSource~ from ~tweets~
 
