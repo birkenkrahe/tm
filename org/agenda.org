@@ -86,9 +86,13 @@ DataCamp lesson review:
   #+begin_example sh
     emacs --file  1_bag_of_words_practice.org
   #+end_example
+
 - Open Canvas, find the [[https://lyon.instructure.com/courses/1015/assignments/5896][assignment]] and upload the org file
   #+attr_latex: :width 400px
   [[../img/canvas.png]]
+
+- Download the next practice file [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/3_corpus_practice.org][from GitHub]], save it as
+  ~3_corpus_practice.org~ and open it in Emacs during the lecture.
   
 * TODO How should you study for data science tests?
 #+attr_html: :width 200px
