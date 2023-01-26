@@ -212,105 +212,27 @@ Text mining with Bag-of-Words.
  
   #+end_src
   
-- Let's construct an example dataframe with some metadata to
-  illustrate the use of ~meta~. This is the table we wish to construct -
-  it already fulfils the conditions to build a source from a
-  dataframe:
-  #+attr_latex: :width 400px
-  [[../img/3_example.png]]
-
-- We use the ~data.frame~ function to build this table from scratch:
+- [[https://github.com/birkenkrahe/tm/blob/main/img/3_example.png][This is the table we wish to construct.]] It already fulfils the
+  conditions to build a source from a dataframe.
+  
+- Use the ~data.frame~ function to build this table from scratch:
   #+begin_src R
-    example <-
-      data.frame( "doc_id"=c(1,2,3),
-                 "text"=c("Text mining is a great time.",
-                          "Text analysis provides insights",
-                          "qdap and tm are used in text mining"),
-                 "author"=c("Author1","Author2","Author3"),
-                 "date"=c("1514953399","1514866998","1514780598"))
-    example
+ 
   #+end_src
-
-  #+RESULTS:
-  :   doc_id                                text  author       date
-  : 1      1        Text mining is a great time. Author1 1514953399
-  : 2      2     Text analysis provides insights Author2 1514866998
-  : 3      3 qdap and tm are used in text mining Author3 1514780598
 
 - Success! Now the usual steps to build our corpus:
   1) build source ~list~ with ~DataframeSource~
   2) build volatile corpus ~list~ with ~VCorpus~
   #+begin_src R
-    example_source <- DataframeSource(example)
-    example_corpus <- VCorpus(example_source)
-    example_corpus
+ 
   #+end_src
-
-  #+RESULTS:
-  : <<VCorpus>>
-  : Metadata:  corpus specific: 0, document level (indexed): 2
-  : Content:  documents: 3
 
 - Inspect the corpus with ~inspect~:
   #+begin_src R
-   inspect(example_corpus)
+ 
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  <<VCorpus>>
-  Metadata:  corpus specific: 0, document level (indexed): 2
-  Content:  documents: 3
-
-  [[1]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 28
-
-  [[2]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 31
-
-  [[3]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 35
-  #+end_example
 
 - Finally, extraction of the metadata with ~meta~:
   #+begin_src R
-    meta(example_corpus)
+ 
   #+end_src
-
-  #+RESULTS:
-  :    author       date
-  : 1 Author1 1514953399
-  : 2 Author2 1514866998
-  : 3 Author3 1514780598
-
-* TODO TM Glossary - concepts and code
-
-| TERM                | MEANING                                   |
-|---------------------+-------------------------------------------|
-| ~tm~                  | Text mining package                       |
-| ~[[~                  | List element index                        |
-| ~[~                   | Vector element index                      |
-| ~List[[2]][5]~        | Extracts 5th value of 2nd element of ~List~ |
-| ~x[-n]~               | Removes nth element of vector ~x~           |
-| Vignette            | Documentation for an R package (paper)    |
-| ~getwd()~             | Get current R working directory           |
-| ~shell~               | Access Windows OS shell                   |
-| ~ls()~                | List all objects in current session       |
-| ~ls('package:tm')~    | List all objects in package ~tm~            |
-| ~tm::VectorSource~    | Build source ~list~ from vector             |
-| ~tm::VCorpus~         | Build corpus ~list~ from source             |
-| ~tm::DataframeSource~ | BUild source ~list~ from dataframe          |
-| ~data.frame~          | Create data frame                         |
-| ~typeof~              | Return R data type or data structure      |
-| ~tm::inspect~         | Get information about each corpus element |
-| ~tm::meta~            | Extract metadata from corpus              |
-| ~tm::content~         | Extract ~content~ element from corpus ~list~  |
-
-
-
