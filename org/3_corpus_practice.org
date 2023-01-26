@@ -41,7 +41,7 @@ Text mining with Bag-of-Words.
  
   #+end_src
 
- - How can you extract the stored date?
+- How can you extract the stored date?
   #+begin_src R
  
   #+end_src
