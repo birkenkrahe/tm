@@ -114,20 +114,25 @@ DataCamp lesson review:
 #+attr_latex: :width 400px
 [[../img/icestorm.jpg]]
 
- 
 * Week 5 - Bag of words II
-#+attr_latex: :width 400px
+#+attr_latex: :width 300px
 [[../img/bagofwords.jpeg]]
 
-- [ ] Review DataCamp lesson (40% completed) - what went wrong?
-- [ ] Next DataCamp lesson "Cleaning and preprocessing text" (Feb-16)
-- [ ] This week: back to "Bag-of-Words" (lecture + practice)
-- [ ] Install the ~tm~ package using R on your command line:
+- [X] Review DataCamp lesson ([[https://app.datacamp.com/groups/lyon-college-data-science-spring-2023/assignments/past-due][40% completed]]) - what went wrong?
+- [X] Practice file upload to Canvas - ([[https://lyon.instructure.com/courses/1015/assignments/5896][40% completed]]) - why?
+- [X] Test 1 end of the week - complete at your leisure by Tue-14-Feb
+- [X] Next DataCamp lesson [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/jumping-into-text-mining-with-bag-of-words?ex=10]["Cleaning and preprocessing text"]] (Feb-16)
+- [X] Back to [[https://github.com/birkenkrahe/tm/blob/main/org/3_corpus.org]["Bag-of-Words"]] (lecture + practice) - corpus creation
+- [X] Install the ~tm~ package using R on your command line:
   #+begin_example
   c:/User/you> R
   R> install.packages(tm)
   #+end_example
-  
+
+/Tip:/ test questions will be sourced from the review questions ([[https://lyon.instructure.com/courses/1015/external_tools/173][zoom]])
+#+attr_latex: :width 300px
+[[../img/zoom.png]]
+
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse
@@ -156,3 +161,4 @@ rectangular structure of dimension N x 1 (N rows, 1 column):
 
 [fn:1] Proposal, literature review, presentation or essay, IMRaD
 (Introduction, Method, Results and Discussion) structure.
+

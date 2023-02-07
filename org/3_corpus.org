@@ -77,7 +77,6 @@
   #+begin_src R
     ls("package:tm")
   #+end_src
-
 - Texts are processed at different levels:
   1) Strings like "Hello world"
   2) Documents like a text of many strings stored as vector, dataframe
