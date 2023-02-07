@@ -62,7 +62,7 @@ DataCamp lesson review:
 3) [X] What's the difference to getting a corpus from a dataframe?
 4) [X] What data structure are source and corpus stored in?
 
-** Test 1 on Thursday, February 2nd
+** Test 1 on Thursday, February 9th
 #+attr_latex: :width 400px
 [[../img/mining.png]]
 
@@ -70,7 +70,6 @@ DataCamp lesson review:
 - test online in class between 2.30 pm and 2.50 pm
 - followed by a quick test review
 - the test will be opened for unlimited attempts afterwards
-
 
 ** [[https://lyon.instructure.com/courses/1015/assignments/5895][DataCamp lesson due next Thursday (2 Feb)]]
 #+attr_latex: :width 400px
@@ -111,9 +110,19 @@ DataCamp lesson review:
 - If you were successful in the test: what did you do?
 - If not: what do you think you should have done?
 
-* Week 4 - Bag of words II
+* Week 4 - Icestorm
+#+attr_latex: :width 400px
+[[../img/icestorm.jpg]]
 
-- Install the ~tm~ package using R on your command line:
+ 
+* Week 5 - Bag of words II
+#+attr_latex: :width 400px
+[[../img/bagofwords.jpeg]]
+
+- [ ] Review DataCamp lesson (40% completed) - what went wrong?
+- [ ] Next DataCamp lesson "Cleaning and preprocessing text" (Feb-16)
+- [ ] This week: back to "Bag-of-Words" (lecture + practice)
+- [ ] Install the ~tm~ package using R on your command line:
   #+begin_example
   c:/User/you> R
   R> install.packages(tm)

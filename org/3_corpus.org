@@ -1,6 +1,6 @@
 #+TITLE: Text mining in practice - Bag of Words - corpus creation
 #+AUTHOR: Marcus Birkenkrahe
-#+SUBTITLE: Digital Humanities DSC 105 Spring 2023 
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
 #+STARTUP:overview hideblocks indent
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
@@ -14,53 +14,53 @@
 
 * TODO Indexing list structures
 
-      - A good way to repeat the ~list~ structure is this (very short) lesson
-        of the "[[https://campus.datacamp.com/courses/free-introduction-to-r/chapter-6-lists?ex=1][Introduction to R]]" DataCamp course.
+- A good way to repeat the ~list~ structure is this (very short) lesson
+  of the "[[https://campus.datacamp.com/courses/free-introduction-to-r/chapter-6-lists?ex=1][Introduction to R]]" DataCamp course.
 
-      - Lists can contain any other R object (called /elements/): matrices,
-        vectors, data frames, or other lists.
+- Lists can contain any other R object (called /elements/): matrices,
+  vectors, data frames, or other lists.
 
-      - A list element is addressed (indexed) with the ~[[ ]]~ operator, while
-        values of the list element are addressed with the ~[ ]~ operator as
-        usual.
+- A list element is addressed (indexed) with the ~[[ ]]~ operator, while
+  values of the list element are addressed with the ~[ ]~ operator as
+  usual.
 
-      - Example: let's create a list ~LIST~ of the following elements
-        1) a 2 x 2 ~matrix~ ~m~ with four ~integer~ numbers
-        2) a ~character~ vector ~foo~ that contains your first names
-        3) a vector ~bar~ with today's date
-        4) a ~numeric~ vector ~baz~ of the number of characters of ~bar~
-        #+begin_src R
-          m <- matrix(data=1:4,nrow=2)
-          foo <- c("Marcus", "Martin", "Bernhard", "Wolfgang", "Heinrich")
-          bar <- date()
-          baz <- nchar(bar)  
-          LIST <- list(m,"name"=foo,"date"=bar,baz)
-          LIST
-        #+end_src
+- Example: let's create a list ~LIST~ of the following elements
+  1) a 2 x 2 ~matrix~ ~m~ with four ~integer~ numbers
+  2) a ~character~ vector ~foo~ that contains your first names
+  3) a vector ~bar~ with today's date
+  4) a ~numeric~ vector ~baz~ of the number of characters of ~bar~
+  #+begin_src R
+    m <- matrix(data=1:4,nrow=2)
+    foo <- c("Marcus", "Martin", "Bernhard", "Wolfgang", "Heinrich")
+    bar <- date()
+    baz <- nchar(bar)
+    LIST <- list(m,"name"=foo,"date"=bar,baz)
+    LIST
+  #+end_src
 
-      - Printing the list shows four elements - two of them are named, two
-        are unnamed. The structure shows this, too:
-        #+begin_src R
-          str(LIST)
-        #+end_src
+- Printing the list shows four elements - two of them are named, two
+  are unnamed. The structure shows this, too:
+  #+begin_src R
+    str(LIST)
+  #+end_src
 
-      - When extracting elements or values within elements, you can use
-        names if they exist.
+- When extracting elements or values within elements, you can use
+  names if they exist.
 
-      - How can you extract the stored date?
-        #+begin_src R
-          LIST[[3]] # using the element index
-          LIST[[3]][1] # pointing at the first value of the 3rd element
-          LIST$date # this works because the element is named
-          LIST$date[1] # pointing at the first value of the 'date' element
-        #+end_src
+- How can you extract the stored date?
+  #+begin_src R
+    LIST[[3]] # using the element index
+    LIST[[3]][1] # pointing at the first value of the 3rd element
+    LIST$date # this works because the element is named
+    LIST$date[1] # pointing at the first value of the 'date' element
+  #+end_src
 
-      - How can you extract the 2nd of the first names, "Martin"?
-        #+begin_src R
-          LIST[[2]][2]
-          LIST$name[2]
-          LIST[[2]][-c(1,3,4,5)] # remove all the other names
-        #+end_src
+- How can you extract the 2nd of the first names, "Martin"?
+  #+begin_src R
+    LIST[[2]][2]
+    LIST$name[2]
+    LIST[[2]][-c(1,3,4,5)] # remove all the other names
+  #+end_src
 
 * TODO The ~tm~ text mining package
 
@@ -83,7 +83,7 @@
   2) Documents like a text of many strings stored as vector, dataframe
   3) Corpora as collections of documents
 
-- We'll get back to this paper when we learn to clean text data     
+- We'll get back to this paper when we learn to clean text data
 
 - Use ~VectorSource~ to create a /source/ from a /character/ vector:
   #+begin_src R
@@ -104,7 +104,7 @@
   #+end_src
 
 - To turn the ~VectorSource~ into a volatile (in-memory) corpus, use
-  ~VCorpus~ (also a ~list~): 
+  ~VCorpus~ (also a ~list~):
   #+begin_src R
     doc_corpus <- VCorpus(VectorSource(doc))
     doc_corpus
@@ -115,7 +115,7 @@
   i.e. the two strings. A corpus can have thousands of documents.
 
 - You can inspect the corpus with ~inspect~. This provides information
-  about each of the documents - 
+  about each of the documents -
   #+begin_src R
     inspect(doc_corpus)
   #+end_src
@@ -166,9 +166,9 @@
 
 - This should be the same directory that this buffer is currently in:
   #+name: default_directory
-  #+begin_src emacs-lisp 
+  #+begin_src emacs-lisp
     (symbol-value 'default-directory)
-  #+end_src  
+  #+end_src
 
 - Reset the current working directory with ~setwd~, e.g. to ~Downloads~:
   #+begin_example R
@@ -191,7 +191,7 @@
   #+begin_src R
     library(tm)
     coffee_source <- VectorSource(coffee_tweets)
-    str(coffee_source)   
+    str(coffee_source)
   #+end_src
 
 - We recognize the familiar list elements from the general explanation
@@ -208,19 +208,19 @@
     coffee_source[[999]] # list element only
     coffee_source[999]  # index only
   #+end_src
-  
+
 * TODO Making a ~VCorpus~ from a vector of tweets
 
 - Use ~VCorpus~, to create a corpus ~coffee_corpus~ from ~coffee_source~,
   then print ~coffee_corpus~:
   #+begin_src R
     coffee_corpus <- VCorpus(coffee_source)
-    coffee_corpus   
+    coffee_corpus
   #+end_src
 
 - The corpus is a /container/, hence the content is not printed, only
   indicated.
-   
+
 * TODO Accessing the corpus list with index or ~content~
 
 - Look at its structure to see how to get to the content - but not the
@@ -232,7 +232,7 @@
 
 - Inspect the data - select the 15th tweet from the corpus:
   #+begin_src R
-   inspect(coffee_corpus[[15]])
+    inspect(coffee_corpus[[15]])
   #+end_src
 
 - To extract the content of the 15th tweet in this volatile corpus,
@@ -242,14 +242,14 @@
     coffee_corpus[[15]]["content"] # select by index and name
     coffee_corpus[[15]]$content # select by name
     content(coffee_corpus[[15]]) # select with content function
-  #+end_src   
+  #+end_src
 
 - How many characters does the 15th tweet have? (You already know this
   value from the ~inspect~ above):
   #+begin_src R
     nchar(coffee_corpus[[15]]$content)
   #+end_src
- 
+
 * TODO Making a ~DataframeSource~ from tweets
 
 - Often, larger amounts of data are in dataframes (i.e. tables of
@@ -270,7 +270,7 @@
   1. Column 1 must be called ~doc_id~ with a unique string for each row.
   2. Column 2 must be called ~text~ with standard ~"UTF-8"~ encoding.
   3. Columns 3+ are metadata and will be retained as such
-  
+
 - ~coffee_tweets.df~ does *not* fulfil these conditions - the first column
   is called ~coffee_tweets~. But we can reformat it:
   1) add a column 1 that is called ~doc_id~ and contains a record ID
@@ -287,7 +287,7 @@
     df_source <- DataframeSource(df)
     str(df_source)
   #+end_src
- 
+
 - The source looks similar to the output of ~VectorSource~, of course,
   except that the content is a 1000 x 2 table, not a 1000 element
   vector.
@@ -345,7 +345,7 @@
 
 - Inspect the corpus with ~inspect~:
   #+begin_src R
-   inspect(example_corpus)
+    inspect(example_corpus)
   #+end_src
 
 - Finally, extraction of the metadata with ~meta~:
@@ -373,6 +373,3 @@
 | ~tm::inspect~         | Get information about each corpus element  |
 | ~tm::meta~            | Extract metadata from corpus               |
 | ~tm::content~         | Extract ~content~ element from corpus ~list~ |
-
-
-

@@ -117,7 +117,7 @@
    3. Analyze the agents' signature as a time series ~ts~ to find out
       how many people should be on a team.
 
-* Get the practice file
+* VERIFY Get the practice file
 
 - To practice, we use Emacs Org-mode files. Save the practice file for
   this lecture from [[https://tinyurl.com/4f56t7uz][tinyurl.com/4f56t7uz]] to the ~Downloads~ directory on

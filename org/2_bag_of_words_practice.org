@@ -120,7 +120,7 @@ bottom of the dashboard page ([[https://app.datacamp.com/learn/courses/text-mini
 
 1) Define a vector, ~x~ with 4 string values, "good", "good", "bad",
    "worst".
-     #+begin_src R
+   #+begin_src R
 
    #+end_src
 
