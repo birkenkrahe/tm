@@ -1,7 +1,7 @@
 #+TITLE: Agenda - Digital Humanities (CSC 105)
 #+AUTHOR: Marcus Birkenkrahe
 #+SUBTITLE: Lyon College, Spring 2023
-#+STARTUP:overview hideblocks indent
+#+STARTUP:overview hideblocks indent inlineimages
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * Week 1 - Course overview & text mining overview
@@ -35,9 +35,12 @@
 #+attr_latex: :width 400px
 [[../img/bagofwords.png]]
 
-- Download the (raw) practice file again (changes) from GitHub
-
-* NEXT Review questions week 2
+- [X] Download the (raw) practice file again (changes) from GitHub
+- [X] Finish the practice file and upload it to Canvas
+- [X] Answer review questions
+- [X] DataCamp lesson reduced
+- [X] How to study for the test
+** Review questions week 2
 #+attr_latex: :width 400px
 [[../img/review.png]]
 
@@ -48,25 +51,28 @@ Introduction to Bag-of-Words:
 4) [X] What is the difference between /syntactic/ and /semantic/?
 
 Practice session:
-1) [ ] How can you see which R packages are currently loaded?
-2) [ ] How to get vector type, length and no. of characters?
-3) [ ] Which plot type is suitable to visualize a TDM?
-4) [ ] What is a nominal, what is an ordinal factor vector?
+1) [X] How can you see which R packages are currently loaded?
+2) [X] How to get vector type, length and no. of characters?
+3) [X] Which plot type is suitable to visualize a TDM?
+4) [X] What is a nominal, what is an ordinal factor vector?
 
 DataCamp lesson review:
-1) [ ] What is a /volatile corpus/?
-2) [ ] What are steps to get a volatile corpus from a vector?
-3) [ ] What's the difference to getting a corpus from a dataframe?
-4) [ ] What data structure are source and corpus stored in?
+1) [X] What is a /volatile corpus/?
+2) [X] What are the steps to get a volatile corpus from a vector?
+3) [X] What's the difference to getting a corpus from a dataframe?
+4) [X] What data structure are source and corpus stored in?
 
-* TODO Test 1 on Tuesday (31 Jan)
+** Test 1 on Thursday, February 2nd
 #+attr_latex: :width 400px
 [[../img/mining.png]]
 
-- 10 multiple choice questions, 15 minutes time
-- test online in class from 2.30 pm to 2.50 pm
+- 10-15 multiple choice questions, 15-20 minutes time
+- test online in class between 2.30 pm and 2.50 pm
+- followed by a quick test review
+- the test will be opened for unlimited attempts afterwards
 
-* TODO [[https://lyon.instructure.com/courses/1015/assignments/5895][DataCamp lesson due next Tuesday (31 Jan)]]
+
+** [[https://lyon.instructure.com/courses/1015/assignments/5895][DataCamp lesson due next Thursday (2 Feb)]]
 #+attr_latex: :width 400px
 #+caption: Time for the next DataCamp assignment may be running out
 [[../img/late.jpg]]
@@ -75,7 +81,7 @@ DataCamp lesson review:
 - Send me a screenshot for proof
 - See [[https://lyon.instructure.com/courses/1015/discussion_topics/2088][Canvas announcement]]
 
-* TODO Condition for repeating tests
+** Condition for repeating tests
 #+attr_latex: :width 400px
 #+caption: Late or missed the test? Talk to me!
 [[../img/late1.jpg]]
@@ -84,7 +90,7 @@ DataCamp lesson review:
   test, we can make arrangements for you to take the test outside of
   class.
 
-* TODO Finish first practice file and upload it
+** Finish first practice file and upload it
 
 - Open your practice file with Emacs in ~Downloads~:
   #+begin_example sh
@@ -98,13 +104,21 @@ DataCamp lesson review:
 - Download the next practice file [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/3_corpus_practice.org][from GitHub]], save it as
   ~3_corpus_practice.org~ and open it in Emacs during the lecture.
 
-* TODO How should you study for data science tests?
+** How should you study for data science tests?
 #+attr_html: :width 400px
 [[../img/studying.jpg]]
 
 - If you were successful in the test: what did you do?
 - If not: what do you think you should have done?
 
+* Week 4 - Bag of words II
+
+- Install the ~tm~ package using R on your command line:
+  #+begin_example
+  c:/User/you> R
+  R> install.packages(tm)
+  #+end_example
+  
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse
