@@ -146,7 +146,7 @@ DataCamp lesson review:
 - This option ends on May 3rd (last day of spring term)
 - You can get this bonus only in one of my courses (if you attend > 1)
 #+attr_latex: :width 400p
-[[../img/datacamp1.png]]
+[[../img/datacamp3.png]]
 
 * NEW GNU Treats: ~speed-type~, ~treemacs~ and ~gtypist~
 
