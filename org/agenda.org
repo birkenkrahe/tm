@@ -31,7 +31,7 @@
 - [X] What are "structured data" in the context of text mining?[fn:2]
 - [X] What does assessment bias refer to ("wisdom of crowds")[fn:3]
 
-* Week 3 - Bag of words I
+* Week 3 - Bag of words I - introduction
 #+attr_latex: :width 400px
 [[../img/bagofwords.png]]
 
@@ -114,7 +114,7 @@ DataCamp lesson review:
 #+attr_latex: :width 400px
 [[../img/icestorm.jpg]]
 
-* Week 5 - Bag of words II
+* Week 5 - Bag of words II - corpus creation
 #+attr_latex: :width 300px
 [[../img/bagofwords.jpeg]]
 
@@ -133,7 +133,7 @@ DataCamp lesson review:
 #+attr_latex: :width 300px
 [[../img/zoom.png]]
 
-* NEW Get bonus points when practicing
+** Get bonus points when practicing
 #+attr_latex: :width 200px
 [[../img/datacamp2.png]]
 - You can get 10 bonus points if you keep a practice streak of 10 days
@@ -148,7 +148,7 @@ DataCamp lesson review:
 #+attr_latex: :width 400p
 [[../img/datacamp3.png]]
 
-* NEW GNU Treats: ~speed-type~, ~treemacs~ and ~gtypist~
+** GNU Treats: ~speed-type~, ~treemacs~ and ~gtypist~
 
 - An attractive alternative to ~Dired~ is the ~treemacs~ package. It
   looks like this on my PC (and also works for the terminal Emacs):
@@ -165,6 +165,62 @@ DataCamp lesson review:
   package-list-packages~, then find the package in the list and install
   with ~i~ and ~x~. [[https://github.com/dakra/speed-type][More information on GitHub.]]
     
+* Week 6 - Bag of words III - text cleaning
+* DataCamp: all assignments & test 2 are live now
+#+attr_latex: :width 400px
+[[../img/canvas1.png]]
+
+- Test 2 deadline: Friday, Feb 17 at 11:59 pm - open book!
+- Don't leave the DataCamp assignments to the very end!
+- Questions we have yet to review come from the last lecture:
+
+  1) [ ] counting characters, e.g. for "ChatGPT is an OpenAI bot"
+     #+begin_src R
+       
+     #+end_src
+  2) [ ] data in a ~factor~ vector - example: make a factor vector with
+     the levels "up" and "down" and with elements
+     ~{"up","up","down","up"}~
+     #+begin_src R
+       
+     #+end_src
+  3) [ ] Which functions show you the data of a dataframe,
+     e.g. ~mtcars~?
+     #+begin_src R
+
+     #+end_src
+  4) [ ] Which functions show you the data of a text corpus?
+     E.g. the 999th element of ~coffee_corpus~:
+     #+begin_src R
+       library(tm)
+       coffee_df <- read.csv("~/Downloads/coffee.csv") # dataframe
+       coffee_vec <- coffee.df$text # vector
+       coffee_src <- VectorSource(coffee.vec) # source
+       coffee_corpus <- VCorpus(coffee_src) # corpus
+       content(coffee_corpus[[999]]) # content as string only
+       inspect(coffee_corpus[[999]]) # content with header
+       meta(coffee_corpus[[999]]) # meta data only
+     #+end_src
+  5) [ ] Extract the 2nd tweet of the list ~LIST~:
+     #+begin_src R :results silent
+       LIST <- list(letters=LETTERS[1:4],
+                    numbers=1:100,
+                    tweets=coffee_vec)
+     #+end_src
+
+     #+begin_src R
+       ## show the structure
+       str(LIST)
+       ## print the element
+       LIST[[3]][2]
+       ## print the top of the list to make sure
+       head(LIST[[3]],n=2)
+     #+end_src
+
+- Onward: Cleaning and preprocessing text (3rd part of DataCamp lesson 1)
+- Get ~4_cleaning_practice.org~ from GitHub to code alongside me
+- When finished, upload the file to Canvas
+  
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse

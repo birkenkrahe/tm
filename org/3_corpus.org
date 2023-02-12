@@ -1,7 +1,7 @@
 #+TITLE: Text mining in practice - Bag of Words - corpus creation
 #+AUTHOR: Marcus Birkenkrahe
 #+SUBTITLE: Digital Humanities DSC 105 Spring 2023
-#+STARTUP:overview hideblocks indent
+#+STARTUP:overview hideblocks indent inlineimages
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
@@ -144,6 +144,26 @@
     str(tweets)
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  'data.frame':	1000 obs. of  15 variables:
+   $ num         : int  1 2 3 4 5 6 7 8 9 10 ...
+   $ text        : chr  "@ayyytylerb that is so true drink lots of coffee" "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast"| __truncated__ "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns"| __truncated__ "My cute coffee mug. http://t.co/2udvMU6XIG" ...
+   $ favorited   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSN   : chr  "ayyytylerb" NA NA NA ...
+   $ created     : chr  "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" "8/9/2013 2:43" ...
+   $ truncated   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ replyToSID  : num  3.66e+17 NA NA NA NA ...
+   $ id          : num  3.66e+17 3.66e+17 3.66e+17 3.66e+17 3.66e+17 ...
+   $ replyToUID  : int  1637123977 NA NA NA NA NA NA 1316942208 NA NA ...
+   $ statusSource: chr  "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "<a href=\"http://twitter.com/download/iphone\" rel=\"nofollow\">Twitter for iPhone</a>" "web" "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>" ...
+   $ screenName  : chr  "thejennagibson" "carolynicosia" "janeCkay" "AlexandriaOOTD" ...
+   $ retweetCount: int  0 1 0 0 2 0 0 0 1 2 ...
+   $ retweeted   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+   $ longitude   : logi  NA NA NA NA NA NA ...
+   $ latitude    : logi  NA NA NA NA NA NA ...
+  #+end_example
+
 - Be mindful that this only works if the computer can find the file:
   in my code example, I stored it in the ~data~ directory, which is at
   the same level as the directory this Org-mode file is in, ~org~:
@@ -183,6 +203,11 @@
     head(coffee_tweets, n=3)
   #+end_src
 
+  #+RESULTS:
+  : [1] "@ayyytylerb that is so true drink lots of coffee"                                                                                            
+  : [2] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [3] "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns+Coffee=#nosense @MomsDemand"
+
 - Now we have a vector with text. The steps to get a source are:
   1) load the ~tm~ package (re-loading does no harm)
   2) make a source from the vector using ~VectorSource~
@@ -192,6 +217,14 @@
     coffee_source <- VectorSource(coffee_tweets)
     str(coffee_source)
   #+end_src
+
+  #+RESULTS:
+  : Classes 'VectorSource', 'SimpleSource', 'Source'  hidden list of 5
+  :  $ encoding: chr ""
+  :  $ length  : int 1000
+  :  $ position: num 0
+  :  $ reader  :function (elem, language, id)  
+  :  $ content : chr [1:1000] "@ayyytylerb that is so true drink lots of coffee" "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast"| __truncated__ "If you believe in #gunsense tomorrow would be a very good day to have your coffee any place BUT @Starbucks Guns"| __truncated__ "My cute coffee mug. http://t.co/2udvMU6XIG" ...
 
 - We recognize the familiar list elements from the general explanation
   of the ~tm~ package.
@@ -217,6 +250,11 @@
     coffee_corpus
   #+end_src
 
+  #+RESULTS:
+  : <<VCorpus>>
+  : Metadata:  corpus specific: 0, document level (indexed): 0
+  : Content:  documents: 1000
+
 - The corpus is a /container/, hence the content is not printed, only
   indicated.
 
@@ -234,6 +272,13 @@
     inspect(coffee_corpus[[15]])
   #+end_src
 
+  #+RESULTS:
+  : <<PlainTextDocument>>
+  : Metadata:  7
+  : Content:  chars: 111
+  : 
+  : @HeatherWhaley I was about 2 joke it takes 2 hands to hold hot coffee...then I read headline! #Don'tDrinkNShoot
+
 - To extract the content of the 15th tweet in this volatile corpus,
   you can either use your ~list~ indexing powers, or use ~content~:
   #+begin_src R
@@ -248,6 +293,13 @@
   #+begin_src R
     nchar(coffee_corpus[[15]]$content)
   #+end_src
+
+#+begin_src R
+meta(coffee_corpus)
+#+end_src  
+
+#+RESULTS:
+: data frame with 0 columns and 1000 rows
 
 * TODO Making a ~DataframeSource~ from tweets
 
@@ -378,3 +430,4 @@
 | ~tm::inspect~         | Get information about each corpus element  |
 | ~tm::meta~            | Extract metadata from corpus               |
 | ~tm::content~         | Extract ~content~ element from corpus ~list~ |
+

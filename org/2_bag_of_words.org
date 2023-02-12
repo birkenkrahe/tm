@@ -1,7 +1,7 @@
 #+TITLE: Text mining in practice - Bag of Words
 #+AUTHOR:Marcus Birkenkrahe
 #+SUBTITLE: Digital Humanities DSC 105 Spring 2023 
-#+STARTUP:overview hideblocks indent
+#+STARTUP:overview hideblocks indent inlineimages
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
