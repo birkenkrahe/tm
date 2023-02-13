@@ -6,11 +6,16 @@
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
 
+After a short review of ~list~ structures, this lecture closely follows
+the DataCamp lesson by Ted Kwartler (see also his 2019 book).
 - Creation of a text source using the ~tm~ package
 - Creation of a volatile corpus from a vector
 - Creation of a volatile corpus from a data frame
 - Checking metadata and inspecting a corpus
 - Building a data frame from scratch
+
+Download and open the practice file ~3_corpus_practice.org~ to code
+along.
 
 * Indexing list structures
 

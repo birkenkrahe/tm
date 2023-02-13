@@ -6,4 +6,545 @@
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
 
+- This lecture closely follows the 3rd part of the DataCamp lesson
+  "Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
+  his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+- Download and open the practice file ~4_cleaning_practice.org~ from
+  GitHub to code along.
+  
+* Cleaning and preprocessing text
+
+- Base R cleaning functions:
+  #+attr_html: :width 400px
+  #+caption: Text mining functions
+  [[../img/4_clean.png]]
+
+- Corpus creation:
+  #+begin_src R :results silent
+    library(tm)
+    coffee_df <- read.csv("./data/coffee.csv") # dataframe
+    coffee_vec <- coffee_df$text # vector
+    coffee_src <- VectorSource(coffee_vec) # source
+    coffee_corpus <- VCorpus(coffee_src)
+  #+end_src
+
+- Each function separately:
+  #+begin_src R
+    t <- coffee_corpus[[2]]
+    content(t)
+    tolower(t)
+    content(removePunctuation(t))
+    content(removeNumbers(t))
+    stripWhitespace("There      is    a     lot    of space    .")
+    content(removeWords(t, c("in", "the", "at")))
+  #+end_src
+
+- Nested functions:
+  #+begin_src R
+    content(t)
+    tc <-
+      tolower(
+        content(
+          removePunctuation(
+            removeNumbers(
+              removeWords(t, c("in", "the", "at", "will", "only", "this"))))))
+    tc
+  #+end_src
+
+- Function pipeline
+  #+begin_src R
+    content(t)
+    t |>
+      removeWords(c("in", "the", "at", "this", "will", "only"))  |>
+      removeNumbers() |>
+      removePunctuation() |>
+      content() |>
+      tolower()
+  #+end_src
+
+- Apply all functions to the whole corpus with the ~tm_map~ wrapper:
+  #+begin_src R
+    tm_map(coffee_corpus, removeNumbers) -> cc_no_numbers
+    tm_map(coffee_corpus, removePunctuation) -> cc_no_punctuation
+    content(cc_no_numbers[[2]])
+    content(cc_no_punctuation[[2]])
+  #+end_src
+
+- These functions live in different environments:
+  #+begin_src R
+    library(tm)
+    library(qdap)
+    environment(tolower)
+    environment(removePunctuation)
+    environment(removeNumbers)
+    environment(removeWords)
+    environment(stripWhitespace)
+    environment(replace_abbreviation)
+  #+end_src
+
+- To work, ~tm_map~ must transform a function from another package
+  except ~base~ (this also takes a lot longer).
+  #+begin_src R
+    library(tm)
+    library(qdap)
+    environment(replace_abbreviation)
+    tm_map(coffee_corpus, content_transformer(replace_abbreviation)) -> repl
+    content(coffee_corpus[[2]])
+    content(repl[[2]])
+  #+end_src
+
+- Word stemming with ~tm::stemDocument~: requires installing ~SnowballC~[fn:4]
+  #+begin_src R
+    library(qdap)
+    library(SnowballC)
+    stem_words <- stemDocument(c("complicatedly",
+                                 "complicated",
+                                 "complication",
+                                 "complicate"))
+    stem_words
+  #+end_src
+
+- Interestingly, the stem of ~Complicate~ is recognized, but not the
+  stem of ~ComplicatE~ or ~COMPLICATE~.
+
+- You can complete the words using a single word dictionary (i.e. all
+  stems are mapped onto a single word):
+  #+begin_src R
+    stemCompletion(stem_words, c("complicate"))
+  #+end_src
+
+- You can use a corpus as completion dictionary:
+  #+begin_src R
+    stemCompletion(stem_words, coffee_corpus)
+  #+end_src
+
+- ~coffee_corpus~ does not contain a matching word!
+
+- Create a new corpus just for ~stem_words~ to test the function
+  ~stemCompletion~:
+  #+begin_src R
+    my_vec <- c("complicate")
+    my_src <- VectorSource(my_vec)
+    my_corpus <- VCorpus(my_src)
+    stemCompletion(stem_words, my_corpus)
+  #+end_src
+
+- One can look for
+  "full-text corpus data" online ([[https://www.corpusdata.org/][link]]) - it's fast but you only have
+  a limited number of (free) searches per day.
+  #+attr_html: :width 400px
+  #+caption: English language corpora (english-corpora.org)
+  [[../img/4_corpora.png]]
+  #+attr_html: :width 400px
+  #+caption: Google Books corpora - search example "Marxism"
+  [[../img/4_corpora1.png]]
+  #+attr_html: :width 400px
+  #+caption: Google Books corpora - search example "Marxism" - results
+  [[../img/4_corpora2.png]]
+
+- What's interesting about this: "Marxism" relates to Karl Marx, who
+  came up with his theories in the 1840s. How then could "marxism" be
+  mentioned in books published before that date?
+
+* Common cleaning functions from ~tm~
+
+#+begin_quote
+Now that you know two ways to make a corpus, you can focus on
+cleaning, or preprocessing, the text. First, you'll clean a small
+piece of text; then, you will move on to larger corpora.
+
+In Bag-of-words text mining, cleaning helps aggregate terms. For
+example, it might make sense for the words "miner", "mining," and
+"mine" to be considered one term. Specific preprocessing steps will
+vary based on the project. For example, the words used in tweets are
+vastly different than those used in legal documents, so the cleaning
+process can also be quite different.
+
+Common preprocessing functions include:
+- ~tolower()~: Make all characters lowercase
+- ~removePunctuation()~: Remove all punctuation marks
+- ~removeNumbers()~: Remove numbers
+- ~stripWhitespace()~: Remove excess whitespace
+- ~tolower()~ is part of ~base~ R, while the other three functions come
+  from the ~tm~ package. Going forward, we'll load ~tm~ and ~qdap~ for you
+  when they are needed. Every time we introduce a new package, we'll
+  have you load it the first time.
+
+The variable ~text~, containing a sentence, is shown in the script.
+#+end_quote
+#+begin_src R
+  ## Create the object: text
+  text <-
+    "<b>She</b> woke up at       6 A.M. It\'s so
+     early!  She was only 10% awake and began drinking
+     coffee in front of her computer."
+
+  ## Make lowercase
+  tolower(text)
+
+  ## Remove punctuation
+  removePunctuation(text)
+
+  ## Remove numbers
+  removeNumbers(text)
+
+  ## Remove whitespace
+  stripWhitespace(text)
+#+end_src
+
+* Cleaning with ~qdap~
+
+- To see the full range of arguments of a function, pass the function
+  name as an argument to ~args()~.
+  #+begin_src R
+    args(bracketX)
+  #+end_src
+
+- To find out more, e.g. about the options for the parameter ~bracket~,
+  look at the ~help~ page (when you do this in an Emacs Org-mode code
+  block, interrupt the process manually with ~C-g~ to go on).
+  #+begin_src R
+    help(bracketX)
+  #+end_src
+
+#+begin_quote
+The ~qdap~ package offers other text cleaning functions. Each is useful
+in its own way and is particularly powerful when combined with the
+others.
+
+- ~bracketX()~: Remove all text within brackets (e.g. "It's (so) cool"
+  becomes "It's cool", "<b>Yes</b>" becomes "Yes")
+- ~replace_number()~: Replace numbers with their word equivalents
+  (e.g. "2" becomes "two")
+- ~replace_abbreviation()~: Replace abbreviations with their full text
+  equivalents (e.g. "Sr" becomes "Senior")
+- ~replace_contraction()~: Convert contractions back to their base words
+  (e.g. "shouldn't" becomes "should not")
+- ~replace_symbol()~: Replace common symbols with their word equivalents
+  (e.g. "$" becomes "dollar")
+#+end_quote
+
+1) Review standard stop words by calling ~stopwords("en").~
+2) Remove ~"en"~ stopwords from text.
+3) Add "coffee" and "bean" to the standard stop words, assigning to
+   ~new_stops~.
+4) Remove the customized stopwords, ~new_stops~, from ~text~.
+#+begin_src R
+  ## text is still loaded in your workspace
+  text
+  ## Remove text within brackets
+  bracketX(text)
+
+  ## Replace numbers with words
+  replace_number(text)
+
+  ## Replace abbreviations
+  replace_abbreviation(text)
+
+  ## Replace contractions
+  replace_contraction(text)
+
+  ## Replace symbols with words
+  replace_symbol(text)
+#+end_src
+
+- [ ] Run all of these on ~text~ using a pipeline
+  #+begin_src R
+    text |>
+      bracketX() |>
+      replace_number() |>
+      replace_abbreviation() |>
+      replace_contraction() |>
+      replace_symbol()
+  #+end_src
+
+* All about stop words
+
+- Stop words
+  #+begin_quote
+  Often there are words that are frequent but provide little
+  information. These are called stop words, and you may want to remove
+  them from your analysis. Some common English stop words include "I",
+  "she'll", "the", etc. In the ~tm~ package, there are 174 common English
+  stop words (you'll print them in this exercise!)
+
+  When you are doing an analysis, you will likely need to add to this
+  list. In our coffee tweet example, all tweets contain "coffee", so
+  it's important to pull out that word in addition to the common stop
+  words. Leaving "coffee" in doesn't add any insight and will cause it
+  to be overemphasized in a frequency analysis.
+
+  Using the ~c()~ function allows you to add new words to the stop words
+  list. For example, the following would add "word1" and "word2" to the
+  default list of English stop words:
+  #+end_quote
+  #+begin_src R
+    all_stops <- c("word1", "word2", stopwords("en"))
+    all_stops[which(all_stops=="word1" | all_stops=="word2")]
+  #+end_src
+
+- Remove words
+  #+begin_quote
+  Once you have a list of stop words that makes sense, you will use the
+  ~removeWords()~ function on your text. ~removeWords()~ takes two
+  arguments: the text object to which it's being applied and the list of
+  words to remove.
+  #+end_quote
+
+- List the arguments of ~removeWords~.
+  #+begin_src R
+    args(removeWords)
+  #+end_src
+
+- Exercise:
+  1) Review standard stop words by calling ~stopwords("en")~.
+  2) Remove "en" stopwords from ~text~ with ~removeWord~.
+  3) Add "coffee" and "bean" to the standard stop words, assigning to
+     ~new_stops~.
+  4) Remove the customized stopwords, ~new_stops~, from ~text~.
+  #+begin_src R
+    ## text is preloaded into your workspace
+    text
+    ## List standard English stop words
+    head(stopwords("en"))
+
+    ## Print text without standard stop words
+    removeWords(text, stopwords("en"))
+
+    ## Add "coffee" and "bean" to the list: new_stops
+    new_stops <- c("coffee", "bean", stopwords("en"))
+
+    ## Remove stop words from text
+    removeWords(text, new_stops)
+  #+end_src
+
+- Is "cannot" in the ~stopwords~ vector?
+  #+begin_src R
+    str(stopwords()) # structure
+    idx <- which(stopwords("en") == "cannot") # index
+    stopwords("en")[idx] # value belonging to idx
+  #+end_src
+
+* Intro to word stemming and stem completion
+
+#+begin_quote
+Still, another useful preprocessing step involves *word-stemming* and
+*stem completion*. Word stemming reduces words to unify across
+documents. For example, the stem of "computational", "computers" and
+"computation" is "comput". But because "comput" isn't a real word, we
+want to reconstruct the words so that "computational", "computers",
+and "computation" all refer to a recognizable word, such as
+"computer". The reconstruction step is called stem completion.
+
+The ~tm~ package provides the ~stemDocument()~ function to get to a word's
+root. This function either takes in a ~character~ vector and returns a
+~character~ vector, or takes in a ~PlainTextDocument~ and returns a
+~PlainTextDocument~.
+#+end_quote
+
+For example, the following code block returns ~"comput" "comput" "comput"~.
+#+begin_src R
+  stemDocument(c("computational", "computers", "computation"))
+#+end_src
+
+#+begin_quote
+You will use ~stemCompletion()~ to reconstruct these word roots back
+into a known term. ~stemCompletion()~ accepts a character vector and a
+completion dictionary. The completion dictionary can be a ~character~
+vector or a /Corpus/ object. Either way, the completion dictionary for
+our example would need to contain the word "computer," so all
+instances of "comput" can be reconstructed.
+#+end_quote
+
+Exercise:
+1) Create a vector called ~complicate~ consisting of the words
+   "complicated", "complication", and "complicatedly" in that order.
+2) Store the stemmed version of ~complicate~ to an object called
+   ~stem_doc~.
+3) Create ~comp_dict~ that contains one word, "complicate".
+4) Create ~complete_text~ by applying ~stemCompletion()~ to
+   ~stem_doc~.
+5) Re-complete the words using ~comp_dict~ as the reference
+   corpus.
+6) Print ~complete_text~ to the console.
+#+begin_src R
+  ## Create complicate
+  complicate <- c("complicated", "complication", "complicatedly")
+
+  ## Perform word stemming: stem_doc
+  stem_doc <- stemDocument(complicate)
+
+  ## Create the completion dictionary: comp_dict
+  comp_dict <- c("complicate")
+
+  ## Perform stem completion: complete_text
+  complete_text <- stemCompletion(stem_doc,comp_dict)
+
+  ## Print complete_text
+  complete_text
+#+end_src
+
+* Word stemming and stem completion on a sentence
+
+#+begin_quote
+Let's consider the following sentence as our document for this
+exercise:
+#+end_quote
+#+begin_example R
+"In a complicated haste, Tom rushed to fix a new complication,
+too complicatedly."
+#+end_example
+#+begin_quote
+This sentence contains the same three forms of the word "complicate"
+that we saw in the previous exercise. The difference here is that even
+if you called ~stemDocument()~ on this sentence, it would return the
+sentence without stemming any words. Take a moment and try it out in
+the console. Be sure to include the punctuation marks.
+#+end_quote
+
+#+begin_src R
+  stemDocument(
+    "In a complicated haste, Tom rushed to fix a new complication, too complicatedly.")
+#+end_src
+
+#+begin_quote
+This happens because ~stemDocument()~ treats the whole sentence *as one
+word*, because our document is a ~character~ vector of length 1, instead
+of length n, where n is the number of words in the document. To solve
+this problem, we first remove the punctuation marks with the
+~removePunctuation()~ function, you learned a few exercises back. We
+then ~strsplit()~ this character vector of length 1 to length n,
+~unlist()~, then proceed to stem and re-complete.
+
+Don't worry if that was confusing. Let's go through the process step
+by step!
+#+end_quote
+
+Exercise:
+1) The document ~text_data~ and the completion dictionary ~comp_dict~ are
+   loaded in your workspace.
+   #+begin_src R
+     text_data <- c(
+       "In a complicated haste, Tom rushed to fix a new complication, too complicatedly.")
+     comp_dict <- c(
+       "In","a","complicate","haste","Tom","rush","to","fix","new","too")
+     text_data
+     comp_dict
+   #+end_src
+2) Remove the punctuation marks in ~text_data~ using
+   ~removePunctuation()~, assigning to ~rm_punc~.
+3) Call ~strsplit()~ on ~rm_punc~ with the split argument set equal to " ".
+4) Nest this inside ~unlist()~, assigning to ~n_char_vec~.
+5) Use ~stemDocument()~ again to perform word stemming on ~n_char_vec~,
+   assigning to ~stem_doc~.
+6) Create ~complete_doc~ by re-completing your stemmed document with
+   ~stemCompletion()~ and using ~comp_dict~ as your reference corpus.
+7) Are ~stem_doc~ and ~complete_doc~ what you expected?
+#+begin_src R
+  ## Remove punctuation: rm_punc
+  rm_punc <- removePunctuation(text_data)
+  cat("Without punctuation:\n",rm_punc,"\n")
+  cat("Length of rm_punc:", length(rm_punc),"\n")
+  ## Split text in individual words
+  cat("Split rm_punc in individual words:\n")
+  strsplit(rm_punc, split = " ")  # list of individual words
+  class(strsplit(rm_punc, split = " "))
+  ## tie the words back together to get a character vector
+  n_char_vec <- unlist(strsplit(rm_punc, split = " "))
+  cat("Character vector:\n", n_char_vec,"\n")
+  cat("Length of n_char_vec:", length(n_char_vec),"\n")
+  ## Perform word stemming: stem_doc
+  stem_doc <- stemDocument(n_char_vec)
+  cat("Stemmed:\n", stem_doc,"\n")
+  ## Re-complete stemmed document: complete_doc
+  complete_doc <- stemCompletion(stem_doc, comp_dict)
+  cat("Completed:\n", complete_doc,"\n")
+#+end_src
+
+* Apply preprocessing steps to a corpus
+
+- Apply cleaning to corpus:
+  #+begin_quote
+  The ~tm~ package provides a function ~tm_map()~ to apply cleaning
+  functions to an entire corpus, making the cleaning steps easier.
+
+  ~tm_map()~ takes two arguments, a corpus and a cleaning function. Here,
+  ~removeNumbers()~ is from the ~tm~ package.
+  #+end_quote
+  #+begin_src R
+    corpus <- tm_map(coffee_corpus,removeNumbers)
+    content(coffee_corpus[[2]])
+    content(corpus[[2]])
+  #+end_src
+
+- Applying the same function over several corpora:
+  #+begin_quote
+  You may be applying the same functions over multiple corpora; using a
+  custom function like the one displayed in the editor will save you
+  time (and lines of code). ~clean_corpus()~ takes one argument, corpus,
+  and applies a series of cleaning functions to it in order, then
+  returns the updated corpus.
+
+  The order of cleaning steps makes a difference. For example, if you
+  ~removeNumbers()~ and then ~replace_number()~, the second function won't
+  find anything to change! Check, check, and re-check your results!
+  #+end_quote
+
+- Exercise: first edit the custom function ~clean_corpus()~ in the
+  sample code to apply (in order):
+  1) tm's ~removePunctuation()~.
+  2) Base R's ~tolower()~.
+  3) Append "mug" to the stop words list.
+  4) tm's ~stripWhitespace()~.
+  #+begin_src R :results silent
+    ## Alter the function code to match the instructions
+    clean_corpus <- function(corpus) {
+      ## Remove punctuation
+      corpus <- tm_map(corpus,
+                       removePunctuation)
+      ## Transform to lower case
+      corpus <- tm_map(corpus,
+                       content_transformer(tolower))
+      ## Add more stopwords
+      corpus <- tm_map(corpus,
+                       removeWords,
+                       words = c(stopwords("en"), "coffee", "mug"))
+      ## Strip whitespace
+      corpus <- tm_map(corpus,
+                       stripWhitespace)
+      return(corpus)
+    }
+  #+end_src
+
+- The function ~clean_corpus~ will now run all its content functions on
+  any corpus argument:
+  1) Create ~clean_corp~ by applying ~clean_corpus()~ to the included
+     corpus ~coffee_corpus~ defined above.
+  2) Print the cleaned 227th tweet in ~clean_corp~ using indexing ~[[~ and
+     ~content()~.
+  3) Compare it to the original tweet from ~coffee_vec~ using the index
+     ~[227]~.
+  #+begin_src R
+    ## Alter the function code to match the instructions
+    clean_corpus <- function(corpus){
+      corpus <- tm_map(corpus, removePunctuation)
+      corpus <- tm_map(corpus, content_transformer(tolower))
+      corpus <- tm_map(corpus, removeWords,
+                       words = c(stopwords("en"), "coffee", "mug"))
+      corpus <- tm_map(corpus, stripWhitespace)
+      return(corpus)
+    }
+
+    ## Apply your customized function to the tweet_corp: clean_corp
+    clean_corp <- clean_corpus(coffee_corpus)
+
+    ## Print out a cleaned up tweet
+    content(clean_corp[[227]])
+
+    ## Print out the same tweet in the original form
+    coffee_vec[227]
+  #+end_src
+
+
+
 

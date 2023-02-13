@@ -218,7 +218,7 @@ DataCamp lesson review:
      #+end_src
 
 - Onward: Cleaning and preprocessing text (3rd part of DataCamp lesson 1)
-- Get ~4_cleaning_practice.org~ from GitHub to code alongside me
+- Get ~4_cleaning_practice.org~ [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/4_cleaning_practice.org][from GitHub]] to code alongside me
 - When finished, upload the file to Canvas
   
 * Footnotes
