@@ -9,6 +9,7 @@
 - This lecture closely follows the 3rd part of the DataCamp lesson
   "Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
   his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+
 - Download and open the practice file ~4_cleaning_practice.org~ from
   GitHub to code along.
   
