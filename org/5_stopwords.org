@@ -1,0 +1,349 @@
+#+TITLE: Text mining in practice - Bag of Words - stopwords
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the 3rd part of the DataCamp lesson
+  "Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
+  his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+
+- Download and open the practice file ~5_stopwords_practice.org~ from
+  GitHub to code along.
+
+* All about stop words
+
+- Check out the ~stopwords~ in English ("en" or "english"), Spanish
+  ("es"), German ("de" or "german").
+  #+begin_src R
+    stopwords("en")
+  #+end_src
+
+- Add two stop words to ~stopwords("en")~ and check that they were added.
+  #+begin_src R
+    all_stops <- c("word1", "word2", stopwords("en"))
+    all_stops[which(all_stops=="word1" | all_stops=="word2")]
+  #+end_src
+
+- To remove words, you can use ~tm::removeWords~. It takes two
+  arguments: the text object to which it is applied, and the list of
+  words to remove.
+
+- List the arguments of ~removeWords~.
+  #+begin_src R
+    args(removeWords)
+  #+end_src
+
+- Exercise: remove ~stopwords~ from sample ~text~, add two words to the
+  standard ~stopwords~ dictionary, and remove them from ~text~.
+
+- Define sample ~text~ vector.
+  #+begin_src R
+    text <-
+      "<b>She</b> woke up at       6 A.M. It\'s so
+       early!  She was only 10% awake and began drinking
+       coffee in front of her computer."
+    text
+  #+end_src
+
+- Remove "en" stopwords from ~text~ with ~removeWord~.
+  #+begin_src R
+    text
+    removeWords(text, stopwords("en"))
+  #+end_src
+
+- Add "coffee" and "bean" to the standard stop words and assign the
+  result to ~new_stops~. Check that they are in ~new_stops~!
+  #+begin_src R
+    new_stops <- c("coffee", "bean", stopwords("en"))
+    new_stops[which(new_stops=="coffee" | new_stops=="bean")]
+  #+end_src
+
+- Wait a moment! What if these words were already in ~stopwords~? Check!
+  #+begin_src R
+    old_stops <- stopwords("en")
+    old_stops[which(old_stops=="coffee" | old_stops=="bean")]
+  #+end_src
+
+- Remove the customized stopwords, ~new_stops~, from ~text~:
+  #+begin_src R
+    text
+    removeWords(text, new_stops)
+  #+end_src
+
+- Find a tweet in ~coffee_vec~ that contains both words:
+  #+begin_src R
+    idx_bean <- which(grepl("bean",coffee_vec))
+    bean <- coffee_vec[idx]
+    idx_coffee_bean <- which (grepl("coffee",bean))
+    coffee_bean <- bean[idx_coffee_bean]
+    coffee_bean
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] "Fun fact: roast your own coffee bean at home using a popcorn machine! @YelpAdelaide #coffeecrawl"
+   [2] "Michael Jackson and Slash walk into a coffee bean... #hollywoodblvd"
+   [3] "It is a good night when both of your friends bring you coffee beans."
+   [4] "@NickThayer oh worth mentioning, went to a place that's roasts their own beans in house. Some of the best coffee I've tasted #heaven #snobs"
+   [5] "@coreybking We are kin in our rejection of the coffee bean and its cohorts... #ConfessYourUnpopularOpinion"
+   [6] "Wired offa that coffee bean haha"
+   [7] "I love bringing home locally roasted #coffee beans from all of the cities I visit for @marshallhines? http://t.co/d4cnURL3jW"
+   [8] "RT @jelenasaurus: I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [9] "omg the auroma in coffee bean makes me feel super hungry"
+  [10] "I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+  #+end_example
+
+- Btw: this last question is answered well by ChatGPT:
+  #+attr_latex: :width 400px
+  #+caption: R code search for grepl in ChatGPT
+  [[../img/4_grepl.png]]
+
+  #+RESULTS:
+  : Error: unexpected ']' in "coffee_vec[which(grepl("bean",coffee_vec)]"
+
+  ## List standard English stop words
+  head(stopwords("en"))
+
+  ## Print text without standard stop words
+  removeWords(text, stopwords("en"))
+
+  ## Add "coffee" and "bean" to the list: new_stops
+
+  ## Remove stop words from text
+
+- Now re-run the code above to remove "bean" and "coffee" from ~coffee_bean~:
+  #+begin_src R
+    coffee_bean
+    removeWords(coffee_bean, new_stops)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] "Fun fact: roast your own coffee bean at home using a popcorn machine! @YelpAdelaide #coffeecrawl"
+   [2] "Michael Jackson and Slash walk into a coffee bean... #hollywoodblvd"
+   [3] "It is a good night when both of your friends bring you coffee beans."
+   [4] "@NickThayer oh worth mentioning, went to a place that's roasts their own beans in house. Some of the best coffee I've tasted #heaven #snobs"
+   [5] "@coreybking We are kin in our rejection of the coffee bean and its cohorts... #ConfessYourUnpopularOpinion"
+   [6] "Wired offa that coffee bean haha"
+   [7] "I love bringing home locally roasted #coffee beans from all of the cities I visit for @marshallhines? http://t.co/d4cnURL3jW"
+   [8] "RT @jelenasaurus: I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [9] "omg the auroma in coffee bean makes me feel super hungry"
+  [10] "I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [1] "Fun fact: roast      home using  popcorn machine! @YelpAdelaide #coffeecrawl"
+   [2] "Michael Jackson  Slash walk    ... #hollywoodblvd"
+   [3] "It   good night     friends bring   beans."
+   [4] "@NickThayer oh worth mentioning, went   place  roasts   beans  house. Some   best  I've tasted #heaven #snobs"
+   [5] "@coreybking We  kin   rejection       cohorts... #ConfessYourUnpopularOpinion"
+   [6] "Wired offa    haha"
+   [7] "I love bringing home locally roasted # beans     cities I visit  @marshallhines? http://t.co/d4cnURL3jW"
+   [8] "RT @jelenasaurus: I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [9] "omg  auroma    makes  feel super hungry"
+  [10] "I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+  #+end_example
+
+- Is "cannot" in the ~stopwords~ vector?
+  #+begin_src R
+    str(stopwords()) # structure
+    idx <- which(stopwords("en") == "cannot") # index
+    stopwords("en")[idx] # value belonging to idx
+  #+end_src
+
+* Intro to word stemming and stem completion
+
+- The ~tm~ package provides the ~stemDocument()~ function to get to a
+  word's root. This function either takes in a ~character~ vector and
+  returns a ~character~ vector, or takes in a ~PlainTextDocument~ and
+  returns a ~PlainTextDocument~.
+
+- For example, the following code block returns ~"comput" "comput"
+  "comput"~:
+  #+begin_src R
+    stemDocument(c("computational", "computers", "computation"))
+  #+end_src
+- Create a vector called ~complicate~ consisting of the words
+  "complicated", "complication", and "complicatedly" in that order:
+  #+begin_src R
+    complicate <- c("complicated", "complication", "complicatedly")
+    complicate
+  #+end_src
+- Store the stemmed version of ~complicate~ to an object called
+  ~stem_doc~:
+  #+begin_src R
+    stem_doc <- stemDocument(complicate)
+    stem_doc
+  #+end_src
+- Create a reference dictionary ~comp_dict~ that contains one word,
+  "complicate":
+  #+begin_src R
+    comp_dict <- c("complicate")
+    comp_dict
+  #+end_src
+- Create ~complete_text~ by applying ~stemCompletion()~ to ~stem_doc~ using
+  ~comp_dict~ as a reference corpus and print it:
+  #+begin_src R
+    complete_text <- stemCompletion(stem_doc,comp_dict)
+    complete_text
+  #+end_src
+* Word stemming and stem completion on a sentence
+
+#+begin_quote
+Let's consider the following sentence as our document for this
+exercise:
+#+end_quote
+#+begin_example R
+"In a complicated haste, Tom rushed to fix a new complication,
+too complicatedly."
+#+end_example
+#+begin_quote
+This sentence contains the same three forms of the word "complicate"
+that we saw in the previous exercise. The difference here is that even
+if you called ~stemDocument()~ on this sentence, it would return the
+sentence without stemming any words. Take a moment and try it out in
+the console. Be sure to include the punctuation marks.
+#+end_quote
+
+#+begin_src R
+  stemDocument(
+    "In a complicated haste, Tom rushed to fix a new complication, too complicatedly.")
+#+end_src
+
+#+begin_quote
+This happens because ~stemDocument()~ treats the whole sentence *as one
+word*, because our document is a ~character~ vector of length 1, instead
+of length n, where n is the number of words in the document. To solve
+this problem, we first remove the punctuation marks with the
+~removePunctuation()~ function, you learned a few exercises back. We
+then ~strsplit()~ this character vector of length 1 to length n,
+~unlist()~, then proceed to stem and re-complete.
+
+Don't worry if that was confusing. Let's go through the process step
+by step!
+#+end_quote
+
+Exercise:
+1) The document ~text_data~ and the completion dictionary ~comp_dict~ are
+   loaded in your workspace.
+   #+begin_src R
+     text_data <- c(
+       "In a complicated haste, Tom rushed to fix a new complication, too complicatedly.")
+     comp_dict <- c(
+       "In","a","complicate","haste","Tom","rush","to","fix","new","too")
+     text_data
+     comp_dict
+   #+end_src
+2) Remove the punctuation marks in ~text_data~ using
+   ~removePunctuation()~, assigning to ~rm_punc~.
+3) Call ~strsplit()~ on ~rm_punc~ with the split argument set equal to " ".
+4) Nest this inside ~unlist()~, assigning to ~n_char_vec~.
+5) Use ~stemDocument()~ again to perform word stemming on ~n_char_vec~,
+   assigning to ~stem_doc~.
+6) Create ~complete_doc~ by re-completing your stemmed document with
+   ~stemCompletion()~ and using ~comp_dict~ as your reference corpus.
+7) Are ~stem_doc~ and ~complete_doc~ what you expected?
+#+begin_src R
+  ## Remove punctuation: rm_punc
+  rm_punc <- removePunctuation(text_data)
+  cat("Without punctuation:\n",rm_punc,"\n")
+  cat("Length of rm_punc:", length(rm_punc),"\n")
+  ## Split text in individual words
+  cat("Split rm_punc in individual words:\n")
+  strsplit(rm_punc, split = " ")  # list of individual words
+  class(strsplit(rm_punc, split = " "))
+  ## tie the words back together to get a character vector
+  n_char_vec <- unlist(strsplit(rm_punc, split = " "))
+  cat("Character vector:\n", n_char_vec,"\n")
+  cat("Length of n_char_vec:", length(n_char_vec),"\n")
+  ## Perform word stemming: stem_doc
+  stem_doc <- stemDocument(n_char_vec)
+  cat("Stemmed:\n", stem_doc,"\n")
+  ## Re-complete stemmed document: complete_doc
+  complete_doc <- stemCompletion(stem_doc, comp_dict)
+  cat("Completed:\n", complete_doc,"\n")
+#+end_src
+
+* Apply preprocessing steps to a corpus
+
+- Apply cleaning to corpus:
+  #+begin_quote
+  The ~tm~ package provides a function ~tm_map()~ to apply cleaning
+  functions to an entire corpus, making the cleaning steps easier.
+
+  ~tm_map()~ takes two arguments, a corpus and a cleaning function. Here,
+  ~removeNumbers()~ is from the ~tm~ package.
+  #+end_quote
+  #+begin_src R
+    corpus <- tm_map(coffee_corpus,removeNumbers)
+    content(coffee_corpus[[2]])
+    content(corpus[[2]])
+  #+end_src
+
+- Applying the same function over several corpora:
+  #+begin_quote
+  You may be applying the same functions over multiple corpora; using a
+  custom function like the one displayed in the editor will save you
+  time (and lines of code). ~clean_corpus()~ takes one argument, corpus,
+  and applies a series of cleaning functions to it in order, then
+  returns the updated corpus.
+
+  The order of cleaning steps makes a difference. For example, if you
+  ~removeNumbers()~ and then ~replace_number()~, the second function won't
+  find anything to change! Check, check, and re-check your results!
+  #+end_quote
+
+- Exercise: first edit the custom function ~clean_corpus()~ in the
+  sample code to apply (in order):
+  1) tm's ~removePunctuation()~.
+  2) Base R's ~tolower()~.
+  3) Append "mug" to the stop words list.
+  4) tm's ~stripWhitespace()~.
+  #+begin_src R :results silent
+    ## Alter the function code to match the instructions
+    clean_corpus <- function(corpus) {
+      ## Remove punctuation
+      corpus <- tm_map(corpus,
+                       removePunctuation)
+      ## Transform to lower case
+      corpus <- tm_map(corpus,
+                       content_transformer(tolower))
+      ## Add more stopwords
+      corpus <- tm_map(corpus,
+                       removeWords,
+                       words = c(stopwords("en"), "coffee", "mug"))
+      ## Strip whitespace
+      corpus <- tm_map(corpus,
+                       stripWhitespace)
+      return(corpus)
+    }
+  #+end_src
+
+- The function ~clean_corpus~ will now run all its content functions on
+  any corpus argument:
+  1) Create ~clean_corp~ by applying ~clean_corpus()~ to the included
+     corpus ~coffee_corpus~ defined above.
+  2) Print the cleaned 227th tweet in ~clean_corp~ using indexing ~[[~ and
+     ~content()~.
+  3) Compare it to the original tweet from ~coffee_vec~ using the index
+     ~[227]~.
+  #+begin_src R
+    ## Alter the function code to match the instructions
+    clean_corpus <- function(corpus){
+      corpus <- tm_map(corpus, removePunctuation)
+      corpus <- tm_map(corpus, content_transformer(tolower))
+      corpus <- tm_map(corpus, removeWords,
+                       words = c(stopwords("en"), "coffee", "mug"))
+      corpus <- tm_map(corpus, stripWhitespace)
+      return(corpus)
+    }
+
+    ## Apply your customized function to the tweet_corp: clean_corp
+    clean_corp <- clean_corpus(coffee_corpus)
+
+    ## Print out a cleaned up tweet
+    content(clean_corp[[227]])
+
+    ## Print out the same tweet in the original form
+    coffee_vec[227]
+  #+end_src

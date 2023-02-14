@@ -8,6 +8,7 @@
 
 - This file covers data cleaning and preprocessing for the Bag-of-Word
   text mining method
+
 - Some of this material can be found in Kwartler, Text mining in
   practice with R (Wiley, 2019), and in Kwartler's DataCamp course on
   Text mining with Bag-of-Words.
@@ -18,4 +19,156 @@
    file by your own name and write ~(pledged)~ next to it
 2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
    by entering ~S-<right>~ ("Shift + right-arrow").
+
+
+* Create sample corpus
+
+- Create corpus so we have something to work with:
+  #+begin_src R :results silent
+
+  #+end_src
+
+* Invoke functions separately
+
+- Each function separately - run the code block after each function:
+  #+begin_src R
+
+  #+end_src
+
+* Nest functions
+
+- Nested functions:
+  #+begin_src R
+
+  #+end_src
+
+* Create a pipeline of functions with ~|>~
+
+- Function pipeline
+  #+begin_src R
+
+  #+end_src
+
+* Apply function with the ~tm_map~ wrapper
+
+- Apply functions to the whole corpus with the ~tm_map~ wrapper:
+  #+begin_src R
+    ## run functions as an argument to tm_map
+
+    ## check content
+
+  #+end_src
+
+- These functions live in different environments: check ~environment~
+  #+begin_src R
+
+  #+end_src
+
+- To work, ~tm_map~ must transform a function from another package with
+  ~content_transformer~ (this also takes a lot longer):
+  #+begin_src R
+    library(tm)
+    library(qdap)
+    ## where is replace_abbreviation?
+
+    ## run this function with tm_map - store result in repl
+
+    ## print content with and without abbrevs replaced
+
+  #+end_src
+
+* Word stemming with ~stemDocument~
+
+- Word stemming with ~tm::stemDocument~: requires installing ~SnowballC~:
+  #+begin_src R
+    library(qdap)
+    library(SnowballC)
+    ...
+  #+end_src
+
+- Change the argument to "complicateD" or something similar and check
+  again.
+
+* Completing word stems with ~stemCompletion~
+
+- You can complete the words using a single word dictionary (i.e. all
+  stems are mapped onto a single word):
+  #+begin_src R
+
+  #+end_src
+
+- You can use a corpus as completion dictionary:
+  #+begin_src R
+
+  #+end_src
+
+- Create a new corpus just for ~stem_words~ to test the function
+  ~stemCompletion~, starting with the vector ~c("complicate")~:
+  #+begin_src R
+
+  #+end_src
+
+* Cleaning with ~qdap~
+
+- To see the full range of arguments of a function, pass the function
+  name as an argument to ~args()~ - e.g. for ~qdap::bracketX~:
+  #+begin_src R
+
+  #+end_src
+
+- To find out more, e.g. about the options for the parameter ~bracket~,
+  look at the ~help~ page (when you do this in an Emacs Org-mode code
+  block, interrupt the process manually with ~C-g~ to go on).
+  #+begin_src R
+
+  #+end_src
+
+* Test text cleaning functions in ~qdap~
+
+- Define a sample text vector and print it:
+  #+begin_src R
+    ## define text vector
+    text <-
+      "<b>She</b> woke up at       6 A.M. It\'s so
+       early!  She was only 10% awake and began drinking
+       coffee in front of her computer."
+    ...
+  #+end_src
+
+- Remove text within brackets:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace all numbers with words:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace abbreviations:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace contractions:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace symbols with words:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Run all of these on ~text~ together using a pipeline ~|>~:
+  #+begin_src R
+
+  #+end_src
+
+
 
