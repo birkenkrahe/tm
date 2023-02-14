@@ -170,6 +170,8 @@ DataCamp lesson review:
 [[../img/4_cleaning.jpg]]
 
 - Onward: Cleaning and preprocessing text (3rd part of DataCamp lesson 1)
+- Part I: cleaning with ~tm~ and ~qdap~ functions
+- Part II: using stopwords dictionaries
 - Get ~4_cleaning_practice.org~ [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/4_cleaning_practice.org][from GitHub]] to code alongside me
 - When finished, upload the file to Canvas
 
@@ -179,6 +181,7 @@ DataCamp lesson review:
 
 - Test 2 deadline: Friday, Feb 17 at 11:59 pm - open book!
 - Don't leave the DataCamp assignments to the very end!
+
 * Review questions for test 2
 
 - Questions we have yet to review come from the last lecture:
