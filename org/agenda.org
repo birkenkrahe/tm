@@ -165,7 +165,7 @@ DataCamp lesson review:
   package-list-packages~, then find the package in the list and install
   with ~i~ and ~x~. [[https://github.com/dakra/speed-type][More information on GitHub.]]
 
-* Week 6 - Bag of words III - text cleaning
+b* Week 6 - Bag of words III - text cleaning
 #+attr_latex: :width 400px
 [[../img/4_cleaning.jpg]]
 
@@ -186,45 +186,101 @@ DataCamp lesson review:
 
 - Questions we have yet to review come from the last lecture:
 
-  1) [ ] counting characters, e.g. for "ChatGPT is an OpenAI bot"
+  1) [X] counting characters, e.g. for "ChatGPT is an OpenAI bot"
      #+begin_src R
-
+       nchar("Rhett knew the answer to this one")
      #+end_src
 
-  2) [ ] data in a ~factor~ vector - example: make a factor vector with
+     #+RESULTS:
+     : [1] 33
+
+  2) [X] data in a ~factor~ vector - example: make a factor vector with
      the levels "up" and "down" and with elements
      ~{"up","up","down","up"}~ - is this ~factor~ ordered?
      #+begin_src R
-       
+       factor(
+         c("up","up","down","up","down","down"),
+         levels=c("down","up"),
+         ordered=TRUE) -> fc
+       fc
+       is.ordered(fc)
      #+end_src
 
-  3) [ ] Which functions show you the data of a dataframe,
+     #+RESULTS:
+     : [1] up   up   down up   down down
+     : Levels: down < up
+     : [1] TRUE
+
+  3) [X] Which functions show you the data of a dataframe,
      e.g. ~mtcars~?
      #+begin_src R
-
+       mtcars |> str()
+       mtcars |> head()
      #+end_src
 
-  4) [ ] Which functions show you the data of a text corpus?
+     #+RESULTS:
+     #+begin_example
+     'data.frame':	32 obs. of  11 variables:
+      $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+      $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+      $ disp: num  160 160 108 258 360 ...
+      $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+      $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+      $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+      $ qsec: num  16.5 17 18.6 19.4 17 ...
+      $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+      $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+      $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+      $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+                        mpg cyl disp  hp drat    wt  qsec vs am gear carb
+     Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+     Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+     Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+     Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+     Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+     Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+     #+end_example
+
+  4) [X] Which functions show you the data of a text corpus?
      E.g. the 999th element of ~coffee_corpus~:
      #+begin_src R :results silent
        library(tm)
        coffee_df <- read.csv("~/Downloads/coffee.csv") # dataframe
        coffee_vec <- coffee_df$text # vector
        coffee_src <- VectorSource(coffee_vec) # source
-       coffee_corpus <- VCorpus(coffee_src) # corpus
+       cc <- VCorpus(coffee_src)  # corpus
      #+end_src
      #+begin_src R
        ## with content()
-
+       content(cc[[2]])
        ## with index operator [] 
-
+       cc[[2]][1]
        ## with inspect()
-
+       inspect(cc[[2]])
        ## NOT with meta()
-
+       meta(cc[[2]])
      #+end_src
 
-  5) [ ] Extract the 2nd tweet of the list ~LIST~:
+     #+RESULTS:
+     #+begin_example
+     [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+     $content
+     [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+     <<PlainTextDocument>>
+     Metadata:  7
+     Content:  chars: 140
+
+     RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?
+       author       : character(0)
+       datetimestamp: 2023-02-14 21:44:47
+       description  : character(0)
+       heading      : character(0)
+       id           : 2
+       language     : en
+       origin       : character(0)
+     #+end_example
+
+  5) [X] Extract the 2nd tweet of the list ~LIST~:
      #+begin_src R :results silent
        LIST <- list(letters=LETTERS[1:4],
                     numbers=1:100,
@@ -232,13 +288,12 @@ DataCamp lesson review:
      #+end_src
 
      #+begin_src R
-       ## show the structure
+       LIST[["tweets"]][999]
+      #+end_src
 
-       ## print the element
+      #+RESULTS:
+      : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
 
-       ## print the top of the list to make sure
-
-     #+end_src
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse

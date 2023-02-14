@@ -19,6 +19,24 @@
   #+attr_html: :width 400px
   #+caption: Text mining functions
   [[../img/4_clean.png]]
+
+  #+begin_src R
+    tolower("WHATSHAPPENING")
+  #+end_src
+
+  Is ~tm~ loaded?
+  #+begin_src R
+    library(tm)
+    search()
+  #+end_src
+
+  #+RESULTS:
+  : Loading required package: NLP
+  :  [1] ".GlobalEnv"        "package:tm"        "package:NLP"      
+  :  [4] "ESSR"              "package:stats"     "package:graphics" 
+  :  [7] "package:grDevices" "package:utils"     "package:datasets" 
+  : [10] "package:methods"   "Autoloads"         "package:base"
+
 * Create sample corpus
 
 - Create corpus so we have something to work with:
