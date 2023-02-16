@@ -1,0 +1,272 @@
+#+TITLE: PRACTICE FILE - Bag of Words - cleaning and preprocessing data
+#+AUTHOR: Marcus Birkenkrahe (pledged)
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023 
+#+STARTUP:overview hideblocks indent
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This file covers data cleaning and preprocessing for the Bag-of-Word
+  text mining method
+
+- Some of this material can be found in Kwartler, Text mining in
+  practice with R (Wiley, 2019), and in Kwartler's DataCamp course on
+  Text mining with Bag-of-Words.
+
+* DONE Identify and pledge yourself
+
+1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
+   file by your own name and write ~(pledged)~ next to it
+2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
+   by entering ~S-<right>~ ("Shift + right-arrow").
+
+* DONE Create sample corpus
+
+- Create corpus so we have something to work with:
+  #+begin_src R :results silent
+    library(tm)
+    coffee_df <- read.csv("coffee.csv")
+    coffee_vec <- coffee_df$text
+    coffee_src <- VectorSource(coffee_vec)
+    coffee_corpus <- VCorpus(coffee_src)
+  #+end_src
+
+* DONE Invoke functions separately
+
+- Each function separately - run the code block after each function:
+  #+begin_src R
+    t <- coffee_corpus[[2]]
+    content(t)
+    tolower(t)
+    tt <- content(removePunctuation(t))
+    content(
+      removeNumbers(t))
+    stripWhitespace("There     is   a lot of      whitespace.")
+    content(
+      removeWords(t, c("in","the","at"))
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "rt @bryzy_brib: senior march tmw morning at 7:25 a.m. in the senior lot. get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "RT bryzybrib Senior March tmw morning at 725 AM in the SENIOR lot Get up early make yo coffeebreakfast cus this will only happen "
+  : [1] "RT @bryzy_brib: Senior March tmw morning at : A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "There is a lot of whitespace."
+  : [1] " @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+
+  #+begin_src R
+    tt
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT bryzybrib Senior March tmw morning at 725 AM in the SENIOR lot Get up early make yo coffeebreakfast cus this will only happen "
+
+* DONE Nest functions
+
+- Nested functions:
+  #+begin_src R
+    content(t)
+    tc <-
+      tolower(
+        content(
+          removePunctuation(
+            removeNumbers(
+              removeWords(t,c("in","the","at","will","only","this")
+                          )))))
+    tc
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "rt bryzybrib senior march tmw morning   am   senior lot get up early make yo coffeebreakfast cus    happen "
+
+#+begin_src R
+  args(stripWhitespace)
+  stripWhitespace(c("one     space", "two        space"))
+#+end_src
+
+#+RESULTS:
+: function (x) 
+: NULL
+: [1] "one space" "two space"
+
+* DONE Create a pipeline of functions with ~|>~
+
+- Function pipeline
+  #+begin_src R
+    content(t)
+    t |>
+      removeWords(c("in","the","at","this","will","only")) |>
+      removeNumbers() |>
+      removePunctuation() |>
+      content() |>
+      tolower()
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "rt bryzybrib senior march tmw morning   am   senior lot get up early make yo coffeebreakfast cus    happen "
+
+* Apply function with the ~tm_map~ wrapper
+
+- Apply functions to the whole corpus with the ~tm_map~ wrapper:
+  #+begin_src R
+    ## run functions as an argument to tm_map
+    tm_map(
+      coffee_corpus,
+      removeNumbers) -> cc_no_numbers
+    tm_map(
+      coffee_corpus,
+      removePunctuation) -> cc_no_punc
+    content(t)
+    content(cc_no_numbers[[2]])
+    content(cc_no_punc[[2]])
+    ## check content
+
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "RT @bryzy_brib: Senior March tmw morning at : A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "RT bryzybrib Senior March tmw morning at 725 AM in the SENIOR lot Get up early make yo coffeebreakfast cus this will only happen "
+
+- Let's use the pipe ~|>~ with ~tm_map~:
+  #+begin_src R
+    coffee_corpus |> tm_map(removeNumbers) -> tp
+    content(tp[[2]])
+  #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at : A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+
+- These functions live in different environments: check ~environment~
+  #+begin_src R
+    library(qdap)
+    tolower |> environment()
+    removeWords |> environment()
+    stripWhitespace |> environment()
+    replace_abbreviation |> environment()
+  #+end_src
+
+  #+RESULTS:
+  : <environment: namespace:base>
+  : <environment: namespace:tm>
+  : <environment: namespace:tm>
+  : <environment: namespace:qdap>
+
+- To work, ~tm_map~ must transform a function from another package with
+  ~content_transformer~ (this also takes a lot longer):
+  #+begin_src R
+    library(tm)
+    library(qdap)
+    ## where is replace_abbreviation?
+    replace_abbreviation |> environment()
+    ## run this function with tm_map - store result in repl
+    tm_map(
+      coffee_corpus,
+      content_transformer(
+        replace_abbreviation)) ->repl
+    content(repl[[2]])
+    ## print content with and without abbrevs replaced
+
+  #+end_src
+
+  #+RESULTS:
+  : <environment: namespace:qdap>
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 AM in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen?"
+
+* Word stemming with ~stemDocument~
+
+- Word stemming with ~tm::stemDocument~: requires installing ~SnowballC~:
+  #+begin_src R
+    library(qdap)
+    library(SnowballC)
+    ...
+  #+end_src
+
+- Change the argument to "complicateD" or something similar and check
+  again.
+
+* Completing word stems with ~stemCompletion~
+
+- You can complete the words using a single word dictionary (i.e. all
+  stems are mapped onto a single word):
+  #+begin_src R
+
+  #+end_src
+
+- You can use a corpus as completion dictionary:
+  #+begin_src R
+
+  #+end_src
+
+- Create a new corpus just for ~stem_words~ to test the function
+  ~stemCompletion~, starting with the vector ~c("complicate")~:
+  #+begin_src R
+
+  #+end_src
+
+* Cleaning with ~qdap~
+
+- To see the full range of arguments of a function, pass the function
+  name as an argument to ~args()~ - e.g. for ~qdap::bracketX~:
+  #+begin_src R
+
+  #+end_src
+
+- To find out more, e.g. about the options for the parameter ~bracket~,
+  look at the ~help~ page (when you do this in an Emacs Org-mode code
+  block, interrupt the process manually with ~C-g~ to go on).
+  #+begin_src R
+
+  #+end_src
+
+* Test text cleaning functions in ~qdap~
+
+- Define a sample text vector and print it:
+  #+begin_src R
+    ## define text vector
+    text <-
+      "<b>She</b> woke up at       6 A.M. It\'s so
+       early!  She was only 10% awake and began drinking
+       coffee in front of her computer."
+    ...
+  #+end_src
+
+- Remove text within brackets:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace all numbers with words:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace abbreviations:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace contractions:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Replace symbols with words:
+  #+begin_src R
+    text
+
+  #+end_src
+
+- Run all of these on ~text~ together using a pipeline ~|>~:
+  #+begin_src R
+
+  #+end_src
+
+
+

@@ -42,7 +42,7 @@
 - Create corpus so we have something to work with:
   #+begin_src R :results silent
     library(tm)
-    coffee_df <- read.csv("./data/coffee.csv") # dataframe
+    coffee_df <- read.csv("../data/coffee.csv") # dataframe
     coffee_vec <- coffee_df$text # vector
     coffee_src <- VectorSource(coffee_vec) # source
     coffee_corpus <- VCorpus(coffee_src)
@@ -53,11 +53,20 @@
     t <- coffee_corpus[[2]]
     content(t)
     tolower(t)
-    content(removePunctuation(t))
+    content(removePunctuation(t)) 
     content(removeNumbers(t))
     stripWhitespace("There      is    a     lot    of space    .")
     content(removeWords(t, c("in", "the", "at")))
   #+end_src
+
+  #+RESULTS:
+  : [1] "RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "rt @bryzy_brib: senior march tmw morning at 7:25 a.m. in the senior lot. get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "RT bryzybrib Senior March tmw morning at 725 AM in the SENIOR lot Get up early make yo coffeebreakfast cus this will only happen "
+  : [1] "RT @bryzy_brib: Senior March tmw morning at : A.M. in the SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+  : [1] "There is a lot of space ."
+  : [1] "RT @bryzy_brib: Senior March tmw morning  7:25 A.M.   SENIOR lot. Get up early, make yo coffee/breakfast, cus this will only happen ?"
+
 * Nest functions
 - Nested functions:
   #+begin_src R
