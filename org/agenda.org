@@ -175,14 +175,14 @@ b* Week 6 - Bag of words III - text cleaning
 - Get ~4_cleaning_practice.org~ [[https://raw.githubusercontent.com/birkenkrahe/tm/main/org/4_cleaning_practice.org][from GitHub]] to code alongside me
 - When finished, upload the file to Canvas
 
-* DataCamp: all assignments & test 2 are live now
+** DataCamp: all assignments & test 2 are live now
 #+attr_latex: :width 400px
 [[../img/canvas1.png]]
 
 - Test 2 deadline: Friday, Feb 17 at 11:59 pm - open book!
 - Don't leave the DataCamp assignments to the very end!
 
-* Review questions for test 2
+** Review questions for test 2
 
 - Questions we have yet to review come from the last lecture:
 
@@ -294,6 +294,9 @@ b* Week 6 - Bag of words III - text cleaning
       #+RESULTS:
       : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
 
+* NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
+
+* TODO Mid-term grades: send me DataCamp screenshots
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse
