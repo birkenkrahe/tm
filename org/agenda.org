@@ -133,7 +133,12 @@ DataCamp lesson review:
 #+attr_latex: :width 300px
 [[../img/zoom.png]]
 
+* Week 6 - Bag of words III - data cleaning
+#+attr_latex: :width 400px
+[[../img/4_cleaning.jpg]]
+
 ** Get bonus points when practicing
+
 #+attr_latex: :width 200px
 [[../img/datacamp2.png]]
 - You can get 10 bonus points if you keep a practice streak of 10 days
@@ -294,9 +299,9 @@ b* Week 6 - Bag of words III - text cleaning
       #+RESULTS:
       : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
 
-* NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
+** NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
 
-* TODO Mid-term grades: send me DataCamp screenshots
+* Week 7 - Bag of words IV - stop words & term matrix
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse

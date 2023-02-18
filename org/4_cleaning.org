@@ -5,6 +5,8 @@
 #+OPTIONS: toc:nil num:nil ^:nil
 #+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
 * README
+#+attr_latex: :width 400px
+[[../img/4_cleaning.jpg]]
 
 - This lecture closely follows the 3rd part of the DataCamp lesson
   "Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
