@@ -306,6 +306,7 @@ b* Week 6 - Bag of words III - text cleaning
 [[../img/tdm.jpg]]
 
 - *REMEMBER TO FINISH THE FIRST DATACAMP LESSON BY FRIDAY*
+  
 - Stopwords - using ~stopwords~ and adding stop words
 - Finding strings in a big data set
 - Finding tweets in the coffee tweet vector
