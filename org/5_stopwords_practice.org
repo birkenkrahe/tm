@@ -1,0 +1,176 @@
+#+TITLE: Text mining in practice - Bag of Words - stopwords - PRACTICE
+#+AUTHOR: [yourname]
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+This lecture closely follows the 3rd part of the DataCamp lesson
+"Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
+his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+
+* TODO Identify and pledge yourself
+
+1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
+   file by your own name and write ~(pledged)~ next to it
+2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
+   by entering ~S-<right>~ ("Shift + right-arrow").
+
+* Getting the coffee data
+
+Run this in case you had to interrupt the previous session and don't
+have the data in your R session:
+#+begin_src R :results silent
+  library(tm)
+  coffee_df <- read.csv("../data/coffee.csv") # dataframe
+  coffee_vec <- coffee_df$text # vector
+  coffee_src <- VectorSource(coffee_vec) # source
+  coffee_corpus <- VCorpus(coffee_src)
+#+end_src
+
+* All about stop words
+
+- Load the ~tm~ package and look for the ~stopwords~ function:
+  #+begin_src R
+    library(tm)
+    ## is stopwords any of the functions in tm?
+    ... # store all function names in f_tm
+    ... # check every function against "stopwords"
+  #+end_src
+
+- The function ~any~ is very useful: it checks if any of its arguments
+  are true:
+  #+begin_src R
+    ...
+  #+end_src
+
+- Check out the ~stopwords~ in English ("en" or "english"), Spanish
+  ("es"), German ("de" or "german").
+  #+begin_src R
+    ...
+  #+end_src
+
+- Check yourself if the word "should" is in ~stopwords("en")~:
+  #+begin_src R
+    ...
+  #+end_src
+
+- Add two stop words to ~stopwords("en")~ and check that they were added:
+  1) append "word1" and "word2" to ~stopwords("en")~ using ~c()~
+  2) store the result in ~all_stops~
+  3) display the first two entries of ~all_stops~
+  #+begin_src R
+    ...
+    ...
+  #+end_src
+
+- List the arguments of ~removeWords~.
+  #+begin_src R
+
+  #+end_src
+
+* Exercise with ~stopwords~
+
+- Remove all ~stopwords~ from sample ~text~, add two words to the standard
+  ~stopwords~ dictionary, and remove them from ~text~, too.
+
+- Define sample ~text~ vector.
+  #+begin_src R
+    text <-
+      "<b>She</b> woke up at       6 A.M. It\'s so
+       early!  She was only 10% awake and began drinking
+       coffee in front of her computer."
+    text
+  #+end_src
+
+- Remove "en" stopwords from ~text~ with ~removeWord~.
+  #+begin_src R
+    text
+    ...
+  #+end_src
+
+- Add "coffee" and "bean" to the standard stop words and assign the
+  result to ~new_stops~. Check that they are in ~new_stops~!
+  #+begin_src R
+
+  #+end_src
+
+- Wait a moment! What if these words were already in ~stopwords~?
+  1) save ~stopwords("en")~ as ~old_stops~
+  2) check if any elements of ~old_stops~ are "coffee" or "bean"
+  3) check if any elements of ~new_stops~ are "coffee" or "bean"
+  #+begin_src R
+    ... # store old stopwords in old_stops
+    ...
+    ...
+  #+end_src
+
+- Remove the customized stopwords, ~new_stops~, from ~text~:
+  #+begin_src R
+    text
+    ...
+  #+end_src
+
+* Finding a string in a dataset
+
+- To find a tweet in ~coffee_vec~ that contains both words, we need a
+  few more tricks: index vectors with ~which~ and pattern search with
+  ~grepl~.
+
+- ~which~ runs its ~logical~ argument a vector and returns the indices
+  that satisfy the logical argument:
+  #+begin_src R
+    ...
+  #+end_src
+
+- The same thing works with ~character~ vectors:
+  #+begin_src R
+
+  #+end_src
+
+- It also works with ~stopwords~: e.g. is "cannot" in the ~stopwords~
+  vector?
+  #+begin_src R
+
+  #+end_src
+
+- ~grepl~ checks if its ~pattern~ is contained in a dataset ~x~. It returns
+  a ~logical~ vector, a match or not for each element of ~x~:
+  #+begin_src R
+
+  #+end_src
+
+- For example: check if any coffee tweets contain the word "Ramadan"
+  #+begin_src R
+
+  #+end_src
+
+- Combine ~grepl~ and ~which~ to extract the corresponding index:
+  #+begin_src R
+
+  #+end_src
+
+- Then print the corresponding tweets:
+  #+begin_src R
+
+  #+end_src
+
+* Finding certain tweets in ~coffee_vec~
+
+- Now, to find the tweets in ~coffee_vec~ that contain "coffee" AND
+  "beans":
+  1) create an index vector of tweets that contain "beans"
+  2) store these tweets in ~bean~
+  3) create an index vector of ~bean~ tweets that contain "coffee"
+  4) store these tweets in ~coffee~
+
+  #+begin_src R
+
+  #+end_src
+
+- Now re-run the code above to remove "bean" and "coffee" from the
+  selection ~coffee_bean~:
+  #+begin_src R
+
+  #+end_src
