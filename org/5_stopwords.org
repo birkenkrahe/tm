@@ -17,13 +17,14 @@
 
 Run this in case you had to interrupt the previous session and don't
 have the data in your R session:
-  #+begin_src R :results silent
-    library(tm)
-    coffee_df <- read.csv("../data/coffee.csv") # dataframe
-    coffee_vec <- coffee_df$text # vector
-    coffee_src <- VectorSource(coffee_vec) # source
-    coffee_corpus <- VCorpus(coffee_src)
-  #+end_src
+#+name: load_coffee_data
+#+begin_src R :results silent
+  library(tm)
+  coffee_df <- read.csv("../data/coffee.csv") # dataframe
+  coffee_vec <- coffee_df$text # vector
+  coffee_src <- VectorSource(coffee_vec) # source
+  coffee_corpus <- VCorpus(coffee_src)
+#+end_src
 
 * All about stop words
 
@@ -49,7 +50,7 @@ have the data in your R session:
   : [1] FALSE
   : [1] TRUE
   : [1] FALSE
-  
+
 - Check out the ~stopwords~ in English ("en" or "english"), Spanish
   ("es"), German ("de" or "german").
   #+begin_src R
@@ -65,7 +66,7 @@ have the data in your R session:
   1) append "word1" and "word2" to ~stopwords("en")~ using ~c()~
   2) store the result in ~all_stops~
   3) display the first two entries of ~all_stops~
-  #+begin_src R 
+  #+begin_src R
     all_stops <- c("word1", "word2", stopwords("en"))
     head(all_stops,2)
   #+end_src
@@ -81,7 +82,7 @@ have the data in your R session:
 
 - You see that there are two arguments: ~x~ is the input dataset, and
   ~words~ are the words to be removed as ~character~ strings.
-  
+
 * Exercise with ~stopwords~
 
 - Remove all ~stopwords~ from sample ~text~, add two words to the standard
@@ -106,13 +107,13 @@ have the data in your R session:
     new_stops <- c("coffee", "bean", stopwords("en"))
     head(new_stops,2)
   #+end_src
-- Wait a moment! What if these words were already in ~stopwords~? 
+- Wait a moment! What if these words were already in ~stopwords~?
   1) save ~stopwords("en")~ as ~old_stops~
   2) check if any elements of ~old_stops~ are "coffee" or "bean"
   3) check if any elements of ~new_stops~ are "coffee" or "bean"
   #+begin_src R
     old_stops <- stopwords("en") # store old stopwords in old_stops
-    any(old_stops=="coffee"|old_stops=="bean") 
+    any(old_stops=="coffee"|old_stops=="bean")
     any(new_stops=="coffee"|new_stops=="bean")
   #+end_src
 - Remove the customized stopwords, ~new_stops~, from ~text~:
@@ -125,7 +126,7 @@ have the data in your R session:
   : [1] "<b>She</b> woke up at       6 A.M. It's so\n   early!  She was only 10% awake and began drinking\n   coffee in front of her computer."
   : [1] "<b>She</b> woke         6 A.M. It's \n   early!  She   10% awake  began drinking\n     front   computer."
 
-* Finding a string in a dataset
+* Interlude: finding a string in a dataset
 
 - To find a tweet in ~coffee_vec~ that contains both words, we need a
   few more tricks: index vectors with ~which~ and pattern search with
@@ -143,7 +144,7 @@ have the data in your R session:
   #+begin_src R
     bar <- c("High", "Noon", "in", "Batesville")
     which (bar == "High")  # elements of bar equal "High"
-    which (bar == "Batesville" | # elements of bar either 
+    which (bar == "Batesville" | # elements of bar either
            bar == "in")          # equal "Batesville" or equal "in"
   #+end_src
 
@@ -152,7 +153,7 @@ have the data in your R session:
   #+begin_src R
     str(stopwords()) # structure
     idx <- which(stopwords("en") == "cannot") # index vector
-    stopwords("en")[idx] # extract the element no. idx 
+    stopwords("en")[idx] # extract the element no. idx
   #+end_src
 
 - ~grepl~ checks if its ~pattern~ is contained in a dataset ~x~. It returns
@@ -164,7 +165,7 @@ have the data in your R session:
 - For example: check if any coffee tweets contain the word "Ramadan"
   #+begin_src R
     any(grepl(pattern="Ramadan",x=coffee_vec))
-    #+end_src  
+  #+end_src
 
 - Combine ~grepl~ and ~which~ to extract the corresponding index:
   #+begin_src R
@@ -189,26 +190,26 @@ have the data in your R session:
   2) store these tweets in ~bean~
   3) create an index vector of ~bean~ tweets that contain "coffee"
   4) store these tweets in ~coffee~
-     
+
   #+begin_src R
-    idx_bean <- which(grepl("bean",coffee_vec)) 
+    idx_bean <- which(grepl("bean",coffee_vec))
     bean <- coffee_vec[idx_bean] # all tweets with "bean"
     idx_coffee_bean <- which(grepl("coffee",bean))
-    coffee_bean <- bean[idx_coffee_bean] 
+    coffee_bean <- bean[idx_coffee_bean]
     coffee_bean
   #+end_src
 
   #+RESULTS:
   #+begin_example
-   [1] "Fun fact: roast your own coffee bean at home using a popcorn machine! @YelpAdelaide #coffeecrawl"                                           
-   [2] "Michael Jackson and Slash walk into a coffee bean... #hollywoodblvd"                                                                        
-   [3] "It is a good night when both of your friends bring you coffee beans."                                                                       
+   [1] "Fun fact: roast your own coffee bean at home using a popcorn machine! @YelpAdelaide #coffeecrawl"
+   [2] "Michael Jackson and Slash walk into a coffee bean... #hollywoodblvd"
+   [3] "It is a good night when both of your friends bring you coffee beans."
    [4] "@NickThayer oh worth mentioning, went to a place that's roasts their own beans in house. Some of the best coffee I've tasted #heaven #snobs"
-   [5] "@coreybking We are kin in our rejection of the coffee bean and its cohorts... #ConfessYourUnpopularOpinion"                                 
-   [6] "Wired offa that coffee bean haha"                                                                                                           
-   [7] "I love bringing home locally roasted #coffee beans from all of the cities I visit for @marshallhines? http://t.co/d4cnURL3jW"               
-   [8] "RT @jelenasaurus: I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"                                                
-   [9] "omg the auroma in coffee bean makes me feel super hungry"                                                                                   
+   [5] "@coreybking We are kin in our rejection of the coffee bean and its cohorts... #ConfessYourUnpopularOpinion"
+   [6] "Wired offa that coffee bean haha"
+   [7] "I love bringing home locally roasted #coffee beans from all of the cities I visit for @marshallhines? http://t.co/d4cnURL3jW"
+   [8] "RT @jelenasaurus: I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [9] "omg the auroma in coffee bean makes me feel super hungry"
   [10] "I want this!!! #coffee #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
   #+end_example
 
@@ -220,15 +221,226 @@ have the data in your R session:
 
   #+RESULTS:
   #+begin_example
-   [1] "Fun fact: roast      home using  popcorn machine! @YelpAdelaide #coffeecrawl"                                 
-   [2] "Michael Jackson  Slash walk    ... #hollywoodblvd"                                                            
-   [3] "It   good night     friends bring   beans."                                                                   
+   [1] "Fun fact: roast      home using  popcorn machine! @YelpAdelaide #coffeecrawl"
+   [2] "Michael Jackson  Slash walk    ... #hollywoodblvd"
+   [3] "It   good night     friends bring   beans."
    [4] "@NickThayer oh worth mentioning, went   place  roasts   beans  house. Some   best  I've tasted #heaven #snobs"
-   [5] "@coreybking We  kin   rejection       cohorts... #ConfessYourUnpopularOpinion"                                
-   [6] "Wired offa    haha"                                                                                           
-   [7] "I love bringing home locally roasted # beans     cities I visit  @marshallhines? http://t.co/d4cnURL3jW"      
-   [8] "RT @jelenasaurus: I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"                            
-   [9] "omg  auroma    makes  feel super hungry"                                                                      
+   [5] "@coreybking We  kin   rejection       cohorts... #ConfessYourUnpopularOpinion"
+   [6] "Wired offa    haha"
+   [7] "I love bringing home locally roasted # beans     cities I visit  @marshallhines? http://t.co/d4cnURL3jW"
+   [8] "RT @jelenasaurus: I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
+   [9] "omg  auroma    makes  feel super hungry"
   [10] "I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
   #+end_example
+* Word stemming on a sentence
+
+- If you call ~stemDocument~ on a sentence it fails. Try it with the
+  sample text:
+  #+begin_src R
+    sentence <- "In a complicated haste,
+      Tom rushed to fix a new complication,
+      too complicatedly."
+    sentence
+  #+end_src
+
+- Alas, I wrote this over several lines and it contains newline
+  characters ~\n~ - white space - do you know how to remove it?
+  #+begin_src R
+    sentence <- stripWhitespace(sentence)
+    sentence
+  #+end_src
+
+  #+RESULTS:
+  : [1] "In a complicated haste, Tom rushed to fix a new complication, too complicatedly."
+
+- Now run ~stemDocument~ on the ~sentence~:
+  #+begin_src R
+    stemDocument(sentence)
+  #+end_src
+
+- This happens because ~stemDocument()~ treats the whole sentence *as one
+  word*: the document is a ~character~ vector of length 1:
+  #+begin_src R
+    is.vector(sentence)
+    length(sentence)
+  #+end_src
+
+- To solve this problem
+  1) remove the punctuation marks with ~removePunctuation~
+  2) split the ~sentence~ in individual words using ~strsplit~
+  3) re-apply ~stemDocument~ and ~stemCompletion~ with our dictionary
+
+* Interlude: Splitting strings with ~strsplit~
+
+- To split strings, ~strsplit~ is handy. The only problem is that it
+  returns a ~list~ instead of a vector so we have to ~unlist~ the result
+
+- It is helpful for a new function to check the ~help~ (if you run the
+  code block below, a browser will open and you'll have to stop the
+  process in Emacs with ~C-g~):
+  #+begin_src R
+    help(base::strsplit)
+  #+end_src
+
+- What did you learn? ~x~ is the target data set, and ~split~ is a vector
+  used for splitting. Never mind about the other arguments!
+  #+begin_src R
+    args(strsplit)
+  #+end_src
+
+- For example, split this sentence: "Split this sentence" using ~""~ as
+  the ~split~ argument:
+  #+begin_src R
+    foo <- "Split this sentence"
+    strsplit(foo," ")
+  #+end_src
+
+- That didn't quite work. What's the correct ~split~ to get the words?
+  #+begin_src R
+    bar <- strsplit(s," ")
+    bar
+  #+end_src
+
+- Now, the result of the split is a ~list~ and needs to be un-listed:
+  #+begin_src R
+    class(bar)
+    bar |> unlist() |> class()
+  #+end_src
+
+- Just for fun, can you turn the pipeline in the last code block into
+  a nested statement?
+  #+begin_src R
+    class(unlist(bar))
+  #+end_src
+* Stem and re-complete a sentence
+
+- Now, we're ready to deliver on our earlier promise:
+  1) remove the punctuation marks with ~removePunctuation~
+  2) split the ~sentence~ in individual words using ~strsplit~
+  3) re-apply ~stemDocument~ and ~stemCompletion~ with our dictionary
+
+- Sample sentence and sample dictionary for stem re-completion:
+  #+begin_src R
+    sentence <- stripWhitespace("In a complicated haste,
+                                Tom rushed to fix a new complication,
+                                too complicatedly.")
+    sentence
+    comp_dict <- c("In","a","complicate","haste",
+                   "Tom","rush","to","fix","new","too")
+    comp_dict
+  #+end_src
+
+- Remove the punctuation marks in ~sentence~ using ~removePunctuation()~,
+  and assign the result to ~foo~:
+  #+begin_src R
+    foo <- removePunctuation(sentence)
+    foo
+  #+end_src
+
+- Call ~strsplit()~ on ~foo~ with the split argument set equal to " ", and
+  save the result to ~bar~:
+  #+begin_src R
+    bar <- strsplit(x = foo,
+                    split = " ")
+    bar
+  #+end_src
+
+- Finally, unlist ~bar~, assign the result to ~baz~ and test that ~baz~ is a
+  ~character~ vector:
+  #+begin_src R
+    bar |> unlist() -> baz
+    baz |> is.character()
+    baz |> is.vector()
+  #+end_src
+
+- Exercise: can you do the three steps - ~removePunctuation~, ~strsplit~
+  and ~unlist~ in one command starting with ~sentence~?
+  #+begin_src R
+    unlist(strsplit(removePunctuation(sentence)," "))
+  #+end_src
+
+- Back to the main course: use ~stemDocument~ on ~baz~ and assign the
+  result to ~stem_doc~:
+  #+begin_src R
+    stem_doc <- stemDocument(baz)
+    stem_doc
+  #+end_src
+
+- Re-complete the stemmed document with ~stemCompletion~ using ~comp_dict~
+  as reference dictionary and save the result in ~complete_doc~:
+  #+begin_src R
+    complete_doc <- stemCompletion(stem_doc,comp_dict)
+    complete_doc
+  #+end_src
+
+- This is the expected result: ~complete_doc~ is a named ~character~
+  vector whose names are the word stems (only ~complic~ was stemmed),
+  and whose values are the completed words.
+  #+begin_src R
+    str(complete_doc)
+  #+end_src
+
+* Apply preprocessing steps to a corpus
+
+- Earlier, we met the function ~tm_map~ to apply cleaning functions to
+  an entire corpus. Here, we use it to clean out stop words.
+
+- Reload the coffee corpus if you don't have it anymore in your R
+  session - check this:
+  #+name: check_coffee_data
+  #+begin_src R
+    any(ls()=="coffee_corpus")
+    any(search()=="package:qdap")
+    any(search()=="package:tm")
+  #+end_src
+
+- Reload it in case and load the necessary libraries, then run the
+  search again:
+  #+begin_src R
+    <<load_coffee_data>>
+    <<check_coffee_data>>
+  #+end_src
+
+- To apply a cleaning function to the corpus, call it on the corpus
+  and add the function as an argument.
+
+- Example: remove the numbers from tweet no. 2:
+  #+begin_src R
+    corpus <- tm_map(coffee_corpus,removeNumbers)  # remove numbers
+    content(coffee_corpus[[2]]) # original tweet
+    content(corpus[[2]])  # tweet with numbers removed
+  #+end_src
+
+- To apply more than one cleaning function to a corpus, we create our
+  own custom function, ~clean_corpus~. Here is what it does:
+  1) tm's ~removePunctuation()~.
+  2) Base R's ~tolower()~.
+  3) Remove the word "coffee" with ~tm::removeWords~
+  4) Remove all white space with ~tm::stripWhitespace~
+  #+begin_src R :results silent
+    clean_corpus <- function(corpus) {
+      corpus <- tm_map(corpus,
+                       removePunctuation)
+      corpus <- tm_map(corpus,
+                       content_transformer(tolower))
+      corpus <- tm_map(corpus,
+                       removeWords,
+                       words = c(stopwords("en"), "coffee"))
+      corpus <- tm_map(corpus,
+                       stripWhitespace)
+      return(corpus)
+    }
+  #+end_src
+
+- The function ~clean_corpus~ will now run all its content functions on
+  any corpus argument - to test this:
+  1) run ~clean_corpus~ on ~coffee_corpus~ and save it as ~clean_coffee~
+  2) print the cleaned 227th tweet using ~[[~ and ~content~
+  3) Compare it to the original tweet from ~coffee_corpus~.
+  #+begin_src R 
+    clean_corp <- clean_corpus(coffee_corpus)
+    content(clean_corp[[999]]) # lower case, no punctuation, no stopwords,
+                               # no "coffee"
+    content(coffee_corpus[[999]])
+  #+end_src
 

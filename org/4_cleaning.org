@@ -192,19 +192,19 @@
 
 * NEXT Cleaning with ~qdap~
 
-- To see the full range of arguments of a function, pass the function
-  name as an argument to ~args()~ - e.g. for ~qdap::bracketX~:
-  #+begin_src R
-    library(qdap)
-    args(bracketX)
-  #+end_src
+  - To see the full range of arguments of a function, pass the function
+    name as an argument to ~args()~ - e.g. for ~qdap::bracketX~:
+    #+begin_src R
+      library(qdap)
+      args(bracketX)
+    #+end_src
 
-- To find out more, e.g. about the options for the parameter ~bracket~,
-  look at the ~help~ page (when you do this in an Emacs Org-mode code
-  block, interrupt the process manually with ~C-g~ to go on).
-  #+begin_src R
-    help(bracketX)
-  #+end_src
+  - To find out more, e.g. about the options for the parameter ~bracket~,
+    look at the ~help~ page (when you do this in an Emacs Org-mode code
+    block, interrupt the process manually with ~C-g~ to go on).
+    #+begin_src R
+      help(bracketX)
+    #+end_src
 
 * Text cleaning functions in ~qdap~
 
@@ -232,6 +232,7 @@
        coffee in front of her computer."
     text
   #+end_src
+
 - Remove text within brackets:
   #+begin_src R
     text
@@ -266,4 +267,14 @@
       replace_contraction() |>
       replace_symbol()
   #+end_src
+- Run all of these on ~text~ together as /nested/ functions:
+  #+begin_src R
+    bracketX(
+      replace_number(
+        replace_abbreviation(
+          replace_contraction(
+            replace_symbol(text)))))
+  #+end_src
+
+* NEXT stop: ~stopwords~!
 

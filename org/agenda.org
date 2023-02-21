@@ -301,7 +301,27 @@ b* Week 6 - Bag of words III - text cleaning
 
 ** NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
 
-* Week 7 - Bag of words IV - stop words & term matrix
+* IN PROGRESS Week 7 - Bag of words IV - stop words & TDM
+#+attr_latex: :width 400px
+[[../img/tdm.jpg]]
+
+- Stopwords - using ~stopwords~ and adding stop words
+- Finding strings in a big data set
+- Finding tweets in the coffee tweet vector
+- Removing words from the stop words dictionary
+- Stem completion on a sentence 
+- Splitting strings with ~strsplit~
+- Applying preprocessing steps to a corpus
+- TDM and DTM
+
+* TODO Week 8: Word clouds and visualization
+* TODO Week 9: Word clustering and dendograms
+* TODO Week 10: Case study - HR analytics
+* TODO Week 11: Polarity scoring
+* TODO Week 12: Subjectivity lexicons with ~tidytext~
+* TODO Week 13: Visualizing sentiment
+* TODO Week 14: Cast study - Airbnb reviews
+* TODO Week 15: Project presentations 
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse
