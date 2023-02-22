@@ -45,12 +45,6 @@ have the data in your R session:
     any("Josh" %in% c("Jim","Joe","Jane")) # is Josh in the team?
   #+end_src
 
-  #+RESULTS:
-  : [1] TRUE
-  : [1] FALSE
-  : [1] TRUE
-  : [1] FALSE
-
 - Check out the ~stopwords~ in English ("en" or "english"), Spanish
   ("es"), German ("de" or "german").
   #+begin_src R
@@ -101,6 +95,17 @@ have the data in your R session:
     text
     removeWords(text, stopwords("en"))
   #+end_src
+
+- How many words were removed? Use ~nchar~ to check.
+  #+begin_src R
+
+  #+end_src
+
+- Remove "She" from ~text~:
+  #+begin_src R
+    
+  #+end_src
+
 - Add "coffee" and "bean" to the standard stop words and assign the
   result to ~new_stops~. Check that they are in ~new_stops~!
   #+begin_src R
