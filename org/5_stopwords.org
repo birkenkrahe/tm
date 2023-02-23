@@ -154,7 +154,7 @@ have the data in your R session:
   #+end_src
 
 - It also works with ~stopwords~: e.g. is "cannot" in the ~stopwords~
-  vector?
+  vector? And which index of the ~stopwords~ vector is it?
   #+begin_src R
     str(stopwords()) # structure
     idx <- which(stopwords("en") == "cannot") # index vector
@@ -184,9 +184,6 @@ have the data in your R session:
   #+end_src
 
   #+RESULTS:
-  : [1] "My dad is happy Ramadan is over so he can have his morning cup of coffee now."
-  : [2] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
-
 * Finding certain tweets in ~coffee_vec~
 
 - Now, to find the tweets in ~coffee_vec~ that contain "coffee" AND
@@ -283,9 +280,9 @@ have the data in your R session:
 - It is helpful for a new function to check the ~help~ (if you run the
   code block below, a browser will open and you'll have to stop the
   process in Emacs with ~C-g~):
-  #+begin_src R
+  #+begin_example R
     help(base::strsplit)
-  #+end_src
+  #+end_example
 
 - What did you learn? ~x~ is the target data set, and ~split~ is a vector
   used for splitting. Never mind about the other arguments!

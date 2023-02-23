@@ -201,10 +201,10 @@
 
   - To find out more, e.g. about the options for the parameter ~bracket~,
     look at the ~help~ page (when you do this in an Emacs Org-mode code
-    block, interrupt the process manually with ~C-g~ to go on).
-    #+begin_src R
-      help(bracketX)
-    #+end_src
+    block, interrupt the process manually with ~C-g~ to go on): 
+    #+begin_example R
+      help(bracketX)  
+    #+end_example
 
 * Text cleaning functions in ~qdap~
 
