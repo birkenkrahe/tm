@@ -328,11 +328,11 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
   3) Common word visualization
   4) Word clustering
 
-* Review: week 7
+* TODO Review: week 7
 #+attr_latex: :width 400px
 [[../img/LOTR-header.jpg]]
 
-1) [ ] What is the process from CSV file to document corpus?
+1) [X] What is the process from CSV file to document corpus?
    #+begin_notes
    1) ~read.csv~ into data frame ~df~
    2) extract text vector from data frame ~df~ as ~df$text~
@@ -340,7 +340,7 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    4) turn source into volatile (in-memory) corpus with ~VCorpus~
    #+end_notes
 
-2) [ ] How do you load the package ~tm~ and check if it contains a
+2) [X] How do you load the package ~tm~ and check if it contains a
    function named "stopwords"?
    #+begin_src R
      library(tm)
@@ -348,45 +348,77 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
      any(ls('package:tm')=="stopwords")
    #+end_src
 
-3) [ ] What data structure is ~stopwords("en")~, and how many words does
+   #+RESULTS:
+   : Loading required package: NLP
+   :  [1] ".GlobalEnv"        "package:tm"        "package:NLP"      
+   :  [4] "package:class"     "ESSR"              "package:stats"    
+   :  [7] "package:graphics"  "package:grDevices" "package:utils"    
+   : [10] "package:datasets"  "package:methods"   "Autoloads"        
+   : [13] "package:base"
+   : [1] TRUE
+
+3) [X] What data structure is ~stopwords("en")~, and how many words does
    it contain?
    #+begin_src R
      str(stopwords("en"))  ## a character vector
+     length(stopwords("en"))
    #+end_src
 
-4) [ ] How can you find out if a particular word, say "cannot", is
+   #+RESULTS:
+   :  chr [1:174] "i" "me" "my" "myself" "we" "our" "ours" "ourselves" "you" ...
+   : [1] 174
+
+4) [X] How can you find out if a particular word, say "cannot", is
    contained in the stopwords English dictionary?
    #+begin_src R
      any(stopwords("en")=="cannot")
    #+end_src
 
-5) [ ] How would you add two new words like "coffee" and "bean" to the
+   #+RESULTS:
+   : [1] TRUE
+
+5) [X] How would you add two new words like "coffee" and "bean" to the
    END of the stopwords English dictionary, and then check for them?
    #+begin_src R
-     c(stopwords("en"),"coffee","bean") |> tail()
-     tail(c(stopwords("en"),"coffee","bean"))
+     c(stopwords("en"),"coffee","bean") |> tail() ## pipeline
+     tail(c(stopwords("en"),"coffee","bean"))  ## nested
+     tail(stopwords("en"))
    #+end_src
 
-6) [ ] Why does ~which(c(20,30,40)==30~ return the value ~2~ ?
+   #+RESULTS:
+   : [1] "so"     "than"   "too"    "very"   "coffee" "bean"
+   : [1] "so"     "than"   "too"    "very"   "coffee" "bean"
+   : [1] "own"  "same" "so"   "than" "too"  "very"
+
+6) [X] Why does ~which(c(20,30,40)==30)~ return the value ~2~ ?
    #+begin_src R
      c("a","b","c") == "b"  ## this is FALSE TRUE FALSE
      which( c("a","b","c") == "b")  ## returns index for TRUE
    #+end_src
 
+   #+RESULTS:
+   : [1] FALSE  TRUE FALSE
+   : [1] 2
+
 7) [ ] Which index of the stopwords English dictionary corresponds to
    the word "with"?
    #+begin_src R
      which(stopwords("en") == "with")
+     stopwords("en")[124]
    #+end_src
+
+   #+RESULTS:
+   : [1] 124
+   : [1] "with"
 
 8) [ ] Use ~grepl(pattern,x)~ to find out if any words beginning with
    "no" are in the SPANISH stopwords dictionary ~x=stopwords("es")~ -
    Tip: the pattern for "word beginning with 'no'" is "^no"
    #+begin_src R
-     no <- grepl(pattern="^no", x=stopwords("es"))  # store pattern
-     any(no) # check if any elements of of 'no' are TRUE
-     which(no)  # which elements are these?
-     stopwords("es")[which(no)]  # which words start with 'no'?
+      no <- grepl(pattern="^no", x=stopwords("es"))  # store pattern
+      any(no) # check if any elements of of 'no' are TRUE
+      which(no)  # which elements are these?
+      stopwords("es")[which(no)]  # which words start with 'no'?
 
      ## the whole command as a series of nested functions:
      stopwords("es")[which(grepl(pattern="^no",x=stopwords("es")))]
@@ -413,9 +445,8 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    : [1] "de"    "del"   "donde" "desde"
 
 
-
 * TODO Week 9: Word clustering and dendograms
-** Review: week 8
+* Review: week 8
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~

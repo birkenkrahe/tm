@@ -253,7 +253,7 @@ have the data in your R session:
   [10] "I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
   #+end_example
 
-* NEXT Word stemming on a sentence
+* Word stemming on a sentence
 
 - If you call ~stemDocument~ on a sentence it fails. Try it with the
   sample text:
@@ -398,24 +398,12 @@ have the data in your R session:
     stem_doc
   #+end_src
 
-  #+RESULTS:
-  :  [1] "In"      "a"       "complic" "hast"    "Tom"     "rush"    "to"     
-  :  [8] "fix"     "a"       "new"     "complic" "too"     "complic"
-
 - Re-complete the stemmed document with ~stemCompletion~ using ~comp_dict~
   as reference dictionary and save the result in ~complete_doc~:
   #+begin_src R
     complete_doc <- stemCompletion(stem_doc,comp_dict)
     complete_doc
   #+end_src
-
-  #+RESULTS:
-  :           In            a      complic         hast          Tom         rush 
-  :         "In"          "a" "complicate"      "haste"        "Tom"       "rush" 
-  :           to          fix            a          new      complic          too 
-  :         "to"        "fix"          "a"        "new" "complicate"        "too" 
-  :      complic 
-  : "complicate"
 
 - This is the expected result: ~complete_doc~ is a named ~character~
   vector whose names are the word stems (only ~complic~ was stemmed),
@@ -425,9 +413,6 @@ have the data in your R session:
   #+end_src
 
   #+RESULTS:
-  :  Named chr [1:13] "In" "a" "complicate" "haste" "Tom" "rush" "to" "fix" "a" ...
-  :  - attr(*, "names")= chr [1:13] "In" "a" "complic" "hast" ...
-
 * Apply preprocessing steps to a corpus
 
 - Earlier, we met the function ~tm_map~ to apply cleaning functions to
