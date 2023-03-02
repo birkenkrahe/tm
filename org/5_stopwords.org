@@ -74,6 +74,10 @@ have the data in your R session:
     args(removeWords)
   #+end_src
 
+  #+RESULTS:
+  : function (x, words) 
+  : NULL
+
 - You see that there are two arguments: ~x~ is the input dataset, and
   ~words~ are the words to be removed as ~character~ strings.
 
@@ -90,6 +94,7 @@ have the data in your R session:
        coffee in front of her computer."
     text
   #+end_src
+
 - Remove "en" stopwords from ~text~ with ~removeWord~.
   #+begin_src R
     text
@@ -98,12 +103,14 @@ have the data in your R session:
 
 - How many words were removed? Use ~nchar~ to check.
   #+begin_src R
-
+    nchar(text)
+    nchar(removeWords(text, stopwords("en")))
   #+end_src
 
 - Remove "She" from ~text~:
   #+begin_src R
-    
+    text
+    removeWords(text, "She")
   #+end_src
 
 - Add "coffee" and "bean" to the standard stop words and assign the
@@ -157,15 +164,26 @@ have the data in your R session:
   vector? And which index of the ~stopwords~ vector is it?
   #+begin_src R
     str(stopwords()) # structure
+    which(stopwords("en") == "cannot") # index number
     idx <- which(stopwords("en") == "cannot") # index vector
     stopwords("en")[idx] # extract the element no. idx
   #+end_src
+
+  #+RESULTS:
+  :  chr [1:174] "i" "me" "my" "myself" "we" "our" "ours" "ourselves" "you" ...
+  : [1] 96
+  : [1] "cannot"
 
 - ~grepl~ checks if its ~pattern~ is contained in a dataset ~x~. It returns
   a ~logical~ vector, a matrh or not for each element of ~x~:
   #+begin_src R
     args(grepl)
   #+end_src
+
+  #+RESULTS:
+  : function (pattern, x, ignore.case = FALSE, perl = FALSE, fixed = FALSE, 
+  :     useBytes = FALSE) 
+  : NULL
 
 - For example: check if any coffee tweets contain the word "Ramadan"
   #+begin_src R
@@ -234,7 +252,8 @@ have the data in your R session:
    [9] "omg  auroma    makes  feel super hungry"
   [10] "I want !!! # #icecubes #coolbeans #punny http://t.co/sLg1jdj4TG"
   #+end_example
-* Word stemming on a sentence
+
+* NEXT Word stemming on a sentence
 
 - If you call ~stemDocument~ on a sentence it fails. Try it with the
   sample text:
@@ -245,8 +264,11 @@ have the data in your R session:
     sentence
   #+end_src
 
+  #+RESULTS:
+  : [1] "In a complicated haste,\n  Tom rushed to fix a new complication,\n  too complicatedly."
+
 - Alas, I wrote this over several lines and it contains newline
-  characters ~\n~ - white space - do you know how to remove it?
+  characters ~\n~ - a form of 'white' or empty space - how to remove it?
   #+begin_src R
     sentence <- stripWhitespace(sentence)
     sentence
@@ -260,6 +282,9 @@ have the data in your R session:
     stemDocument(sentence)
   #+end_src
 
+  #+RESULTS:
+  : [1] "In a complic haste, Tom rush to fix a new complication, too complicatedly."
+
 - This happens because ~stemDocument()~ treats the whole sentence *as one
   word*: the document is a ~character~ vector of length 1:
   #+begin_src R
@@ -267,9 +292,13 @@ have the data in your R session:
     length(sentence)
   #+end_src
 
+  #+RESULTS:
+  : [1] TRUE
+  : [1] 1
+
 - To solve this problem
   1) remove the punctuation marks with ~removePunctuation~
-  2) split the ~sentence~ in individual words using ~strsplit~
+  2) split the ~sentence~ in individual words using ~strsplit~ (new!)
   3) re-apply ~stemDocument~ and ~stemCompletion~ with our dictionary
 
 * Interlude: Splitting strings with ~strsplit~
@@ -290,23 +319,23 @@ have the data in your R session:
     args(strsplit)
   #+end_src
 
-- For example, split this sentence: "Split this sentence" using ~""~ as
-  the ~split~ argument:
+- For example, split the sentence: "Split this sentence into words"
+  using ~""~ as the ~split~ argument:
   #+begin_src R
-    foo <- "Split this sentence"
-    strsplit(foo," ")
+    foo <- "Split this sentence into words"
+    strsplit(foo,"")
   #+end_src
 
 - That didn't quite work. What's the correct ~split~ to get the words?
   #+begin_src R
-    bar <- strsplit(s," ")
+    bar <- strsplit(foo," ")
     bar
   #+end_src
-
+  
 - Now, the result of the split is a ~list~ and needs to be un-listed:
   #+begin_src R
     class(bar)
-    bar |> unlist() |> class()
+    bar |> unlist() |> class()  ## using a pipeline
   #+end_src
 
 - Just for fun, can you turn the pipeline in the last code block into
@@ -314,6 +343,7 @@ have the data in your R session:
   #+begin_src R
     class(unlist(bar))
   #+end_src
+
 * Stem and re-complete a sentence
 
 - Now, we're ready to deliver on our earlier promise:
@@ -356,17 +386,21 @@ have the data in your R session:
   #+end_src
 
 - Exercise: can you do the three steps - ~removePunctuation~, ~strsplit~
-  and ~unlist~ in one command starting with ~sentence~?
+  and ~unlist~ in ONE command starting with ~sentence~?
   #+begin_src R
     unlist(strsplit(removePunctuation(sentence)," "))
   #+end_src
 
-- Back to the main course: use ~stemDocument~ on ~baz~ and assign the
+- Back to the initial problem: use ~stemDocument~ on ~baz~ and assign the
   result to ~stem_doc~:
   #+begin_src R
     stem_doc <- stemDocument(baz)
     stem_doc
   #+end_src
+
+  #+RESULTS:
+  :  [1] "In"      "a"       "complic" "hast"    "Tom"     "rush"    "to"     
+  :  [8] "fix"     "a"       "new"     "complic" "too"     "complic"
 
 - Re-complete the stemmed document with ~stemCompletion~ using ~comp_dict~
   as reference dictionary and save the result in ~complete_doc~:
@@ -375,12 +409,24 @@ have the data in your R session:
     complete_doc
   #+end_src
 
+  #+RESULTS:
+  :           In            a      complic         hast          Tom         rush 
+  :         "In"          "a" "complicate"      "haste"        "Tom"       "rush" 
+  :           to          fix            a          new      complic          too 
+  :         "to"        "fix"          "a"        "new" "complicate"        "too" 
+  :      complic 
+  : "complicate"
+
 - This is the expected result: ~complete_doc~ is a named ~character~
   vector whose names are the word stems (only ~complic~ was stemmed),
   and whose values are the completed words.
   #+begin_src R
     str(complete_doc)
   #+end_src
+
+  #+RESULTS:
+  :  Named chr [1:13] "In" "a" "complicate" "haste" "Tom" "rush" "to" "fix" "a" ...
+  :  - attr(*, "names")= chr [1:13] "In" "a" "complic" "hast" ...
 
 * Apply preprocessing steps to a corpus
 

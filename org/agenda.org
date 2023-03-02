@@ -301,7 +301,7 @@ b* Week 6 - Bag of words III - text cleaning
 
 ** NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
 
-* IN PROGRESS Week 7 - Bag of words IV - stop words & TDM
+* Week 7 - Bag of words IV - stop words
 #+attr_latex: :width 400px
 [[../img/tdm.jpg]]
 
@@ -311,13 +311,111 @@ b* Week 6 - Bag of words III - text cleaning
 - Finding strings in a big data set
 - Finding tweets in the coffee tweet vector
 - Removing words from the stop words dictionary
+
+* NEXT Week 8: Word clouds and visualization
+#+attr_latex: :width 400px
+[[../img/lotr.jpg]]
+
+Finish stopwords & TDM/DTM (DataCamp chapter 1)
 - Stem completion on a sentence 
 - Splitting strings with ~strsplit~
 - Applying preprocessing steps to a corpus
 - TDM and DTM
 
-* TODO Week 8: Word clouds and visualization
+- *Word clouds and more interesting visuals:*
+  1) Frequent terms with ~tm~ and ~qdap~
+  2) Word cloud visualizations
+  3) Common word visualization
+  4) Word clustering
+
+* Review: week 7
+#+attr_latex: :width 400px
+[[../img/LOTR-header.jpg]]
+
+1) [ ] What is the process from CSV file to document corpus?
+   #+begin_notes
+   1) ~read.csv~ into data frame ~df~
+   2) extract text vector from data frame ~df~ as ~df$text~
+   3) turn text vector into a source with ~VectorSource~
+   4) turn source into volatile (in-memory) corpus with ~VCorpus~
+   #+end_notes
+
+2) [ ] How do you load the package ~tm~ and check if it contains a
+   function named "stopwords"?
+   #+begin_src R
+     library(tm)
+     search()
+     any(ls('package:tm')=="stopwords")
+   #+end_src
+
+3) [ ] What data structure is ~stopwords("en")~, and how many words does
+   it contain?
+   #+begin_src R
+     str(stopwords("en"))  ## a character vector
+   #+end_src
+
+4) [ ] How can you find out if a particular word, say "cannot", is
+   contained in the stopwords English dictionary?
+   #+begin_src R
+     any(stopwords("en")=="cannot")
+   #+end_src
+
+5) [ ] How would you add two new words like "coffee" and "bean" to the
+   END of the stopwords English dictionary, and then check for them?
+   #+begin_src R
+     c(stopwords("en"),"coffee","bean") |> tail()
+     tail(c(stopwords("en"),"coffee","bean"))
+   #+end_src
+
+6) [ ] Why does ~which(c(20,30,40)==30~ return the value ~2~ ?
+   #+begin_src R
+     c("a","b","c") == "b"  ## this is FALSE TRUE FALSE
+     which( c("a","b","c") == "b")  ## returns index for TRUE
+   #+end_src
+
+7) [ ] Which index of the stopwords English dictionary corresponds to
+   the word "with"?
+   #+begin_src R
+     which(stopwords("en") == "with")
+   #+end_src
+
+8) [ ] Use ~grepl(pattern,x)~ to find out if any words beginning with
+   "no" are in the SPANISH stopwords dictionary ~x=stopwords("es")~ -
+   Tip: the pattern for "word beginning with 'no'" is "^no"
+   #+begin_src R
+     no <- grepl(pattern="^no", x=stopwords("es"))  # store pattern
+     any(no) # check if any elements of of 'no' are TRUE
+     which(no)  # which elements are these?
+     stopwords("es")[which(no)]  # which words start with 'no'?
+
+     ## the whole command as a series of nested functions:
+     stopwords("es")[which(grepl(pattern="^no",x=stopwords("es")))]
+     #+end_src
+
+   #+RESULTS:
+   : [1] TRUE
+   : [1] 16 45 83 92
+   : [1] "no"       "nos"      "nosotros" "nosotras"
+   : [1] "no"       "nos"      "nosotros" "nosotras"
+
+9) [ ] Do any words in ~stopwords("es")~ end with ~de~? Which ones? (The
+   pattern for words ending in "de" is ~*de~).
+   #+begin_src R
+     es <- stopwords("es")   ## store spanish stopwords
+     de_in_es <- grepl("*de",es)  ## store logical pattern vector
+     any(de_in_es)  ## check if any words ending with 'de' are there
+     idx <- which(de_in_es) # store their indices in idx
+     es[idx]  # print the words indexed with idx
+   #+end_src
+
+   #+RESULTS:
+   : [1] TRUE
+   : [1] "de"    "del"   "donde" "desde"
+
+
+
 * TODO Week 9: Word clustering and dendograms
+** Review: week 8
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~
