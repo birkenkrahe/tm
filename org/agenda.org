@@ -285,19 +285,20 @@ b* Week 6 - Bag of words III - text cleaning
        origin       : character(0)
      #+end_example
 
-  5) [X] Extract the 2nd tweet of the list ~LIST~:
+  5) [X] Extract the 999th tweet of the list ~LIST~ (stored in the list
+     element ~tweets~:
      #+begin_src R :results silent
        LIST <- list(letters=LETTERS[1:4],
                     numbers=1:100,
                     tweets=coffee_vec)
-     #+end_src
-
+     #+end_src     
      #+begin_src R
        LIST[["tweets"]][999]
       #+end_src
 
       #+RESULTS:
       : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
+
 
 ** NEXT [[https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/][What is ChatGPT Doing and Why Does It Work?]]
 
@@ -328,7 +329,7 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
   3) Common word visualization
   4) Word clustering
 
-* TODO Review: week 7
+* DONE Review: week 7
 #+attr_latex: :width 400px
 [[../img/LOTR-header.jpg]]
 
@@ -444,15 +445,33 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    : [1] TRUE
    : [1] "de"    "del"   "donde" "desde"
 
+* TODO Fun with R: New ChatGPT API - use bot in R
+#+attr_latex: :width 400px
+[[../img/chatgpt.jpg]]
+
+OpenAI has opened the ChatGPT API, and we can access it from within R,
+courtesy of Rasmus Bååth (2023):
+1) [[https://chat.openai.com/auth/loginLinks][Register with OpenAI here]] (use your Lyon GMail account)
+2) Get your secret ~api_key~ [[https://platform.openai.com/account/api-keys][here from OpenAI]] (you need to register)
+3) [[https://gist.githubusercontent.com/rasmusab/c25badf55f5dacee14ab13834798d3ef/raw/e3af90fc32d91c974cd2ec9ddb2f7bf52e992cff/chat-gtp-api-call.R][Add this code]] to your ~~/.Rprofile~ file (including the secret key)
+4) Install ~httr~ and ~stringr~
+5) Now the function ~ask_chatgpt~ will be available to you (GitHub typo)
+
+[[https://www.sumsar.net/blog/call-chatgpt-from-r/][From this post]], you can also learn how to clean the messages from
+ChatGPT using standard text mining functions.
 
 * TODO Week 9: Word clustering and dendograms
-* Review: week 8
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~
 * TODO Week 13: Visualizing sentiment
 * TODO Week 14: Cast study - Airbnb reviews
 * TODO Week 15: Project presentations 
+* References
+
+Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)
+from R. URL: [[https://www.sumsar.net/blog/call-chatgpt-from-r/][www.sumsar.net]]
+
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse

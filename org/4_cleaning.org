@@ -190,7 +190,7 @@
   came up with his theories in the 1840s. How then could "marxism" be
   mentioned in books published before that date?
 
-* NEXT Cleaning with ~qdap~
+* Cleaning with ~qdap~
 
   - To see the full range of arguments of a function, pass the function
     name as an argument to ~args()~ - e.g. for ~qdap::bracketX~:

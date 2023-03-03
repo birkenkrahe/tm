@@ -417,22 +417,22 @@ meta(coffee_corpus)
 
 * TODO TM Glossary - concepts and code
 
-| TERM                | MEANING                                    |
-|---------------------+--------------------------------------------|
-| ~tm~                  | Text mining package                        |
-| ~[[~                  | List element index                         |
-| ~[~                   | Vector element index                       |
-| ~List[[2]][5]~        | Extracts 5th value of 2nd element of ~List~  |
-| ~x[-n]~               | Removes nth element of vector ~x~            |
-| Vignette            | Documentation for an R package (paper)     |
-| ~ls()~                | List all objects in current session        |
-| ~ls('package:tm')~    | List all objects in package ~tm~             |
-| ~tm::VectorSource~    | Build source ~list~ from vector              |
-| ~tm::VCorpus~         | Build corpus ~list~ from source              |
-| ~tm::DataframeSource~ | BUild source ~list~ from dataframe           |
-| ~data.frame~          | Create data frame                          |
-| ~typeof~              | Return R data type or data structure       |
-| ~tm::inspect~         | Get information about each corpus element  |
-| ~tm::meta~            | Extract metadata from corpus               |
-| ~tm::content~         | Extract ~content~ element from corpus ~list~ |
+| TERM                | MEANING                                   |
+|---------------------+-------------------------------------------|
+| ~tm~                  | Text mining package                       |
+| ~[[~                  | List element index                        |
+| ~[~                   | Vector element index                      |
+| ~List[[2]][5]~        | Extracts 5th value of 2nd element of ~List~ |
+| ~x[-n]~               | Removes nth element of vector ~x~           |
+| Vignette            | Documentation for an R package (paper)    |
+| ~ls()~                | List all objects in current session       |
+| ~ls('package:tm')~    | List all objects in package ~tm~            |
+| ~tm::VectorSource~    | Build source ~list~ from vector             |
+| ~tm::VCorpus~         | Build corpus ~list~ from source             |
+| ~tm::DataframeSource~ | BUild source ~list~ from dataframe          |
+| ~data.frame~          | Create data frame                         |
+| ~typeof~              | Return R data type or data structure      |
+| ~tm::inspect~         | Get information about each corpus element |
+| ~tm::meta~            | Extract metadata from corpus              |
+| ~tm::content~         | Extract ~content~ element from corpus ~list~  |
 
