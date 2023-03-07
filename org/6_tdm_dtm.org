@@ -1,0 +1,295 @@
+#+TITLE: Text mining in practice - Bag of Words - TDM and DTM
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the 3rd part of the DataCamp lesson
+  "Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
+  his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+
+- Download and open the practice file ~6_tdm_dtm_practice.org~ from
+  GitHub to code along.
+
+* Create clean corpus
+
+- Load coffee tweet data
+  #+name: load_coffee_data
+  #+begin_src R :results silent
+    library(tm)
+    coffee_df <- read.csv("../data/coffee.csv") # dataframe
+    coffee_vec <- coffee_df$text # vector
+    coffee_src <- VectorSource(coffee_vec) # source
+    coffee_corpus <- VCorpus(coffee_src)
+  #+end_src
+
+- Define function to clean corpus:
+  #+name: clean_corpus
+  #+begin_src R :results silent
+    clean_corpus <- function(corpus) {
+      corpus <- tm_map(corpus,
+                       removePunctuation)
+      corpus <- tm_map(corpus,
+                       content_transformer(tolower))
+      corpus <- tm_map(corpus,
+                       removeWords,
+                       words = c(stopwords("en"), "coffee"))
+      corpus <- tm_map(corpus,
+                       stripWhitespace)
+      return(corpus)
+    }
+  #+end_src
+
+- Run function to create ~clean_corp~:
+  #+begin_src R :results silent
+    <<clean_corpus>>
+    clean_corp <- clean_corpus(coffee_corpus)
+  #+end_src
+
+  #+RESULTS:
+
+- Check the results: R objects and print original and cleaned tweet:
+  #+begin_src R
+    ls()
+    ## original tweet
+    content(coffee_corpus[[999]])
+    ## lower case, no punctuation, no stopwords, no "coffee"
+    content(clean_corp[[999]])
+  #+end_src
+
+  #+RESULTS:
+  :  [1] "api_key"       "ask_chatgpt"   "clean_corp"    "clean_corpus"
+  :  [5] "coffee_corpus" "coffee_df"     "coffee_dtm"    "coffee_m"
+  :  [9] "coffee_src"    "coffee_tdm"    "coffee_vec"    "coffee_wfm"
+  : [13] "i"
+  : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
+  : [1] "first morning ramadan httptcozeu6cl9qgy"
+
+* TDM vs DTM
+#+attr_latex: :width 400px
+[[../img/tdm_dtm.png]]
+
+- Create TDM with ~tm::TermDocumentMatrix~ and print the structure
+  #+begin_src R
+    coffee_tdm <- TermDocumentMatrix(clean_corp)
+    str(coffee_tdm)   
+  #+end_src
+
+- Transpose it with the ~base::t~ function:
+  #+begin_src R
+    coffee_dtm <- t(coffee_tdm)
+    str(coffee_dtm)
+  #+end_src
+  
+- ~t~ does the same thing as ~DocumentTermMatrix~:
+  #+begin_src R
+    identical(coffee_dtm,DocumentTermMatrix(clean_corp))
+  #+end_src
+
+- The ~qdap~ package relies on a Word Frequency Matrix (WFM):
+  #+attr_latex: :width 400px
+  [[../img/wfm.png]]
+  #+begin_src R
+    library(qdap)
+    coffee_wfm <- wfm(coffee_df$text)
+    str(coffee_wfm)
+    head(coffee_wfm)
+  #+end_src
+
+- When should you use a TDM instead of DTM?
+  #+begin_quote
+  Answer: when you want the terms (words) as rows and documents as
+  columns.
+  #+end_quote
+
+* Analyze the document-term matrix (DTM)
+#+attr_latex: :width 400px
+[[../img/dtm.png]]
+
+- The DTM is useful when you are comparing authors within rows, or
+  when the data is arranged chronologically and you want to preserve
+  the time series (of records or rows).
+
+- Let's look at these matrices:
+  #+begin_src R
+    class(coffee_dtm)
+    class(coffee_tdm)
+  #+end_src
+
+  #+RESULTS:
+  : [1] "DocumentTermMatrix"    "simple_triplet_matrix"
+  : [1] "TermDocumentMatrix"    "simple_triplet_matrix"
+
+- We want to reclassify the object ~as.matrix~ to examine it more
+  closely.
+
+- Print the ~coffee_dtm~ object for ~clean_corp~
+  #+begin_src R
+    coffee_dtm
+  #+end_src
+
+  #+RESULTS:
+  : <<DocumentTermMatrix (documents: 1000, terms: 3076)>>
+  : Non-/sparse entries: 7391/3068609
+  : Sparsity           : 100%
+  : Maximal term length: 27
+  : Weighting          : term frequency (tf)
+
+- Convert the object to a ~matrix~ and print the dimension- how many
+  tweets and how many terms does the matrix contain?
+  #+begin_src R
+    coffee_m <- as.matrix(coffee_dtm)
+    dim(coffee_m) # rows x columns
+  #+end_src
+
+  #+RESULTS:
+  : [1] 1000 3076
+
+- Have a look at the upper left and lower right corner of the matrix:
+  #+begin_src R
+    coffee_m[1:5,1:10]
+    coffee_m[995:1000,3071:3076]
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+      Terms
+  Docs 0630 1000 1026 1030 110 1100 11am 1214 1230 1239
+     1    0    0    0    0   0    0    0    0    0    0
+     2    0    0    0    0   0    0    0    0    0    0
+     3    0    0    0    0   0    0    0    0    0    0
+     4    0    0    0    0   0    0    0    0    0    0
+     5    0    0    0    0   0    0    0    0    0    0
+        Terms
+  Docs   zaykennedy69 zeledmalegisele ziggy zokuhq zombie zzzquil
+    995             0               0     0      0      0       0
+    996             0               0     0      0      0       0
+    997             0               0     0      0      0       0
+    998             0               0     0      0      0       0
+    999             0               0     0      0      0       0
+    1000            0               0     0      0      0       0
+  #+end_example
+  
+- Print the subset of ~coffee_m~ containing documents 25 through 35 and
+  the terms "hot" and "starbucks":
+  #+begin_src R
+    coffee_m[25:35,c("hot","starbucks")]
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+      Terms
+  Docs hot starbucks
+    25   0         0
+    26   0         1
+    27   0         1
+    28   1         0
+    29   0         0
+    30   0         0
+    31   1         0
+    32   0         0
+    33   0         0
+    34   0         1
+    35   0         0
+  #+end_example
+
+- [ ] How would you phrase this result?
+
+- Print the tweets 25 through 35 from ~clean_corp~:
+  #+begin_src R
+    for (i in 25:35) print(content(clean_corp[[i]]))
+  #+end_src
+
+- You can also loop over these with ~while~:
+  #+begin_src R
+    i = 25
+    while (i <= 35) {
+      print(content(clean_corp[[i]]))
+      i <- i + 1
+    }
+  #+end_src
+
+- Or like this:
+  #+begin_src R
+    i = 25
+    while (i %in% 25:35) {
+      print(content(clean_corp[[i]]))
+      i <- i + 1
+    }
+  #+end_src
+
+* Analyze the term-document matrix (TDM)
+#+attr_latex: :width 400px
+[[../img/tdm.png]]
+
+- The TDM (term-document matrix) has terms in the first column and
+  documents (e.g. tweets) across the top as column or feature names.
+
+- TDM is used for language analysis: you likely have many more terms
+  than authors or documents, and it is easier to analyze tables with
+  many records than tables with many columns.
+
+- Print the TDM:
+  #+begin_src R
+    coffee_tdm
+  #+end_src
+
+  #+RESULTS:
+  : <<TermDocumentMatrix (terms: 3076, documents: 1000)>>
+  : Non-/sparse entries: 7391/3068609
+  : Sparsity           : 100%
+  : Maximal term length: 27
+  : Weighting          : term frequency (tf)
+
+- To analyse the information, we change the TDM into a simple matrix
+  and print the dimensions:
+  #+begin_src R
+    coffee_m <- as.matrix(coffee_tdm)
+    dim(coffee_m)  # rows x columns
+  #+end_src
+
+  #+RESULTS:
+  : [1] 3076 1000
+
+- Have a look at the upper left and lower right corner of the matrix:
+  #+begin_src R
+    coffee_m[1:5,1:10]
+    coffee_m[3071:3076,995:1000]
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+        Docs
+  Terms  1 2 3 4 5 6 7 8 9 10
+    0630 0 0 0 0 0 0 0 0 0  0
+    1000 0 0 0 0 0 0 0 0 0  0
+    1026 0 0 0 0 0 0 0 0 0  0
+    1030 0 0 0 0 0 0 0 0 0  0
+    110  0 0 0 0 0 0 0 0 0  0
+                   Docs
+  Terms             995 996 997 998 999 1000
+    zaykennedy69      0   0   0   0   0    0
+    zeledmalegisele   0   0   0   0   0    0
+    ziggy             0   0   0   0   0    0
+    zokuhq            0   0   0   0   0    0
+    zombie            0   0   0   0   0    0
+    zzzquil           0   0   0   0   0    0
+  #+end_example
+  
+- Print the subset of ~coffee_m~ containing the terms (in rows) "hot"
+  and "starbucks" and documents (in columns) 25 through 35:
+  #+begin_src R
+    coffee_m[c("hot","starbucks"), 25:35]
+  #+end_src
+
+  #+RESULTS:
+  :            Docs
+  : Terms       25 26 27 28 29 30 31 32 33 34 35
+  :   hot        0  0  0  1  0  0  1  0  0  0  0
+  :   starbucks  0  1  1  0  0  0  0  0  0  1  0
+
+
+
+ 

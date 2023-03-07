@@ -1,0 +1,187 @@
+#+TITLE: Text mining in practice - Bag of Words - TDM & DTM - PRACTICE
+#+AUTHOR: [yourname] (...)
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+This lecture closely follows the 3rd part of the DataCamp lesson
+"Jumping into Text Minin with Bag-of-Words" by Ted Kwartler, part of
+his course on [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with Bag-of-Words in R"]].
+
+* TODO Identify and pledge yourself
+
+1) In Emacs, replace the placeholder ~[yourname]~ at the top of this
+   file by your own name and write ~(pledged)~ next to it
+2) Go with the cursor on the headline and hange the ~TODO~ label to ~DONE~
+   by entering ~S-<right>~ ("Shift + right-arrow").
+
+* Create clean corpus
+
+- Load coffee tweet data
+  #+name: load_coffee_data
+  #+begin_src R :results silent
+    library(tm)
+    coffee_df <- ...
+    coffee_vec <- ...
+    coffee_src <- ...
+    coffee_corpus <- ...
+  #+end_src
+
+- Define function ~clean_corpus()~ to clean corpus:
+  #+name: clean_corpus
+  #+begin_src R :results silent
+    clean_corpus <- function(corpus) {
+      corpus <- tm_map(corpus,
+                       removePunctuation)
+      corpus <- tm_map(corpus,
+                       content_transformer(tolower))
+      corpus <- tm_map(corpus,
+                       removeWords,
+                       words = c(stopwords("en"), "coffee"))
+      corpus <- tm_map(corpus,
+                       stripWhitespace)
+      return(corpus)
+    }
+  #+end_src
+
+- Run this function on ~coffee_corpus~ to create ~clean_corp~:
+  #+begin_src R :results silent
+    <<clean_corpus>>
+    clean_corp <- ...
+  #+end_src
+
+- Check the results: print all R objects and print original and
+  cleaned tweet no. 999:
+  #+begin_src R
+    ...
+    ## original tweet
+    ...
+    ## lower case, no punctuation, no stopwords, no "coffee"
+    ...
+  #+end_src
+
+* TDM vs DTM
+
+- Create TDM with ~tm::TermDocumentMatrix~ and print the structure:
+  #+begin_src R
+
+  #+end_src
+
+- Transpose ~coffee_tdm~ with the ~base::t~ function and print the structure:
+  #+begin_src R
+
+  #+end_src
+  
+- ~t~ does the same thing as ~DocumentTermMatrix~: compare ~coffee_dtm~ and
+  the result of applying ~tm::DocumentTermMatrix~ to ~clean_corp~ using
+  ~identical~:
+  #+begin_src R
+
+  #+end_src
+
+- The ~qdap~ package relies on a Word Frequency Matrix (WFM):
+  1) load ~qdap~
+  2) create ~coffee_wfm~ using ~qdap::wfm~ on ~coffee_df$text~
+  3) print structure of the WFM
+  4) print first 6 records of the WFM
+  #+begin_src R
+
+  #+end_src
+
+- When should you use a TDM instead of DTM?
+  #+begin_quote
+  Answer: ...
+  #+end_quote
+
+* Analyze the document-term matrix (DTM)
+
+- What data type are the matrices ~coffee_dtm~ and ~coffee_tdm~?
+  #+begin_src R
+        
+  #+end_src
+
+- Print the ~coffee_dtm~ object for ~clean_corp~
+  #+begin_src R
+
+  #+end_src
+
+- Convert the object to a ~matrix~ using ~as.matrix~ and print the
+  dimension with ~dim~ - how many tweets and how many terms does the
+  matrix contain?
+  #+begin_src R
+
+  #+end_src
+
+- Have a look at the upper left and lower right corner of the matrix
+  (5 rows/columns each):
+  #+begin_src R
+    coffee_m[1:5,1:5]
+    coffee_m[995:1000,3071:3076]
+  #+end_src
+  
+- Print the subset of ~coffee_m~ containing documents 25 through 35 and
+  the terms "hot" and "starbucks":
+  #+begin_src R
+
+  #+end_src
+
+- [ ] How would you phrase this result?
+
+* Intermission: loops with ~for~ and ~while~
+
+- Introducing ~for~ loops: print the tweets 25 through 35 from
+  ~clean_corp~:
+  #+begin_src R
+    for (i in 25:35) print(content(clean_corp[[i]]))
+  #+end_src
+
+- You can also loop over these with ~while~:
+  #+begin_src R
+    i = 25
+    while (i <= 35) {
+      print(content(clean_corp[[i]]))
+      i <- i + 1
+    }
+  #+end_src
+
+- Or like this:
+  #+begin_src R
+    i = 25
+    while (i %in% 25:35) {
+      print(content(clean_corp[[i]]))
+      i <- i + 1
+    }
+  #+end_src
+
+* Analyze the term-document matrix (TDM)
+
+- Print the TDM ~coffee_tdm~:
+  #+begin_src R
+    coffee_tdm
+  #+end_src
+
+- To analyse the information, we change the TDM into a simple matrix
+  with ~as.matrix~ and print the dimensions with ~dim~:
+  #+begin_src R
+
+  #+end_src
+
+- Have a look at the upper left and lower right corner of the matrix
+  (5 rows/columns each):
+  #+begin_src R
+
+  #+end_src
+  
+- Print the subset of ~coffee_m~ containing the terms (in rows) "hot"
+  and "starbucks" and documents (in columns) 25 through 35:
+  #+begin_src R
+
+  #+end_src
+
+
+  
+
+
+

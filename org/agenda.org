@@ -313,7 +313,7 @@ b* Week 6 - Bag of words III - text cleaning
 - Finding tweets in the coffee tweet vector
 - Removing words from the stop words dictionary
 
-* NEXT Week 8: Word clouds and visualization
+* Week 8 - Bag of words V - clean corpus
 #+attr_latex: :width 400px
 [[../img/lotr.jpg]]
 
@@ -323,13 +323,7 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
 - Applying preprocessing steps to a corpus
 - TDM and DTM
 
-- *Word clouds and more interesting visuals:*
-  1) Frequent terms with ~tm~ and ~qdap~
-  2) Word cloud visualizations
-  3) Common word visualization
-  4) Word clustering
-
-* DONE Review: week 7
+** Review: week 7
 #+attr_latex: :width 400px
 [[../img/LOTR-header.jpg]]
 
@@ -445,6 +439,18 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    : [1] TRUE
    : [1] "de"    "del"   "donde" "desde"
 
+* TODO Week 9: Word clouds
+#+attr_latex: :width 400px
+[[../img/clouds.png]]
+
+- Finish TDM and DTM
+- Fun with ChatGPT in R  
+- *Word clouds and more interesting visuals:*
+  1) Frequent terms with ~tm~ and ~qdap~
+  2) Word cloud visualizations
+  3) Common word visualization
+  4) Word clustering
+
 * TODO Fun with R: New ChatGPT API - use bot in R
 #+attr_latex: :width 400px
 [[../img/chatgpt.jpg]]
@@ -460,7 +466,7 @@ courtesy of Rasmus Bååth (2023):
 [[https://www.sumsar.net/blog/call-chatgpt-from-r/][From this post]], you can also learn how to clean the messages from
 ChatGPT using standard text mining functions.
 
-* TODO Week 9: Word clustering and dendograms
+
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~
