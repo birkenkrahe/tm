@@ -439,12 +439,13 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    : [1] TRUE
    : [1] "de"    "del"   "donde" "desde"
 
-* TODO Week 9: Word clouds
++* TODO Week 9: Word clouds
 #+attr_latex: :width 400px
 [[../img/clouds.png]]
 
 - Finish TDM and DTM
-- Fun with ChatGPT in R  
+- Fun with ChatGPT in R
+  
 - *Word clouds and more interesting visuals:*
   1) Frequent terms with ~tm~ and ~qdap~
   2) Word cloud visualizations
