@@ -453,6 +453,10 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
   4) Word clustering
 
 * IN PROGRESS Week 9: word cloud visualization
+#+attr_latex: :width 400px
+#+caption: Michelangelo, Creation of Adam (1512)
+[[../img/7_michelangelo.png]]
+
 * DONE Fun with R: New ChatGPT API - use bot in R
 #+attr_latex: :width 400px
 [[../img/chatgpt.jpg]]
@@ -467,6 +471,22 @@ courtesy of Rasmus Bååth (2023):
 
 [[https://www.sumsar.net/blog/call-chatgpt-from-r/][From this post]], you can also learn how to clean the messages from
 ChatGPT using standard text mining functions.
+
+* TODO Load CSV data, create and clean corpora:
+#+attr_latex: :width 400px
+[[../img/7_tweets.png]]
+
+- Download and run ~corpora.org~ (read the README): [[https://bit.ly/corpora_org][bit.ly/corpora_org]]
+
+* TODO Look at next DataCamp session
+#+attr_latex: :width 400px
+[[../img/datacamp4.png]]
+
+- Mostly straightforward: video shows the code that you then work out
+  in the editor/console.
+
+- If you have time, check the help pages for different functions once
+  you've loaded the packages.
 
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring

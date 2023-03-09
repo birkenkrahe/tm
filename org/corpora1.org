@@ -59,38 +59,41 @@
 #+end_src
 
 * Define and run chardonnay corpus cleaning function
-  #+name: clean_chardonnay_corpus
-  #+begin_src R :results silent
-    clean_chardonnay_corpus <- function(corpus) {
-      corpus <- tm_map(corpus,
-                       removePunctuation)
-      corpus <- tm_map(corpus,
-                       content_transformer(tolower))
-      corpus <- tm_map(corpus,
-                       removeWords,
-                       words = c(stopwords("en"), "chardonnay"))
-      corpus <- tm_map(corpus,
-                       stripWhitespace)
-      return(corpus)
-    }
-    clean_chardonnay <- clean_chardonnay_corpus(chardonnay_corpus)
-  #+end_src
+#+name: clean_chardonnay_corpus
+#+begin_src R :results silent
+  clean_chardonnay_corpus <- function(corpus) {
+    corpus <- tm_map(corpus,
+                     removePunctuation)
+    corpus <- tm_map(corpus,
+                     content_transformer(tolower))
+    corpus <- tm_map(corpus,
+                     removeWords,
+                     words = c(stopwords("en"), "chardonnay",
+                               "amp",
+                               "wine",
+                               "glass"))
+    corpus <- tm_map(corpus,
+                     stripWhitespace)
+    return(corpus)
+  }
+  clean_chardonnay <- clean_chardonnay_corpus(chardonnay_corpus)
+#+end_src
 
 * Check results: print original and cleaned tweet
-  #+begin_src R
-    <<clean_coffee_corpus>>
-    <<clean_chardonnay_corpus>>
-    content(coffee_corpus[[999]])
-    content(clean_coffee[[999]])
-    content(chardonnay_corpus[[994]])
-    content(clean_chardonnay[[994]])
-  #+end_src
+#+begin_src R
+  <<clean_coffee_corpus>>
+  <<clean_chardonnay_corpus>>
+  content(coffee_corpus[[999]])
+  content(clean_coffee[[999]])
+  content(chardonnay_corpus[[994]])
+  content(clean_chardonnay[[994]])
+#+end_src
 
-  #+RESULTS:
-  : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
-  : [1] "first morning ramadan httptcozeu6cl9qgy"
-  : [1] "Climbing Mera Peak in Nepal and having a glass of Chardonnay with my wife and close friends #BucketList"
-  : [1] "climbing mera peak nepal glass wife close friends bucketlist"
+#+RESULTS:
+: [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
+: [1] "first morning ramadan httptcozeu6cl9qgy"
+: [1] "Climbing Mera Peak in Nepal and having a glass of Chardonnay with my wife and close friends #BucketList"
+: [1] "climbing mera peak nepal wife close friends bucketlist"
 
 * Print all R objects
 #+begin_src R
@@ -98,10 +101,16 @@
 #+end_src
 
 #+RESULTS:
-:  [1] "chardonnay_corpus"       "chardonnay_df"          
-:  [3] "chardonnay_m"            "chardonnay_src"         
-:  [5] "chardonnay_vec"          "clean_chardonnay"       
-:  [7] "clean_chardonnay_corpus" "clean_coffee"           
-:  [9] "clean_coffee_corpus"     "coffee_corpus"          
-: [11] "coffee_df"               "coffee_src"             
-: [13] "coffee_vec"
+#+begin_example
+ [1] "chardonnay_corpus"       "chardonnay_df"          
+ [3] "chardonnay_m"            "chardonnay_src"         
+ [5] "chardonnay_tdm"          "chardonnay_vec"         
+ [7] "clean_chardonnay"        "clean_chardonnay_corpus"
+ [9] "clean_coffee"            "clean_coffee_corpus"    
+[11] "coffee_corpus"           "coffee_df"              
+[13] "coffee_src"              "coffee_vec"             
+[15] "f1"                      "f11"                    
+[17] "f2"                      "f22"                    
+[19] "frequency"               "term_frequency"         
+[21] "word_freq"
+#+end_example

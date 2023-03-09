@@ -1,0 +1,267 @@
+#+TITLE: Text mining in practice - Bag of Words - Common tm visuals
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with
+  Bag-of-Words in R"]] by Ted Kwartler.
+
+- Download and open the practice file ~7_visuals_tm_practice.org~ from
+  GitHub to code along.
+
+- In this lecture & practice:
+  1) frequent terms with ~tm~ visualized using ~barplot~
+  2) frequent terms with ~qdap~ visualized using ~plot~ 
+
+* TODO Getting, loading, cleaning the corpus
+#+attr_latex: :width 400px
+[[../img/7_tweets.png]]
+
+- Download ~corpora.org~ from GitHub and run it: [[https://bit.ly/corpora_org][bit.ly/corpora_org]]
+
+- Includes corpus creation, corpus cleaning and check printing
+  
+* Importance of visuals
+#+attr_latex: :width 400px
+[[../img/7_graphs.png]]
+
+- Check out the [[https://r-graph-gallery.com/][R graph gallery]], Kabacoff's [[https://rkabacoff.github.io/datavis/][Data visualization with R]],
+  [[https://rpubs.com/JamisonCrawford/graphics][visualization in base R]] by Crawford, or DataCamp's [[https://app.datacamp.com/learn/courses/introduction-to-data-visualization-with-ggplot2][Intro to ggplot2]]
+
+- For text mining, no need to invest too much into this at the start
+
+* Know your data
+
+- Check that you have the coffee tweet corpus data loaded in your
+  R session:
+  #+begin_src R
+    ls()
+  #+end_src
+
+- The output should mean something to you - you should know how to:
+  1) create these objects
+  2) identify their nature (type), size and structure
+  #+begin_example sh
+  :  [1] "chardonnay_corpus"       "chardonnay_df"          
+  :  [3] "chardonnay_m"            "chardonnay_src"         
+  :  [5] "chardonnay_vec"          "clean_chardonnay"       
+  :  [7] "clean_chardonnay_corpus" "clean_coffee"           
+  :  [9] "clean_coffee_corpus"     "coffee_corpus"          
+  : [11] "coffee_df"               "coffee_src"             
+  : [13] "coffee_vec"
+  #+end_example
+
+- Most important for frequency computation is the stopwords cleaning
+  step, because irrelevant terms will contaminate the desired data.
+
+- If you don't remember, check the file ~corpora.org~ that contains the
+  steps for creating and identifying the corpora and the data leading
+  up to them.
+
+* Understand frequency terms
+#+attr_latex: :width 400px
+#+caption: Michelangelo, Creation of Adam (1512)
+[[../img/7_michelangelo.png]]
+
+- The purpose of frequency computation: to count certain words across
+  the entire corpus, e.g. a collection of tweets.
+
+- Different packages offer different methods to do this:
+  1) the ~tm~ package relies on TDM analysis from a cleaned corpus
+  2) the ~qdap~ package works straight from text 
+
+- Visualization offers a quick overview of the frequencies. Using the
+  ~wordcloud~ package, we will explore:
+  1) barcharts
+  2) word clouds (size corresponds to frequency)
+  3) comparison clouds (compare word clouds)
+  4) pyramid plots (comparison bar charts)
+  5) word networks (association plots revealing connections)
+
+- The interesting part of visualization (apart from the technical
+  skill) is the interpretation and the *storytelling* that emerges
+
+- Even Michelangelo's "Creation of Adam" (1512) can be seen as an
+  example of text mining and word-based storytelling: can you see why?
+
+* Create frequent terms with ~tm~
+
+- Create the TDM for the coffee tweets, ~coffee_tdm~, and display it:
+  #+begin_src R
+    coffee_tdm <- TermDocumentMatrix(clean_coffee)
+    coffee_tdm
+  #+end_src
+
+- Convert the TDM to a matrix ~coffee_m~ and show its dimension and
+  the terms 888 through 893, and documents 895 through 900.
+  #+begin_src R
+    coffee_m <- as.matrix(coffee_tdm)
+    dim(coffee_m)
+    coffee_m[888:893,895:900]
+  #+end_src
+
+- To get the frequency of each term (row) in all docs, we sum their
+  occurrences across each row using ~rowSums~:
+  #+begin_src R
+    m <- matrix(data=1:6, nrow=2, byrow=TRUE)
+    m
+    rowSums(m)
+  #+end_src
+
+- Run ~rowSums~ on ~coffee_m~ to get the ~term_frequency~:
+  #+begin_src R :results silent
+    term_frequency <- rowSums(coffee_m)
+  #+end_src
+
+* Explore ~term_frequency~
+
+- Run the code again but this time add a check for the data structure
+  with one of the ~is.~ functions, e.g. ~is.matrix~, or ~is.vector~.
+
+- Pipe the result of the summing into ~is.vector~ and then into ~print~:
+  #+begin_src R
+    rowSums(coffee_m) |> is.vector() |> print()
+  #+end_src
+
+- Here is the nested version (without saving the result): it's ~TRUE~!
+  #+begin_src R
+    is.vector(rowSums(coffee_m))
+  #+end_src
+
+- Look at the first few items of the vector:
+  #+begin_src R
+    head(term_frequency)
+  #+end_src
+
+- Which term occurs most often and how many times in the tweets?
+  1) check the ~max~
+  2) use ~which~ to get at the vector index and the name
+  #+begin_src R
+    max(term_frequency)
+    which(term_frequency==max(term_frequency))
+  #+end_src
+
+* Order ~term_frequency~ values
+
+- You can see that it needs to be sorted by frequency to be of any use
+  so that the most frequent terms appear at the top:
+  1) ~sort~ the ~term_frequency~
+  2) print the ~head~ of the result
+  #+begin_src R
+    head(sort(term_frequency))
+  #+end_src
+
+- This didn't seem to have worked. What did we forget? Check ~sort~:
+  #+begin_src R
+    sort(c(100,2,40,1000))
+  #+end_src
+
+- Check the arguments of ~sort~:
+  #+begin_src R
+    args(sort)
+  #+end_src  
+
+- Now fix the ~sort~ of ~term_frequency~ and print the ~head~ again:
+  #+begin_src R
+    head(sort(term_frequency, decreasing = TRUE))
+  #+end_src
+
+- Overwrite ~term_frequency~ with its sorted version, and save the top
+  10 most common words to ~term~ using the index operator ~[ ]~:
+  #+begin_src R
+    term_frequency <- sort(term_frequency, decreasing = TRUE)
+    terms <- term_frequency[1:10]
+    terms
+  #+end_src
+
+* Make a barchart of 10 most frequent words
+
+- To make a barchart of the top 10 most frequent words, we use
+  ~barplot~, a built-in base R function.
+
+- Though ~barplot~ only needs one argument, ~height~, the ~help~ reveals
+  plenty of additional parameters:
+  #+attr_latex: :width 400px
+  [[../img/7_barplot.png]]
+
+- The mandatory argument ~height~ is a vector or a matrix of values for
+  the bars. If it's a vector, we get bars for each value, if it's a
+  matrix, the values are stacked or dodged to account for the
+  additional dimension.
+
+- The ~barplot~ is similar to a histogram, the difference is that the
+  histogram requires ~numeric~ x-values as input:
+  #+begin_src R :results graphics file :file ../img/barplotdemo.png
+    par(mfrow=c(1,2),pty='s')
+    hist(x=ToothGrowth$len,main="")
+    barplot(height=ToothGrowth$len)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/barplotdemo.png]]
+
+- Plot a barchart of the 10 most common words ~terms~ with ~barplot~:
+  #+begin_src R :results graphics file :file ../img/tm_barplot.png
+    barplot(height = terms)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/tm_barplot.png]]
+
+- The result is not wholly satisfying. Some labels don't show up
+  because the words are too long. Let's customize a little:
+  1) tilt the x-axis labels with ~las=2~,
+  2) add y-axis label title to explain the numbers
+  3) add a title to the chart with ~main~
+  4) add a dash of color with ~col~ (e.g. "steelblue")
+
+- Make these changes one after the other so that you can see the
+  effects more clearly:
+  #+begin_src R :results graphics file :file ../img/tm_barplot1.png
+
+  #+end_src
+
+- Final result (for now):
+  #+begin_src R :results graphics file :file ../img/tm_barplot4.png
+    barplot(height = terms,
+            las=2,
+            ylab="Count",
+            main="10 most common words in 1000 coffee tweets",
+            col="steelblue")
+  #+end_src
+
+- To improve readability even more, tilt the graph to its side with
+  ~horiz=TRUE~, change ~las~ to ~1~ and ~ylab~ to ~xlab~:
+  #+begin_src R :results graphics file :file ../img/tm_barplot5.png
+    barplot(height = terms,
+            las=1,
+            xlab="Count",
+            main="10 most common words in 1000 coffee tweets",
+            col="tan",
+            horiz=TRUE)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/tm_barplot5.png]]
+
+- Finally, reorder the y-axis values so that the most frequent term is
+  at the top (and change ~ylab~ to :
+  #+begin_src R :results graphics file :file ../img/tm_barplot6.png
+    barplot(height = sort(terms),
+            las=1,
+            xlab="Count",
+            main="10 most common words in 1000 coffee tweets",
+            col="tan",
+            horiz=TRUE)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/tm_barplot6.png]]
+  
+
+
+
+

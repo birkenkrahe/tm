@@ -1,0 +1,152 @@
+#+TITLE: Text mining in practice - Bag of Words - Common tm visuals
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with
+  Bag-of-Words in R"]] by Ted Kwartler.
+
+- Download and open the practice file ~7_visuals_practice.org~ from
+  GitHub to code along.
+
+- In this lecture & practice:
+  1) frequent terms with ~tm~ visualized using ~barplot~
+  2) frequent terms with ~qdap~ visualized using ~plot~ 
+
+* TODO Getting, loading, cleaning the corpus
+#+attr_latex: :width 400px
+[[../img/7_tweets.png]]
+
+- Download ~corpora.org~ from GitHub and run it: [[https://bit.ly/corpora_org][bit.ly/corpora_org]]
+
+- Includes corpus creation, corpus cleaning and check printing
+  
+* TODO Know your data
+
+- Check that you have the coffee tweet corpus data loaded in your
+  R session:
+  #+begin_src R
+
+  #+end_src
+
+* TODO Create frequent terms with ~tm~
+
+- Create the TDM for the coffee tweets, ~coffee_tdm~, and display it:
+  #+begin_src R
+
+  #+end_src
+
+- Convert the TDM to a matrix ~coffee_m~ and show its dimension and
+  the terms 888 through 893, and documents 895 through 900.
+  #+begin_src R
+
+  #+end_src
+
+- To get the frequency of each term (row) in all docs, we sum their
+  occurrences across each row using ~rowSums~:
+  #+begin_src R
+
+  #+end_src
+
+- Run ~rowSums~ on ~coffee_m~ to get the ~term_frequency~:
+  #+begin_src R :results silent
+
+  #+end_src
+
+* TODO Explore ~term_frequency~
+
+- Pipe the result of the summing into ~is.vector~ and then into ~print~:
+  #+begin_src R
+
+  #+end_src
+
+- Here is the nested version (without saving the result): it's ~TRUE~!
+  #+begin_src R
+
+  #+end_src
+
+- Look at the first few items of the vector:
+  #+begin_src R
+
+  #+end_src
+
+- Which term occurs most often and how many times in the tweets?
+  1) check the ~max~
+  2) use ~which~ to get at the vector index and the name
+  #+begin_src R
+
+  #+end_src
+
+* TODO Order ~term_frequency~ values
+
+- You can see that it needs to be sorted by frequency to be of any use
+  so that the most frequent terms appear at the top:
+  1) ~sort~ the ~term_frequency~
+  2) print the ~head~ of the result
+  #+begin_src R
+
+  #+end_src
+
+- This didn't seem to have worked. What did we forget? Check the way
+  ~sort~ works:
+  #+begin_src R
+
+  #+end_src
+
+- Check the arguments of ~sort~:
+  #+begin_src R
+
+  #+end_src  
+
+- Now fix the ~sort~ of ~term_frequency~ and print the ~head~ again:
+  #+begin_src R
+
+  #+end_src
+
+- Overwrite ~term_frequency~ with its sorted version, and save the top
+  10 most common words to ~term~ using the index operator ~[ ]~:
+  #+begin_src R
+
+  #+end_src
+
+* TODO Make a barchart of 10 most frequent words
+
+- The ~barplot~ is similar to a histogram, the difference is that the
+  histogram requires ~numeric~ x-values as input:
+  #+begin_src R :results graphics file :file ../img/barplotdemo.png
+    par(mfrow=c(1,2),pty='s')
+    ## histogram
+    ## barchart
+  #+end_src
+
+- Plot a barchart of the 10 most common words ~terms~ with ~barplot~:
+  #+begin_src R :results graphics file :file ../img/tm_barplot.png
+
+  #+end_src
+
+- The result is not wholly satisfying. Some labels don't show up
+  because the words are too long. Let's customize a little:
+  1) tilt the x-axis labels with ~las=2~,
+  2) add y-axis label title to explain the numbers
+  3) add a title to the chart with ~main~
+  4) add a dash of color with ~col~ (e.g. "steelblue")
+
+- Make these changes one after the other so that you can see the
+  effects more clearly:
+  #+begin_src R :results graphics file :file ../img/tm_barplot1.png
+
+  #+end_src
+
+- To improve readability even more, tilt the graph to its side with
+  ~horiz=TRUE~, change ~las~ to ~1~ and ~ylab~ to ~xlab~. 
+
+- Finally, reorder the y-axis values so that the most frequent term is
+  at the top (and change ~ylab~ to ~xlab~).
+  
+
+
+
+
