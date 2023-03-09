@@ -1,0 +1,14 @@
+#+TITLE: Text mining in practice - Bag of Words - Common tm visuals
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with
+  Bag-of-Words in R"]] by Ted Kwartler.
+
+- Download and open the practice file ~7_visuals_practice.org~ from
+  GitHub to code along.
+

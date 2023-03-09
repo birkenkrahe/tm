@@ -452,7 +452,8 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
   3) Common word visualization
   4) Word clustering
 
-* TODO Fun with R: New ChatGPT API - use bot in R
+* IN PROGRESS Week 9: word cloud visualization
+* DONE Fun with R: New ChatGPT API - use bot in R
 #+attr_latex: :width 400px
 [[../img/chatgpt.jpg]]
 
@@ -466,7 +467,6 @@ courtesy of Rasmus Bååth (2023):
 
 [[https://www.sumsar.net/blog/call-chatgpt-from-r/][From this post]], you can also learn how to clean the messages from
 ChatGPT using standard text mining functions.
-
 
 * TODO Week 10: Case study - HR analytics
 * TODO Week 11: Polarity scoring

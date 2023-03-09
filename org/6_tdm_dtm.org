@@ -240,6 +240,10 @@
     coffee_m[1:5,1:10]
     coffee_m[3071:3076,995:1000]
   #+end_src
+
+  #+RESULTS:
+  : Error: object 'coffee_m' not found
+  : Error: object 'coffee_m' not found
   
 - Print the subset of ~coffee_m~ containing the terms (in rows) "hot"
   and "starbucks" and documents (in columns) 25 through 35:
