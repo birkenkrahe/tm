@@ -14,9 +14,13 @@
   (same as ~M-x org-babel-execute-buffer~)
 
 * Corpus creation: coffee tweets
+
+This presumes that ~coffee.csv~ resides in the same directory as the
+~corpora.org~ file.
+
 #+begin_src R
   library(tm)
-  coffee_df <- read.csv("~/Downloads/coffee.csv") # dataframe
+  coffee_df <- read.csv("coffee.csv") # dataframe
   coffee_vec <- coffee_df$text # vector
   coffee_src <- VectorSource(coffee_vec) # source
   coffee_corpus <- VCorpus(coffee_src)
@@ -27,9 +31,13 @@
 : [1] "How often do you drink coffee? ? Almost everyday when school's in session. http://t.co/tBZkbvyg1C"
 
 * Corpus creation: Chardonnay tweets
+
+This presumes that ~chardonnay.csv~ resides in the same directory as the
+~corpora.org~ file.
+
 #+begin_src R
   library(tm)
-  chardonnay_df <- read.csv("~/Downloads/chardonnay.csv") # dataframe
+  chardonnay_df <- read.csv("chardonnay.csv") # dataframe
   chardonnay_vec <- chardonnay_df$text # vector
   chardonnay_src <- VectorSource(chardonnay_vec) # source
   chardonnay_corpus <- VCorpus(chardonnay_src)

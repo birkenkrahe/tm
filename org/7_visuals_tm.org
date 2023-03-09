@@ -134,14 +134,19 @@
 - Look at the first few items of the vector:
   #+begin_src R
     head(term_frequency)
+    term_frequency[1:6]
   #+end_src
 
 - Which term occurs most often and how many times in the tweets?
   1) check the ~max~
   2) use ~which~ to get at the vector index and the name
   #+begin_src R
-    max(term_frequency)
-    which(term_frequency==max(term_frequency))
+    max <- max(term_frequency)  # number of occurrences in 1000 tweets
+    max
+    idx <- which(term_frequency==max)  # returns the index
+    idx
+    term_frequency[idx]
+    names(term_frequency[1708])
   #+end_src
 
 * Order ~term_frequency~ values
@@ -151,6 +156,7 @@
   1) ~sort~ the ~term_frequency~
   2) print the ~head~ of the result
   #+begin_src R
+    sort(term_frequency) |> head()
     head(sort(term_frequency))
   #+end_src
 
@@ -175,6 +181,7 @@
     term_frequency <- sort(term_frequency, decreasing = TRUE)
     terms <- term_frequency[1:10]
     terms
+    names(terms)
   #+end_src
 
 * Make a barchart of 10 most frequent words
