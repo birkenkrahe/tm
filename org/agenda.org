@@ -491,9 +491,12 @@ ChatGPT using standard text mining functions.
 * TODO Week 10: Visualization II
 
 * TODO Spring break reading: Chomsky on ChatGPT
- - Read "The False Promise of ChatGPT" to discuss after spring break
-   
+#+attr_latex: :width 400px
+[[../img/chomsky.png]]
 
+ - Read "[[https://www-proquest-com.lyon.idm.oclc.org/docview/2784188893?accountid=12202&parentSessionId=iErhLXpJwsbfjL%2BhcvJIBN0A8ZPM%2FnW3d7hP0RaJpG0%3D][The False Promise of ChatGPT]]" to discuss after spring break
+ - Print copy distributed to you for easier access
+ - Collect the main points of the article and your questions
 
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~
@@ -502,9 +505,12 @@ ChatGPT using standard text mining functions.
 * TODO Week 15: Project presentations 
 * References
 
-Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)
-from R. URL: [[https://www.sumsar.net/blog/call-chatgpt-from-r/][www.sumsar.net]]
+- Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)
+  from R. URL: [[https://www.sumsar.net/blog/call-chatgpt-from-r/][www.sumsar.net]]
 
+- Noam Chomsky, Ian Roberts and Jeffrey Watumull (9 March 2023). The
+  False Promise of ChatGPT. URL: nytimes.com.
+  
 * Footnotes
 
 [fn:3] No /assessment bias:/ independent judgements, diverse
