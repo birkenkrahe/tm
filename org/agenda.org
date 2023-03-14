@@ -448,7 +448,7 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
   
 - *Word clouds and more interesting visuals:*
   1) Frequent terms with ~tm~ and ~qdap~
-  2) Word cloud visualizations
+  2) Word loud visualizations
   3) Common word visualization
   4) Word clustering
 
@@ -472,13 +472,13 @@ courtesy of Rasmus Bååth (2023):
 [[https://www.sumsar.net/blog/call-chatgpt-from-r/][From this post]], you can also learn how to clean the messages from
 ChatGPT using standard text mining functions.
 
-** TODO Load CSV data, create and clean corpora:
+** Load CSV data, create and clean corpora:
 #+attr_latex: :width 400px
 [[../img/7_tweets.png]]
 
 - Download and run ~corpora.org~ (read the README): [[https://bit.ly/corpora_org][bit.ly/corpora_org]]
 
-** TODO Look at next DataCamp session
+** Look at next DataCamp session
 #+attr_latex: :width 400px
 [[../img/datacamp4.png]]
 
@@ -488,15 +488,22 @@ ChatGPT using standard text mining functions.
 - If you have time, check the help pages for different functions once
   you've loaded the packages.
 
-* TODO Week 10: Visualization II
+* NEXT Week 10: Visualization II
+#+attr_latex: :width 400px
+[[../img/piday.png]]
 
-* TODO Spring break reading: Chomsky on ChatGPT
+- *NO CLASS MEETING ON THURSDAY*: work on your final project instead!
+- Read Chomsky on ChatGPT and extract discussion points/insights
+- We'll briefly discuss this article after spring break
+  
+* READ Spring break reading: Chomsky on ChatGPT
 #+attr_latex: :width 400px
 [[../img/chomsky.png]]
 
  - Read "[[https://www-proquest-com.lyon.idm.oclc.org/docview/2784188893?accountid=12202&parentSessionId=iErhLXpJwsbfjL%2BhcvJIBN0A8ZPM%2FnW3d7hP0RaJpG0%3D][The False Promise of ChatGPT]]" to discuss after spring break
  - Print copy distributed to you for easier access
  - Collect the main points of the article and your questions
+
 
 * TODO Week 11: Polarity scoring
 * TODO Week 12: Subjectivity lexicons with ~tidytext~

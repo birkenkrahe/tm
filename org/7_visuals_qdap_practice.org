@@ -1,0 +1,84 @@
+#+TITLE: Text mining in practice - Bag of Words - Common qdap visuals
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson [[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/]["Text Mining with
+  Bag-of-Words in R"]] by Ted Kwartler.
+
+- Download and open the practice file ~7_visuals_qdap_practice.org~ from
+  GitHub to code along.
+
+- In this lecture & practice:
+  1) frequent terms with ~tm~ visualized using ~barplot~
+  2) frequent terms with ~qdap~ visualized using ~plot~ 
+
+* TODO Getting, loading, cleaning the corpus
+#+attr_latex: :width 400px
+[[../img/7_tweets.png]]
+
+- Download ~corpora.org~ from GitHub and run it: [[https://bit.ly/corpora_org][bit.ly/corpora_org]]
+
+- You may have to check that your R console points at the right
+  directory (use ~getwd()~ to check and ~setwd()~ to change)
+
+- Includes corpus creation, corpus cleaning and check printing
+
+- Check that all corpora are there by listing user-defined objects:
+  #+begin_src R
+    ls()
+  #+end_src
+  
+* TODO Frequent terms with ~qdap~ - lock and load
+
+- Load ~qdap~ and check the arguments of ~qdap::freq_terms~:
+  #+begin_src R
+     ## load the qdap package
+     ## check out help(freq_terms), too
+  #+end_src
+  
+* TODO Extracting the frequency vector
+
+- Create named frequency vector ~f1~ using ~freq_terms~ on the ~text~ vector
+  from the ~coffee_df~ data frame:
+  1) extract at most 10 words
+  2) words should have minimum length 3
+  3) use the "Top200Words" stopwords dictionary.
+  4) display the structure of vector ~f1~.
+  #+begin_src R
+    ## extract text with qdap::freq_terms
+    ## display structure of vector
+  #+end_src
+
+* TODO Plotting with ~plot~
+
+- Produce a plot of ~frequency~ passing ~f1~ to ~plot~:
+  #+begin_src R :results graphics file :file ../img/qdap_plot.png
+    plot(f1)
+  #+end_src
+
+- Now produce another barplot with ~plot~, but this time use the
+  ~stopwords("en")~ dictionary. Create a vector ~f2~ with these properties
+  and show the structure:
+  #+begin_src R
+    ## define f2 as frequency vector with stopwords("en")
+
+    ## display structure
+    
+  #+end_src
+
+- Plot ~f2~ as before using ~plot~:
+  #+begin_src R :results graphics file :file ../img/qdap_plot1.png
+    plot(f2)
+  #+end_src
+
+- Look at the arguments:
+  1) print ~f1~ and ~f2~
+  2) print the frequency ~table~ for both vectors
+  #+begin_src R
+
+  #+end_src
+  
