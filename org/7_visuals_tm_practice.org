@@ -136,7 +136,7 @@
 
 - Make these changes one after the other so that you can see the
   effects more clearly:
-  #+begin_src R :results graphics file :file ../img/tm_barplot1.png
+  #+begin_src R :results graphics file :file tm_barplot1.png
 
   #+end_src
 
