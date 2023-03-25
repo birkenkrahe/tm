@@ -106,10 +106,4 @@ This presumes that ~chardonnay.csv~ resides in the same directory as the
 #+end_src
 
 #+RESULTS:
-:  [1] "chardonnay_corpus"       "chardonnay_df"          
-:  [3] "chardonnay_m"            "chardonnay_src"         
-:  [5] "chardonnay_vec"          "clean_chardonnay"       
-:  [7] "clean_chardonnay_corpus" "clean_coffee"           
-:  [9] "clean_coffee_corpus"     "coffee_corpus"          
-: [11] "coffee_df"               "coffee_src"             
-: [13] "coffee_vec"
+: character(0)

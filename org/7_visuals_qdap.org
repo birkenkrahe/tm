@@ -16,7 +16,7 @@
   1) frequent terms with ~tm~ visualized using ~barplot~
   2) frequent terms with ~qdap~ visualized using ~plot~ 
 
-* TODO Getting, loading, cleaning the corpus
+* Getting, loading, cleaning the corpus
 #+attr_latex: :width 400px
 [[../img/7_tweets.png]]
 

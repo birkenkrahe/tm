@@ -164,6 +164,9 @@
     rowSums(coffee_m) |> is.vector() |> print()
   #+end_src
 
+  #+RESULTS:
+  : [1] TRUE
+
 - Here is the nested version (without saving the result): it's ~TRUE~!
   #+begin_src R
     is.vector(rowSums(coffee_m))

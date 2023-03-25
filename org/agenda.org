@@ -488,7 +488,7 @@ ChatGPT using standard text mining functions.
 - If you have time, check the help pages for different functions once
   you've loaded the packages.
 
-* NEXT Week 10: Visualization II
+* Week 10: Visualization II
 #+attr_latex: :width 400px
 [[../img/piday.png]]
 
@@ -496,7 +496,7 @@ ChatGPT using standard text mining functions.
 - Read Chomsky on ChatGPT and extract discussion points/insights
 - We'll briefly discuss this article after spring break
   
-* READ Spring break reading: Chomsky on ChatGPT
+** READ Spring break reading: Chomsky on ChatGPT
 #+attr_latex: :width 400px
 [[../img/chomsky.png]]
 
@@ -504,12 +504,154 @@ ChatGPT using standard text mining functions.
  - Print copy distributed to you for easier access
  - Collect the main points of the article and your questions
 
+* TODO Week 11: Visualization III - wordclouds
+#+attr_latex: :width 400px
+[[../img/chomsky.png]]
 
-* TODO Week 11: Polarity scoring
-* TODO Week 12: Subjectivity lexicons with ~tidytext~
-* TODO Week 13: Visualizing sentiment
-* TODO Week 14: Cast study - Airbnb reviews
-* TODO Week 15: Project presentations 
+*Reading review: "The False Promise of ChatGPT"*
+- What's your take on the article?
+- Contrast with Gary Marcus/Bill Gates
+
+*DataCamp assignments: Redux*
+- Reduced the number of assignments by 50% (points go up)
+- Make sure that you complete the exercises (don't phone it in)
+
+*Test 3 live from today until next Tuesday:*
+- Covers DTM/TDM and visualization with ~tm~, ~qdap~.
+- If you miss the deadline, you still get partial credit (60%)
+  
+*This week:*
+- Intro to word clouds and word networks
+- Finding common words and visualizing networks
+
+* TODO Test preview:
+
+1) The Document-Term-Matrix (and the Term-Document-Matrix) is
+   generated from a document /corpus/.
+   #+begin_notes
+   Answer: TRUE
+   #+end_notes
+2) You're analyzing a dataset of SMS messages. When should you use a
+   Term-Document-Matrix instead of a Document-Term-Matrix?
+   #+begin_notes
+   Answer: When you want the words as rows and the messages as columns
+   #+end_notes
+3) ~M~ is a 4 x 4 matrix. Are the following commands equivalent?
+   #+begin_src R
+     M <- matrix(1:16,4,4)
+     M
+     M[1:4,1:4]
+     head(M,4)
+   #+end_src
+4) What is the purpose of computing frequencies of words?
+   #+begin_notes
+   Answer: To count the words
+   #+end_notes
+5) ~M~ is a large matrix. What is the output of the following
+   command?
+   #+begin_src R
+     M <- matrix()
+     rowSums(M) |> is.vector() |> print()
+   #+end_src
+   #+begin_notes
+   Answer: A logical value (TRUE or FALSE)
+   #+end_notes
+6) How can you sum over the columns of the matrix ~M~? How many elements
+   will the resulting vector have?
+   #+begin_src R
+    M <- matrix(data=1:6, nrow=2, byrow=TRUE)
+    M
+    colSums(M)
+   #+end_src
+7) ~foo~ is a frequency vector (it contains words and their
+   counts). What does this command do?
+   #+begin_example R
+     head(sort(foo, decreasing = TRUE))
+   #+end_example
+   #+begin_src R
+     foo <- c("we"=75,"me"=100,"you"=30)
+     foo
+     head(sort(foo, decreasing = TRUE))     
+   #+end_src
+8) A barplot requires numeric (not categorical) values as input.
+   #+begin_notes
+   Answer: FALSE. A histogram requires numeric input. A barplot
+   requires categorical input - its only mandatory argument is the
+   ~height~ of the bars.
+   #+end_notes
+9) Which command returns all functions in the package ~qdap~?
+   #+begin_notes
+     ls('package:qdap')
+   #+end_notes
+10) How can you display the data structure of a complicated frequency
+    term vector like this one:
+    #+begin_example R
+    f1 <- freq_terms(text.var=coffee_df,
+                     top = 10,
+                     at.least = 3,
+                     stopwords = "Top200Words")
+    ## display structure of vector
+    ...
+    #+end_example
+    #+begin_example org
+      : 'data.frame':	10 obs. of  2 variables:
+  :  $ WORD: chr  "false" "coffee" "for" "relnofollowtwitter" ...
+  :  $ FREQ: num  2997 1004 781 600 381 ...
+    #+end_example
+ 11) How can you plot a word frequency vector ~foo~:
+     #+begin_example R
+       > foo <- c("we"=75,"me"=100,"you"=30)
+       > foo
+
+       Output:
+       :  we  me you 
+       :  75 100  30
+     #+end_example
+     #+begin_src R :results graphics file :file ../img/fooplot.png
+       bar <- sort(foo,decreasing=TRUE)
+       par(mfrow=c(1,2),pty='s')
+       barplot(bar, horiz=TRUE,las=1, main="barplot")
+       plot(bar,main="scatterplot")
+     #+end_src
+
+     #+RESULTS:
+     [[file:../img/fooplot.png]]
+
+* TODO Getting the corpus data (again!)
+#+attr_latex: :width 300px
+#+caption: J.D. Estes at Naval Air Base, Corpus Christi TX (Source: Flickr.com/LOC)
+[[../img/torpedoes.jpg]]
+
+- Download ~corpora.R~ from GitHub (bit.ly/corpora)
+
+- Run the file on the shell (~M-x eshell~) as a batch job[fn:1]:
+  #+begin_src sh
+    R CMD BATCH clean.R
+    ls -al .RData
+  #+end_src
+
+- Load the ~.RData~ file in your current R session and check that
+  packages and user-defined objects were loaded:
+  #+begin_src R
+    load(".RData")
+    search()
+    ls()
+  #+end_src
+- If we don't finish with a session, save your data from now on:
+  #+begin_src R
+    save.image(file=".RData")
+    shell("ls -al .RData")
+  #+end_src
+
+- Now: continue with your practice file ~5_naive_bayes_practice.org~
+  after adding the next (and final) chapters from here: bit.ly/nb_final
+
+
+
+* TODO Week 12: Word clustering and dendograms
+* TODO Week 13: N-gram tokenization
+* TODO Week 14: Bag-of-words case study
+* TODO Week 15: Projects and summary
 * References
 
 - Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)
@@ -517,6 +659,9 @@ ChatGPT using standard text mining functions.
 
 - Noam Chomsky, Ian Roberts and Jeffrey Watumull (9 March 2023). The
   False Promise of ChatGPT. URL: nytimes.com.
+
+- Photo: J.D. Estes at the Naval Air Baise, Corpus Christi, TX
+  (1939). Online: [[https://flic.kr/p/4jz6Qo][Flickr.com Library of Congress]].
   
 * Footnotes
 

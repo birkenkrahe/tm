@@ -19,7 +19,7 @@
   #+name: load_coffee_data
   #+begin_src R :results silent
     library(tm)
-    coffee_df <- read.csv("coffee.csv") # dataframe
+    coffee_df <- read.csv("~/Downloads/coffee.csv") # dataframe
     coffee_vec <- coffee_df$text # vector
     coffee_src <- VectorSource(coffee_vec) # source
     coffee_corpus <- VCorpus(coffee_src)
@@ -60,10 +60,10 @@
   #+end_src
 
   #+RESULTS:
-  :  [1] "api_key"       "ask_chatgpt"   "clean_corp"    "clean_corpus"
-  :  [5] "coffee_corpus" "coffee_df"     "coffee_dtm"    "coffee_m"
-  :  [9] "coffee_src"    "coffee_tdm"    "coffee_vec"    "coffee_wfm"
-  : [13] "i"
+  :  [1] "clean_corp"    "clean_corpus"  "coffee_corpus" "coffee_df"    
+  :  [5] "coffee_dtm"    "coffee_m"      "coffee_src"    "coffee_tdm"   
+  :  [9] "coffee_vec"    "coffee_wfm"    "f1"            "f2"           
+  : [13] "i"             "m"
   : [1] "First morning coffee after Ramadan http://t.co/ZEu6cl9qGY"
   : [1] "first morning ramadan httptcozeu6cl9qgy"
 
@@ -77,16 +77,49 @@
     str(coffee_tdm)   
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  List of 6
+   $ i       : int [1:7391] 188 765 1759 2829 30 347 518 649 792 1028 ...
+   $ j       : int [1:7391] 1 1 1 1 2 2 2 2 2 2 ...
+   $ v       : num [1:7391] 1 1 1 1 1 1 1 1 1 1 ...
+   $ nrow    : int 3076
+   $ ncol    : int 1000
+   $ dimnames:List of 2
+    ..$ Terms: chr [1:3076] "0630" "1000" "1026" "1030" ...
+    ..$ Docs : chr [1:1000] "1" "2" "3" "4" ...
+   - attr(*, "class")= chr [1:2] "TermDocumentMatrix" "simple_triplet_matrix"
+   - attr(*, "weighting")= chr [1:2] "term frequency" "tf"
+  #+end_example
+
 - Transpose it with the ~base::t~ function:
   #+begin_src R
     coffee_dtm <- t(coffee_tdm)
     str(coffee_dtm)
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  List of 6
+   $ i       : int [1:7391] 1 1 1 1 2 2 2 2 2 2 ...
+   $ j       : int [1:7391] 188 765 1759 2829 30 347 518 649 792 1028 ...
+   $ v       : num [1:7391] 1 1 1 1 1 1 1 1 1 1 ...
+   $ nrow    : int 1000
+   $ ncol    : int 3076
+   $ dimnames:List of 2
+    ..$ Docs : chr [1:1000] "1" "2" "3" "4" ...
+    ..$ Terms: chr [1:3076] "0630" "1000" "1026" "1030" ...
+   - attr(*, "class")= chr [1:2] "DocumentTermMatrix" "simple_triplet_matrix"
+   - attr(*, "weighting")= chr [1:2] "term frequency" "tf"
+  #+end_example
   
 - ~t~ does the same thing as ~DocumentTermMatrix~:
   #+begin_src R
     identical(coffee_dtm,DocumentTermMatrix(clean_corp))
   #+end_src
+
+  #+RESULTS:
+  : [1] TRUE
 
 - The ~qdap~ package relies on a Word Frequency Matrix (WFM):
   #+attr_latex: :width 400px
@@ -97,6 +130,21 @@
     str(coffee_wfm)
     head(coffee_wfm)
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   'wfm' num [1:3259, 1] 1 1 1 1 1 2 388 1 1 1 ...
+   - attr(*, "dimnames")=List of 2
+    ..$ : chr [1:3259] "'" "'am" "'decaf'" "'di" ...
+    ..$ : chr "all"
+          all
+  '         1
+  'am       1
+  'decaf'   1
+  'di       1
+  'never    1
+  'roya'    2
+  #+end_example
 
 - When should you use a TDM instead of DTM?
   #+begin_quote
@@ -137,13 +185,15 @@
   : Maximal term length: 27
   : Weighting          : term frequency (tf)
 
-- Convert the object to a ~matrix~ and print the dimension- how many
+- Convert the object to a ~matrix~ and print the dimension - how many
   tweets and how many terms does the matrix contain?
   #+begin_src R
     coffee_m <- as.matrix(coffee_dtm)
     dim(coffee_m) # rows x columns
   #+end_src
 
+  #+RESULTS:
+  : [1] 1000 3076
 
 - Have a look at the upper left and lower right corner of the matrix:
   #+begin_src R
@@ -176,6 +226,23 @@
     coffee_m[25:35,c("hot","starbucks")]
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+      Terms
+  Docs hot starbucks
+    25   0         0
+    26   0         1
+    27   0         1
+    28   1         0
+    29   0         0
+    30   0         0
+    31   1         0
+    32   0         0
+    33   0         0
+    34   0         1
+    35   0         0
+  #+end_example
+
 
 - [ ] How would you phrase this result?
 
@@ -183,6 +250,21 @@
   #+begin_src R
     for (i in 25:35) print(content(clean_corp[[i]]))
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] "sometimes start dancing table can"
+  [1] "rt leslieks starbucks morning free tomorrow amp going wfriends get gunsense momsd"
+  [1] "starbucks best confessyourunpopularopinion"
+  [1] "rt themindblowing fat burning foods grapefruit watermelon berries hot peppers celery greek yogurt eggs fish green tea "
+  [1] "witnessed girl pet bird pooping shoulder amp girl sharing ice cream dog shop didnt care"
+  [1] " biological watch thinks 543 pm want arabic cake"
+  [1] " wanna lay couch blankets hot watch old movies"
+  [1] "rt dreyess1 rehab addicts"
+  [1] "finally home food beer fridge also tomorrow will rough ordered pizza rat time"
+  [1] "just drank entire venti starbucks amp still think im gonna fall asleep wtf"
+  [1] "rt uberfacts 1000 chemicals single cup 26 tested half caused cancer "
+  #+end_example
 
 - You can also loop over these with ~while~:
   #+begin_src R
@@ -193,6 +275,21 @@
     }
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  [1] "sometimes start dancing table can"
+  [1] "rt leslieks starbucks morning free tomorrow amp going wfriends get gunsense momsd"
+  [1] "starbucks best confessyourunpopularopinion"
+  [1] "rt themindblowing fat burning foods grapefruit watermelon berries hot peppers celery greek yogurt eggs fish green tea "
+  [1] "witnessed girl pet bird pooping shoulder amp girl sharing ice cream dog shop didnt care"
+  [1] " biological watch thinks 543 pm want arabic cake"
+  [1] " wanna lay couch blankets hot watch old movies"
+  [1] "rt dreyess1 rehab addicts"
+  [1] "finally home food beer fridge also tomorrow will rough ordered pizza rat time"
+  [1] "just drank entire venti starbucks amp still think im gonna fall asleep wtf"
+  [1] "rt uberfacts 1000 chemicals single cup 26 tested half caused cancer "
+  #+end_example
+
 - Or like this:
   #+begin_src R
     i = 25
@@ -201,6 +298,21 @@
       i <- i + 1
     }
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] "sometimes start dancing table can"
+  [1] "rt leslieks starbucks morning free tomorrow amp going wfriends get gunsense momsd"
+  [1] "starbucks best confessyourunpopularopinion"
+  [1] "rt themindblowing fat burning foods grapefruit watermelon berries hot peppers celery greek yogurt eggs fish green tea "
+  [1] "witnessed girl pet bird pooping shoulder amp girl sharing ice cream dog shop didnt care"
+  [1] " biological watch thinks 543 pm want arabic cake"
+  [1] " wanna lay couch blankets hot watch old movies"
+  [1] "rt dreyess1 rehab addicts"
+  [1] "finally home food beer fridge also tomorrow will rough ordered pizza rat time"
+  [1] "just drank entire venti starbucks amp still think im gonna fall asleep wtf"
+  [1] "rt uberfacts 1000 chemicals single cup 26 tested half caused cancer "
+  #+end_example
 
 * Analyze the term-document matrix (TDM)
 #+attr_latex: :width 400px
@@ -242,8 +354,23 @@
   #+end_src
 
   #+RESULTS:
-  : Error: object 'coffee_m' not found
-  : Error: object 'coffee_m' not found
+  #+begin_example
+        Docs
+  Terms  1 2 3 4 5 6 7 8 9 10
+    0630 0 0 0 0 0 0 0 0 0  0
+    1000 0 0 0 0 0 0 0 0 0  0
+    1026 0 0 0 0 0 0 0 0 0  0
+    1030 0 0 0 0 0 0 0 0 0  0
+    110  0 0 0 0 0 0 0 0 0  0
+                   Docs
+  Terms             995 996 997 998 999 1000
+    zaykennedy69      0   0   0   0   0    0
+    zeledmalegisele   0   0   0   0   0    0
+    ziggy             0   0   0   0   0    0
+    zokuhq            0   0   0   0   0    0
+    zombie            0   0   0   0   0    0
+    zzzquil           0   0   0   0   0    0
+  #+end_example
   
 - Print the subset of ~coffee_m~ containing the terms (in rows) "hot"
   and "starbucks" and documents (in columns) 25 through 35:
