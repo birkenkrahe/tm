@@ -498,6 +498,7 @@ ChatGPT using standard text mining functions.
   
 ** READ Spring break reading: Chomsky on ChatGPT
 #+attr_latex: :width 400px
+#+caption: Noam Chomsky, MIT.
 [[../img/chomsky.png]]
 
  - Read "[[https://www-proquest-com.lyon.idm.oclc.org/docview/2784188893?accountid=12202&parentSessionId=iErhLXpJwsbfjL%2BhcvJIBN0A8ZPM%2FnW3d7hP0RaJpG0%3D][The False Promise of ChatGPT]]" to discuss after spring break
@@ -506,11 +507,11 @@ ChatGPT using standard text mining functions.
 
 * TODO Week 11: Visualization III - wordclouds
 #+attr_latex: :width 400px
-[[../img/chomsky.png]]
+[[../img/clouds.jpg]]
 
 *Reading review: "The False Promise of ChatGPT"*
 - What's your take on the article?
-- Contrast with Gary Marcus/Bill Gates
+- Contrast with [[https://garymarcus.substack.com/p/caricaturing-noam-chomsky][Gary Marcus's warnings]] / [[https://www.gatesnotes.com/The-Age-of-AI-Has-Begun][Bill Gates' gushing]]
 
 *DataCamp assignments: Redux*
 - Reduced the number of assignments by 50% (points go up)
@@ -622,11 +623,11 @@ ChatGPT using standard text mining functions.
 #+caption: J.D. Estes at Naval Air Base, Corpus Christi TX (Source: Flickr.com/LOC)
 [[../img/torpedoes.jpg]]
 
-- Download ~corpora.R~ from GitHub (bit.ly/corpora)
+- Download ~corpora.R~ from GitHub ([[https://bit.ly/tm-corpora][bit.ly/tm-corpora]])
 
-- Run the file on the shell (~M-x eshell~) as a batch job[fn:1]:
+- Run the file on the shell (~M-x eshell~) as a batch job:
   #+begin_src sh
-    R CMD BATCH clean.R
+    R CMD BATCH corpora.R
     ls -al .RData
   #+end_src
 
@@ -638,15 +639,11 @@ ChatGPT using standard text mining functions.
     ls()
   #+end_src
 - If we don't finish with a session, save your data from now on:
+
   #+begin_src R
     save.image(file=".RData")
     shell("ls -al .RData")
   #+end_src
-
-- Now: continue with your practice file ~5_naive_bayes_practice.org~
-  after adding the next (and final) chapters from here: bit.ly/nb_final
-
-
 
 * TODO Week 12: Word clustering and dendograms
 * TODO Week 13: N-gram tokenization
