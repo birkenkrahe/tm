@@ -1,0 +1,170 @@
+#+TITLE: Text mining in practice - Bag of Words - Intro to word clouds
+#+AUTHOR: [name...] (...)
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson "Text Mining with
+  Bag-of-Words in R" by Ted Kwartler, chapter 2, lesson 2, "Intro to
+  word clouds" ([[https://campus.datacamp.com/courses/text-mining-with-bag-of-words-in-r/][Link]]).
+
+- Download and open the practice file ~8_wordclouds_practice.org~ from
+  GitHub to code along.
+
+- In this lecture & practice:
+  1) simple word cloud creation using Chardonnay tweets
+  2) adding stop words to change word cloud
+  3) improve word cloud appearance and insights
+
+* Get the corpus data and the R packages
+
+- Download ~corpora.R~ from GitHub ([[https://bit.ly/tm-corpora][bit.ly/tm-corpora]])
+
+- Run the file on the shell (~M-x eshell~) as a batch job:
+  #+begin_src sh
+    R CMD BATCH corpora.R
+    ls -al .RData
+  #+end_src
+
+- Load the ~.RData~ file in your current R session and check that
+  packages and user-defined objects were loaded:
+  #+begin_src R
+    load("~/Downloads/.RData")
+    search()
+    ls()
+  #+end_src
+
+- You need the ~clean_coffee~ and ~clean_chardonnay~ corpora.
+
+- If we don't finish with a session, save your data from now on:
+  #+begin_src R
+    save.image(file=".RData")
+    shell("ls -al .RData")
+  #+end_src
+
+* Intro to word clouds
+
+- Our starting point is the cleaned corpus of "Chardonnay" tweets,
+  ~clean_chardonnay~.
+
+- Convert Chardonnay TDM to matrix and check its dimensions with ~dim~:
+  #+name: chardonnay_m
+  #+begin_src R
+    
+  #+end_src
+
+- Getting frequencies:
+  1) Sum rows of ~chardonnay_m~ into vector ~term_frequency~
+  2) ~sort~ the vector with decreasing values
+  3) create data frame ~word.freq~ with two columns: ~term~ from the ~names~
+     of ~term_frequency~, and ~num~ with the values from ~term_frequency~
+  4) Overwrite the ~rownames~ of ~word_freq~ with ~NULL~
+  5) Print the first six values
+  #+name: word_freq
+  #+begin_src R
+
+  #+end_src
+
+- The words ~amp~, ~wine~ and ~glass~ do not help much - how can we get rid
+  of them at this stage of our investigation? Do you know what "amp"
+  means in this context?[fn:1]
+  #+begin_quote
+  Answer: add these words to the stopwords cleaning function in
+  ~corpora.R~, then run the batch job and re-load ~.RData~ in this
+  file. You'll see that the number of words (records) has gone down
+  and the list of top frequency words is changed.
+  #+end_quote
+
+- After cleaning out the additional words, reload the data, create the
+  TDM and the word frequency data frame:
+    #+begin_src R
+
+    <<chardonnay_m>>
+    <<word_freq>>
+  #+end_src
+
+- Is there a ~wordcloud~ function in ~tm~ or ~qdap~ or ~base~?
+  1) load each package
+  2) check for the ~wordcloud~ function
+  3) the answer should be three ~logical~ values
+  #+begin_src R
+
+  #+end_src
+
+- Use the column vectors ~term~ and ~num~ for the ~words~ and ~freq~
+  parameters, respectively:
+  #+begin_src R :results graphics file :file wordcloud1.png
+
+  #+end_src
+
+- Adjust cleaning function: remove the words "amp", "chardonnay",
+  "wine" and "glass". Do this in ~corpora.R~ directly. Then run the
+  batch job again with ~R CMD BATCH~ to generate ~.RData~ which you can
+  load directly here with ~load~. You'll have to rerun the matrix
+  creation from above:
+  #+begin_src R
+    load("~/Downloads/.RData")
+    <<chardonnay_m>>
+    <<word_freq>>
+  #+end_src
+
+- Print out frirst 10 entries of ~term_frequency~:
+  #+begin_src R
+    term_frequency[1:10]
+  #+end_src
+
+- Extract the terms 2 to 11 using ~names~ on ~term_frequency~ and call the
+  vector of strings ~terms_vec~. Show the entries 2 to 11:
+  #+begin_src R
+
+  #+end_src
+
+- Create a wordcloud using ~term_vec~ as the words, and ~term_frequency~
+  (defined earlier before creating the data frame ~word_freq~) as the
+  values. Add ~max.words=50~ and ~colors="red"~:
+  #+begin_src R :results graphics file :file termcloud.png
+
+  #+end_src
+
+- Review a cleaned tweet: do you remember how to index corpus tweets?
+  Print tweet number 24:
+  #+begin_src R
+
+  #+end_src
+
+- You can add to the ~stopwords~, and run ~tm_map~ with ~removeWords~ on the
+  clean corpus to remove additional words:
+  #+begin_src R
+    stops <- c(stopwords("en"), 'just','like')
+    tail(stops)
+    clean_chardonnay_corpus <- tm_map(clean_chardonnay,
+                                      removeWords,
+                                      stops)
+  #+end_src
+
+  #+RESULTS:
+  : [1] "so"   "than" "too"  "very" "just" "like"
+
+- To see the updated word cloud, re-run the code chunks from before
+  with the new, cleaner corpus (overwrite it), then go back and rerun
+  the last plot:
+  #+begin_src R
+
+    <<chardonnay_m>>
+    <<word_freq>>
+  #+end_src
+
+* TODO Improve word clouds with different colors
+
+Bonus assignment based on the DataCamp exercise!
+
+* Footnotes
+
+[fn:1] Funnily enough, I had no idea until I looked into the raw ~CSV~
+file: ~amp~ is a remnant of ~&amp~ after ~removePunctuation~, and it's the
+HTML short code for ~&~, which is frequent in tweets (saves 2
+letters). As an interesting aside: I am already so dependent on
+ChatGPT that instead of checking the data, I went and asked the bot
+about "amp in the context of Chardonnay" but to no avail, of course.

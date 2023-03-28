@@ -639,11 +639,39 @@ ChatGPT using standard text mining functions.
     ls()
   #+end_src
 - If we don't finish with a session, save your data from now on:
-
   #+begin_src R
     save.image(file=".RData")
     shell("ls -al .RData")
   #+end_src
+
+- You also need to load ~tm~, ~qdap~, ~SnowballC~ and ~wordcloud~. I put all
+  of these in a function at the end of ~corpora.R~:
+  #+name: load_packages
+  #+begin_src R
+    load_packages <- function() {
+      library(tm)
+      library(qdap)
+      library(SnowballC)
+      library(wordcloud)
+      search()
+    }
+    load_packages()
+  #+end_src
+
+  #+RESULTS: load_packages
+  #+begin_example
+   [1] ".GlobalEnv"               "package:wordcloud"       
+   [3] "package:SnowballC"        "package:qdap"            
+   [5] "package:RColorBrewer"     "package:qdapTools"       
+   [7] "package:qdapRegex"        "package:qdapDictionaries"
+   [9] "package:tm"               "package:NLP"             
+  [11] "ESSR"                     "package:stats"           
+  [13] "package:graphics"         "package:grDevices"       
+  [15] "package:utils"            "package:datasets"        
+  [17] "package:stringr"          "package:httr"            
+  [19] "package:methods"          "Autoloads"               
+  [21] "package:base"
+  #+end_example
 
 * TODO Week 12: Word clustering and dendograms
 * TODO Week 13: N-gram tokenization

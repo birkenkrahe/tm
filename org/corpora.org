@@ -107,3 +107,60 @@ This presumes that ~chardonnay.csv~ resides in the same directory as the
 
 #+RESULTS:
 : character(0)
+
+* Load other R packages:
+#+begin_src R
+  load_packages <- function() {
+    library(tm)
+    library(qdap)
+    library(SnowballC)
+    library(wordcloud)
+    search()
+  }
+  load_packages()
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Loading required package: NLP
+
+Attaching package: 'NLP'
+
+The following object is masked from 'package:httr':
+
+    content
+
+Loading required package: qdapDictionaries
+Loading required package: qdapRegex
+Loading required package: qdapTools
+Loading required package: RColorBrewer
+
+Attaching package: 'qdap'
+
+The following objects are masked from 'package:tm':
+
+    as.DocumentTermMatrix, as.TermDocumentMatrix
+
+The following object is masked from 'package:NLP':
+
+    ngrams
+
+The following objects are masked from 'package:base':
+
+    Filter, proportions
+
+ [1] ".GlobalEnv"               "package:wordcloud"       
+ [3] "package:SnowballC"        "package:qdap"            
+ [5] "package:RColorBrewer"     "package:qdapTools"       
+ [7] "package:qdapRegex"        "package:qdapDictionaries"
+ [9] "package:tm"               "package:NLP"             
+[11] "ESSR"                     "package:stats"           
+[13] "package:graphics"         "package:grDevices"       
+[15] "package:utils"            "package:datasets"        
+[17] "package:stringr"          "package:httr"            
+[19] "package:methods"          "Autoloads"               
+[21] "package:base"            
+Warning messages:
+1: package 'tm' was built under R version 4.2.3 
+2: package 'wordcloud' was built under R version 4.2.3
+#+end_example
