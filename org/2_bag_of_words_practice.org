@@ -68,6 +68,7 @@ If you don't get any output consider the following fixes:
 
 7) Open the documentation for ~stringi~, ~stringr~ and ~qdap~ with the ~help~
    function (or the shortcut ~?~).
+
 * TODO Quick taste of test mining with ~qdap~
 
 1) Load ~qdap~ and show all loaded packages.

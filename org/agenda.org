@@ -505,7 +505,7 @@ ChatGPT using standard text mining functions.
  - Print copy distributed to you for easier access
  - Collect the main points of the article and your questions
 
-* TODO Week 11: Visualization III - wordclouds
+* IN PROGRESS Week 11: Visualization III - wordclouds
 #+attr_latex: :width 400px
 [[../img/clouds.jpg]]
 
@@ -525,12 +525,13 @@ ChatGPT using standard text mining functions.
 - Intro to word clouds and word networks
 - Finding common words and visualizing networks
 
-* TODO Test preview:
+* DONE Test preview:
 
 1) The Document-Term-Matrix (and the Term-Document-Matrix) is
    generated from a document /corpus/.
    #+begin_notes
-   Answer: TRUE
+   Answer: TRUE - remember that we did this only after cleaning a
+   corpus
    #+end_notes
 2) You're analyzing a dataset of SMS messages. When should you use a
    Term-Document-Matrix instead of a Document-Term-Matrix?
@@ -544,9 +545,29 @@ ChatGPT using standard text mining functions.
      M[1:4,1:4]
      head(M,4)
    #+end_src
+
+   #+RESULTS:
+   #+begin_example
+        [,1] [,2] [,3] [,4]
+   [1,]    1    5    9   13
+   [2,]    2    6   10   14
+   [3,]    3    7   11   15
+   [4,]    4    8   12   16
+        [,1] [,2] [,3] [,4]
+   [1,]    1    5    9   13
+   [2,]    2    6   10   14
+   [3,]    3    7   11   15
+   [4,]    4    8   12   16
+        [,1] [,2] [,3] [,4]
+   [1,]    1    5    9   13
+   [2,]    2    6   10   14
+   [3,]    3    7   11   15
+   [4,]    4    8   12   16
+   #+end_example
 4) What is the purpose of computing frequencies of words?
    #+begin_notes
-   Answer: To count the words
+   Answer: To count the words, to see how often they occur because the
+   count may be correlated to meaning (e.g. popularity)
    #+end_notes
 5) ~M~ is a large matrix. What is the output of the following
    command?
@@ -554,6 +575,10 @@ ChatGPT using standard text mining functions.
      M <- matrix()
      rowSums(M) |> is.vector() |> print()
    #+end_src
+
+   #+RESULTS:
+   : [1] TRUE
+
    #+begin_notes
    Answer: A logical value (TRUE or FALSE)
    #+end_notes
@@ -564,10 +589,17 @@ ChatGPT using standard text mining functions.
     M
     colSums(M)
    #+end_src
+
+   #+RESULTS:
+   :      [,1] [,2] [,3]
+   : [1,]    1    2    3
+   : [2,]    4    5    6
+   : [1] 5 7 9
+
 7) ~foo~ is a frequency vector (it contains words and their
    counts). What does this command do?
    #+begin_example R
-     head(sort(foo, decreasing = TRUE))
+     head(sort(foo, decreasing = TRUE),n=3)
    #+end_example
    #+begin_src R
      foo <- c("we"=75,"me"=100,"you"=30)
@@ -599,26 +631,26 @@ ChatGPT using standard text mining functions.
   :  $ WORD: chr  "false" "coffee" "for" "relnofollowtwitter" ...
   :  $ FREQ: num  2997 1004 781 600 381 ...
     #+end_example
- 11) How can you plot a word frequency vector ~foo~:
-     #+begin_example R
-       > foo <- c("we"=75,"me"=100,"you"=30)
-       > foo
+    1) How can you plot a word frequency vector ~foo~:
+       #+begin_example R
+         > foo <- c("we"=75,"me"=100,"you"=30)
+         > foo
 
-       Output:
-       :  we  me you 
-       :  75 100  30
-     #+end_example
-     #+begin_src R :results graphics file :file ../img/fooplot.png
-       bar <- sort(foo,decreasing=TRUE)
-       par(mfrow=c(1,2),pty='s')
-       barplot(bar, horiz=TRUE,las=1, main="barplot")
-       plot(bar,main="scatterplot")
-     #+end_src
+         Output:
+         :  we  me you 
+         :  75 100  30
+       #+end_example
+       #+begin_src R :results graphics file :file ../img/fooplot.png
+         bar <- sort(foo,decreasing=TRUE)
+         par(mfrow=c(1,2),pty='s')
+         barplot(bar, horiz=TRUE,las=1, main="barplot")
+         plot(bar,main="scatterplot")
+       #+end_src
 
-     #+RESULTS:
-     [[file:../img/fooplot.png]]
+       #+RESULTS:
+       [[file:../img/fooplot.png]]
 
-* TODO Getting the corpus data (again!)
+* DONE Getting the corpus data (again!)
 #+attr_latex: :width 300px
 #+caption: J.D. Estes at Naval Air Base, Corpus Christi TX (Source: Flickr.com/LOC)
 [[../img/torpedoes.jpg]]
@@ -672,6 +704,23 @@ ChatGPT using standard text mining functions.
   [19] "package:methods"          "Autoloads"               
   [21] "package:base"
   #+end_example
+
+* TODO Bonus points for job fair experience report!
+#+attr_latex: :width 400px
+[[../img/fair_flickr_color.jpg]]
+
+- Write long paragraph about your job fair experience for 10 points.
+- Great opportunity to network, mix and mingle, and show off.
+- Bring 1 page resume, a few questions, a story, and dress up.
+- Must go: graduating seniors. Should go: everyone else.
+- Motivate each other by going as a pair, a group, a team.
+- Post your experience report [[https://lyon.instructure.com/courses/1015/assignments/9613][here in Canvas]].
+
+* TODO What did you learn this week?
+
+Tue:
+
+Thu:
 
 * TODO Week 12: Word clustering and dendograms
 * TODO Week 13: N-gram tokenization

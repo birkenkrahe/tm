@@ -31,35 +31,25 @@
 - Load the ~.RData~ file in your current R session and check that
   packages and user-defined objects were loaded:
   #+begin_src R
-    load("~/Downloads/.RData")
+    load("c:/Users/birkenkrahe/Downloads/.RData")
     search()
     ls()
   #+end_src
 
   #+RESULTS:
   #+begin_example
-   [1] ".GlobalEnv"               "package:wordcloud"       
-   [3] "package:SnowballC"        "package:qdap"            
-   [5] "package:RColorBrewer"     "package:qdapTools"       
-   [7] "package:qdapRegex"        "package:qdapDictionaries"
-   [9] "package:tm"               "package:NLP"             
-  [11] "ESSR"                     "package:stats"           
-  [13] "package:graphics"         "package:grDevices"       
-  [15] "package:utils"            "package:datasets"        
-  [17] "package:stringr"          "package:httr"            
-  [19] "package:methods"          "Autoloads"               
-  [21] "package:base"
+   [1] ".GlobalEnv"        "ESSR"              "package:stats"    
+   [4] "package:graphics"  "package:grDevices" "package:utils"    
+   [7] "package:datasets"  "package:stringr"   "package:httr"     
+  [10] "package:methods"   "Autoloads"         "package:base"
    [1] "api_key"                 "ask_chatgpt"            
    [3] "chardonnay_corpus"       "chardonnay_df"          
-   [5] "chardonnay_m"            "chardonnay_src"         
-   [7] "chardonnay_tdm"          "chardonnay_vec"         
-   [9] "clean_chardonnay"        "clean_chardonnay_corpus"
-  [11] "clean_coffee"            "clean_coffee_corpus"    
-  [13] "coffee_corpus"           "coffee_df"              
-  [15] "coffee_src"              "coffee_vec"             
-  [17] "load_packages"           "stops"                  
-  [19] "term_frequency"          "terms_vec"              
-  [21] "word_freq"
+   [5] "chardonnay_src"          "chardonnay_vec"         
+   [7] "clean_chardonnay"        "clean_chardonnay_corpus"
+   [9] "clean_coffee"            "clean_coffee_corpus"    
+  [11] "coffee_corpus"           "coffee_df"              
+  [13] "coffee_src"              "coffee_vec"             
+  [15] "load_packages"           "M"
   #+end_example
 
 - You need the ~clean_coffee~ and ~clean_chardonnay~ corpora.
@@ -70,20 +60,34 @@
     shell("ls -al .RData")
   #+end_src
 
+  #+RESULTS:
+  : -rwx------+ 1 birkenkrahe Domain Users 659656 Mar 28 15:53 .RData
+
 * Intro to word clouds
 
 - Our starting point is the cleaned corpus of "Chardonnay" tweets,
   ~clean_chardonnay~.
 
-- Convert Chardonnay TDM to matrix and check its dimensions:
+- Look at the corpus:
+  #+begin_src R
+    clean_chardonnay
+  #+end_src
+
+  #+RESULTS:
+  : <<VCorpus>>
+  : Metadata:  corpus specific: 0, document level (indexed): 0
+  : Content:  documents: 1000
+
+- Convert Chardonnay TDM to a matrix and check its dimensions:
   #+name: chardonnay_m
   #+begin_src R
+    library(tm)
     chardonnay_tdm <- TermDocumentMatrix(clean_chardonnay)
     chardonnay_m <- as.matrix(chardonnay_tdm)
     dim(chardonnay_m)
   #+end_src
 
-  #+RESULTS:
+  #+RESULTS: chardonnay_m
   : [1] 3139 1000
 
 - The starting point of any visualization is a frequency table - it
@@ -97,17 +101,23 @@
     word_freq <- data.frame(term = names(term_frequency),
                             num = term_frequency)
     rownames(word_freq) <- NULL
-    head(word_freq)
+    head(word_freq,n=10)
   #+end_src
 
-  #+RESULTS:
-  :     term num
-  : 1    amp 120
-  : 2 marvin 104
-  : 3   wine  83
-  : 4   gaye  76
-  : 5   just  75
-  : 6  glass  63
+  #+RESULTS: word_freq
+  #+begin_example
+       term num
+  1     amp 120
+  2  marvin 104
+  3    wine  83
+  4    gaye  76
+  5    just  75
+  6   glass  63
+  7    like  55
+  8  bottle  47
+  9     lol  43
+  10 little  35
+  #+end_example
 
 - The words ~amp~, ~wine~ and ~glass~ do not help much - how can we get rid
   of them at this stage of our investigation? Do you know what "amp"
@@ -139,11 +149,6 @@
     any(ls('package:wordcloud')=="wordcloud")
   #+end_src
 
-  #+RESULTS:
-  : [1] FALSE
-  : [1] FALSE
-  : [1] TRUE
-
 - To create a wordcloud, use the ~wordcloud~ function. Look at the ~help~.
 
 - Use the column vectors ~term~ and ~num~ for the ~words~ and ~freq~
@@ -155,9 +160,6 @@
               max.words=100,
               color="blue")
   #+end_src
-
-  #+RESULTS:
-  [[file:../img/wordcloud1.png]]
 
 - Impact of stop words: if you haven't done it until this point:
   adjust cleaning function: remove the words "amp", "chardonnay",
@@ -171,24 +173,10 @@
     <<word_freq>>
   #+end_src
 
-  #+RESULTS:
-  : [1] 3135 1000
-  :     term num
-  : 1 marvin 104
-  : 2   gaye  76
-  : 3   just  75
-  : 4   like  55
-  : 5 bottle  47
-  : 6    lol  43
-
 - Print out frirst 10 entries of ~term_frequency~:
   #+begin_src R
     term_frequency[1:10]
   #+end_src
-
-  #+RESULTS:
-  : marvin   gaye   just   like bottle    lol little   rose   dont    get 
-  :    104     76     75     55     47     43     35     34     32     32
 
 - Extract the terms 2 to 11 using ~names~ on ~term_frequency~ and call the
   vector of strings ~terms_vec~. Show the entries 2 to 11:
@@ -198,14 +186,6 @@
     length(terms_vec)
     head(table(term_frequency))
   #+end_src
-
-  #+RESULTS:
-  :  [1] "bottle" "lol"    "little" "rose"   "dont"   "get"    "2011"   "now"   
-  :  [9] "ass"    "can"
-  : [1] 3132
-  : term_frequency
-  :    1    2    3    4    5    6 
-  : 2029  507  178  134   55   38
 
 - Create a wordcloud using ~term_vec~ as the words, and ~term_frequency~
   (defined earlier before creating the data frame ~word_freq~) as the
@@ -217,16 +197,10 @@
               colors="red")
   #+end_src
 
-  #+RESULTS:
-  [[file:../img/termcloud.png]]
-
 - Review a cleaned tweet: do you remember how to index corpus tweets? 
   #+begin_src R
     content(clean_chardonnay[[24]])
   #+end_src
-
-  #+RESULTS:
-  : [1] " brought  gaye "
 
 - You can add to the stopwords, and run ~tm_map~ with ~removeWords~ on the
   clean corpus to remove additional words:
@@ -240,10 +214,6 @@
     content(clean_chardonnay_corpus[[24]])    
   #+end_src
 
-  #+RESULTS:
-  : [1] " brought  gaye "
-  : [1] "so"   "than" "too"  "very" "just" "like"
-  : [1] " brought  gaye "
 
 - To see the updated word cloud, re-run the code chunks from before
   with the new, cleaner corpus, then go back and rerun the last plot:
@@ -252,17 +222,6 @@
     <<chardonnay_m>>
     <<word_freq>>
   #+end_src
-
-  #+RESULTS:
-  : [1] 3132 1000
-  :     term num
-  : 1   gaye  76
-  : 2 bottle  47
-  : 3    lol  43
-  : 4 little  35
-  : 5   rose  34
-  : 6   dont  32
-
 
 * TODO Improve word clouds with different colors
 

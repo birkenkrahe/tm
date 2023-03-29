@@ -69,6 +69,7 @@
 
 * TDM vs DTM
 #+attr_latex: :width 400px
+#+caption: TDM and DTM matrix
 [[../img/tdm_dtm.png]]
 
 - Create TDM with ~tm::TermDocumentMatrix~ and print the structure
