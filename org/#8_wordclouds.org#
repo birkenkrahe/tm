@@ -84,6 +84,14 @@
 
   #+RESULTS:
   : -rwx------+ 1 birkenkrahe Domain Users 3247258 Mar 30 15:44 .RData
+  :  Volume in drive C is OS
+  :  Volume Serial Number is 0654-135C
+  : 
+  :  Directory of c:\Users\birkenkrahe\Documents\GitHub\ml\org
+  : 
+  : 03/30/2023  03:44 PM         3,247,258 .RData
+  :                1 File(s)      3,247,258 bytes
+  :                0 Dir(s)  143,013,408,768 bytes free
 
 * Intro to word clouds
 

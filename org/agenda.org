@@ -507,7 +507,7 @@ ChatGPT using standard text mining functions.
 
 * IN PROGRESS Week 11: Visualization III - wordclouds
 #+attr_latex: :width 400px
-[[../img/clouds.jpg]]
+n[[../img/clouds.jpg]]
 
 *Reading review: "The False Promise of ChatGPT"*
 - What's your take on the article?
@@ -705,7 +705,7 @@ ChatGPT using standard text mining functions.
   [21] "package:base"
   #+end_example
 
-* TODO Bonus points for job fair experience report!
+* DONE Bonus points for job fair experience report!
 #+attr_latex: :width 400px
 [[../img/fair_flickr_color.jpg]]
 
@@ -719,12 +719,16 @@ ChatGPT using standard text mining functions.
 * TODO What did you learn this week?
 
 Tue:
-1. 
-2. 
-3. 
+1. How to save and load a complete interactive R session
+2. Run an R file in batch mode (R CMD BATCH)
+3. To make a wordcloud you need to sum over the rows of a TDM
 
 Thu:
-* TODO The Plan! Yes, we've got one!
+1.
+2.
+3.
+   
+* CANCELED The Plan! Yes, we've got one!
 #+attr_latex: :width 400px
 #+caption: State Library of NSW - A.W.A. exhibition Sydney 1940
  [[../img/plan.jpg]]
