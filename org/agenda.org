@@ -719,6 +719,9 @@ ChatGPT using standard text mining functions.
 * TODO What did you learn this week?
 
 Tue:
+1. 
+2. 
+3. 
 
 Thu:
 

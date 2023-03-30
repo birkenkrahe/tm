@@ -31,6 +31,7 @@
 - Load the ~.RData~ file in your current R session and check that
   packages and user-defined objects were loaded:
   #+begin_src R
+    <<load_packages>>
     load("c:/Users/birkenkrahe/Downloads/.RData")
     search()
     ls()
@@ -38,18 +39,38 @@
 
   #+RESULTS:
   #+begin_example
-   [1] ".GlobalEnv"        "ESSR"              "package:stats"    
-   [4] "package:graphics"  "package:grDevices" "package:utils"    
-   [7] "package:datasets"  "package:stringr"   "package:httr"     
-  [10] "package:methods"   "Autoloads"         "package:base"
+   [1] ".GlobalEnv"               "package:wordcloud"       
+   [3] "package:SnowballC"        "package:qdap"            
+   [5] "package:RColorBrewer"     "package:qdapTools"       
+   [7] "package:qdapRegex"        "package:qdapDictionaries"
+   [9] "package:tm"               "package:NLP"             
+  [11] "ESSR"                     "package:stats"           
+  [13] "package:graphics"         "package:grDevices"       
+  [15] "package:utils"            "package:datasets"        
+  [17] "package:stringr"          "package:httr"            
+  [19] "package:methods"          "Autoloads"               
+  [21] "package:base"
+   [1] ".GlobalEnv"               "package:wordcloud"       
+   [3] "package:SnowballC"        "package:qdap"            
+   [5] "package:RColorBrewer"     "package:qdapTools"       
+   [7] "package:qdapRegex"        "package:qdapDictionaries"
+   [9] "package:tm"               "package:NLP"             
+  [11] "ESSR"                     "package:stats"           
+  [13] "package:graphics"         "package:grDevices"       
+  [15] "package:utils"            "package:datasets"        
+  [17] "package:stringr"          "package:httr"            
+  [19] "package:methods"          "Autoloads"               
+  [21] "package:base"
    [1] "api_key"                 "ask_chatgpt"            
    [3] "chardonnay_corpus"       "chardonnay_df"          
-   [5] "chardonnay_src"          "chardonnay_vec"         
-   [7] "clean_chardonnay"        "clean_chardonnay_corpus"
-   [9] "clean_coffee"            "clean_coffee_corpus"    
-  [11] "coffee_corpus"           "coffee_df"              
-  [13] "coffee_src"              "coffee_vec"             
-  [15] "load_packages"           "M"
+   [5] "chardonnay_m"            "chardonnay_src"         
+   [7] "chardonnay_tdm"          "chardonnay_vec"         
+   [9] "clean_chardonnay"        "clean_chardonnay_corpus"
+  [11] "clean_coffee"            "clean_coffee_corpus"    
+  [13] "coffee_corpus"           "coffee_df"              
+  [15] "coffee_src"              "coffee_vec"             
+  [17] "load_packages"           "M"                      
+  [19] "term_frequency"          "word_freq"
   #+end_example
 
 - You need the ~clean_coffee~ and ~clean_chardonnay~ corpora.
@@ -63,7 +84,7 @@
   #+RESULTS:
   : -rwx------+ 1 birkenkrahe Domain Users 659656 Mar 28 15:53 .RData
 
-* Intro to word clouds
+* IN PROGRESS Intro to word clouds
 
 - Our starting point is the cleaned corpus of "Chardonnay" tweets,
   ~clean_chardonnay~.
@@ -78,6 +99,8 @@
   : Metadata:  corpus specific: 0, document level (indexed): 0
   : Content:  documents: 1000
 
+* Convert TDM to matrix
+
 - Convert Chardonnay TDM to a matrix and check its dimensions:
   #+name: chardonnay_m
   #+begin_src R
@@ -88,7 +111,9 @@
   #+end_src
 
   #+RESULTS: chardonnay_m
-  : [1] 3139 1000
+  : [1] 3067 1000
+
+* Create the frequency table
 
 - The starting point of any visualization is a frequency table - it
   only has two columns: terms (~term~) and their counts (~num~).
@@ -106,36 +131,59 @@
 
   #+RESULTS: word_freq
   #+begin_example
-       term num
-  1     amp 120
-  2  marvin 104
-  3    wine  83
-  4    gaye  76
-  5    just  75
-  6   glass  63
-  7    like  55
-  8  bottle  47
-  9     lol  43
-  10 little  35
+           term num
+  1  chardonnay 822
+  2         amp 120
+  3      marvin 104
+  4        wine  83
+  5        gaye  76
+  6        just  75
+  7       glass  63
+  8        like  55
+  9      bottle  47
+  10        lol  43
   #+end_example
+
+* Add stop words and re-run the cleaning code
 
 - The words ~amp~, ~wine~ and ~glass~ do not help much - how can we get rid
   of them at this stage of our investigation? Do you know what "amp"
   means in this context?[fn:1]
   #+begin_quote
-  Answer: add these words to the stopwords cleaning function in
-  ~corpora.R~, then run the batch job and re-load ~.RData~ in this
-  file. You'll see that the number of words (records) has gone down
-  and the list of top frequency words is changed.
+  Answer:
+  1) download the latest version of ~corpora.R~ from GitHub.
+  2) add these words to the stopwords cleaning function in ~corpora.R~
+  3) run the batch job with ~R CMD BATCH~
+  4) re-load ~.RData~ in this file.
+  You'll see that the number of words (records) has gone down and the
+  list of top frequency words is changed.
   #+end_quote
 
 - After cleaning out the additional words, reload the data, create the
   TDM and the word frequency data frame:
-    #+begin_src R
+  #+begin_src R
     load("~/Downloads/.RData")
     <<chardonnay_m>>
     <<word_freq>>
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] 3067 1000
+           term num
+  1  chardonnay 822
+  2         amp 120
+  3      marvin 104
+  4        wine  83
+  5        gaye  76
+  6        just  75
+  7       glass  63
+  8        like  55
+  9      bottle  47
+  10        lol  43
+  #+end_example
+
+* Using the ~wordcloud~ function
 
 - We want to create word clouds. Is there a ~wordcloud~ function in ~tm~
   or ~qdap~ or ~base~? How can you find out? Load these packages (again,
@@ -159,18 +207,6 @@
               freq=word_freq$num,
               max.words=100,
               color="blue")
-  #+end_src
-
-- Impact of stop words: if you haven't done it until this point:
-  adjust cleaning function: remove the words "amp", "chardonnay",
-  "wine" and "glass". Do this in ~corpora.R~ directly. Then run the
-  batch job again with ~R CMD BATCH~ to generate ~.RData~ which you can
-  load directly here with ~load~. You'll have to rerun the matrix
-  creation from above:
-  #+begin_src R
-    load("~/Downloads/.RData")
-    <<chardonnay_m>>
-    <<word_freq>>
   #+end_src
 
 - Print out frirst 10 entries of ~term_frequency~:
@@ -201,7 +237,7 @@
   #+begin_src R
     content(clean_chardonnay[[24]])
   #+end_src
-
+  
 - You can add to the stopwords, and run ~tm_map~ with ~removeWords~ on the
   clean corpus to remove additional words:
   #+begin_src R
@@ -214,6 +250,11 @@
     content(clean_chardonnay_corpus[[24]])    
   #+end_src
 
+  #+RESULTS:
+  : [1] " brought marvin gaye chardonnay"
+  : [1] "too"        "very"       "just"       "like"       "chardonnay"
+  : [6] "amp"
+  : [1] " brought marvin gaye "
 
 - To see the updated word cloud, re-run the code chunks from before
   with the new, cleaner corpus, then go back and rerun the last plot:
@@ -223,10 +264,157 @@
     <<word_freq>>
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  [1] 3063 1000
+       term num
+  1  marvin 104
+  2    wine  83
+  3    gaye  76
+  4   glass  63
+  5  bottle  47
+  6     lol  43
+  7  little  35
+  8    rose  34
+  9    dont  32
+  10    get  32
+  #+end_example
+
 * TODO Improve word clouds with different colors
 
-Bonus assignment based on the DataCamp exercise!
+- The available colors are stored in a ~character~ vector ~colors()~. Look
+  at the ~head~ of the vector, and verify that 657 colors are available:
+  #+begin_src R
+    head(colors())
+    length(colors())
+  #+end_src
 
+  #+RESULTS:
+  : [1] "white"         "aliceblue"     "antiquewhite"  "antiquewhite1"
+  : [5] "antiquewhite2" "antiquewhite3"
+  : [1] 657
+
+- Instead of coloring all words with the same color, you can assign a
+  vector of different colors to ~wordcloud~ to make certain words stand
+  out or to fit a specific color scheme (e.g. to accommodate
+  color-blind people).
+
+- If you look at the ~wordcloud~ arguments:
+  #+begin_src R
+    <<load_packages>>
+    args(wordcloud)
+  #+end_src
+
+  #+RESULTS:
+  : function (words, freq, scale = c(4, 0.5), min.freq = 3, max.words = Inf, 
+  :     random.order = TRUE, random.color = FALSE, rot.per = 0.1, 
+  :     colors = "black", ordered.colors = FALSE, use.r.layout = FALSE, 
+  :     fixed.asp = TRUE, ...) 
+  : NULL
+
+- The ~colors~ argument colors words from least to most frequent. The
+  code uses three colors of increasing vibrancy - this will naturally
+  divide the term frequency into "low", "medium", and "high":
+  #+begin_src R :results graphics file :file ../img/wordcloud_color.png
+    <<word_freq>>
+    wordcloud(words=word_freq$term,
+              freq=word_freq$num,
+              max.words=100,
+              colors=c("grey80","darkgoldenrod1","tomato"))
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/wordcloud_color.png]]
+
+  #+begin_src R
+    str(word_freq)
+  #+end_src
+
+  #+RESULTS:
+  : 'data.frame':	3067 obs. of  2 variables:
+  :  $ term: chr  "chardonnay" "amp" "marvin" "wine" ...
+  :  $ num : num  822 120 104 83 76 75 63 55 47 43 ...
+
+* Using prebuilt color palettes: ~viridisLite~
+
+- The ~viridisLite~ package contains color maps designed to improve
+  graph readability for readers with color vision deficiencies.
+
+- Also, the colors translate well into black-and-white versions
+  without loss of readability.
+
+- Install ~viridisLite~ in the R console, load it and check success:
+  #+begin_src R
+    library(viridisLite)
+    search()
+  #+end_src
+
+- Look at the contents of the package with ~ls~: these are the different
+  color maps.
+  #+begin_src R
+    ls('package:viridisLite')
+  #+end_src
+
+  #+RESULTS:
+  :  [1] "cividis"     "inferno"     "magma"       "mako"        "plasma"     
+  :  [6] "rocket"      "turbo"       "viridis"     "viridis.map" "viridisMap"
+
+- All maps are functions with one mandatory argument, the number of
+  colors ~n~ used. Check the arguments of ~viridisLite::cividis~:
+  #+begin_src R
+    args(cividis)
+  #+end_src
+
+  #+RESULTS:
+  : function (n, alpha = 1, begin = 0, end = 1, direction = 1) 
+  : NULL
+
+- As the vignette for ~viridisLite~ reveals, the other parameter allow
+  to change transparency (~alpha~), hue (~begin~ and ~end~), and
+  order. Here are the color scales for the maps:
+  #+attr_latex: :width 400px
+  [[../img/8_viridis.png]]
+
+- To created a new wordcloud with the selected palette, select 5
+  colors from ~turbo~ and store them in a vector ~color_pal~:
+  #+begin_src R :results silent
+    color_pal <- turbo(5)
+  #+end_src
+
+- Print the hex-codes for ~color_pal~ to the console:
+  #+begin_src R 
+    color_pal
+  #+end_src  
+
+  #+RESULTS:
+  : [1] "#30123BFF" "#28BBECFF" "#A2FC3CFF" "#FB8022FF" "#7A0403FF"
+
+- Create a word cloud from the Chardonnay tweets ~word_freq~, include
+  100 terms, and set the ~colors~ to the ~color_pal~ palette:
+  #+begin_src R :results graphics file :file ../img/colorcloud.png
+    wordcloud(words=word_freq$term,
+              freq=word_freq$num,
+              max.words=100,
+              colors=color_pal)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/colorcloud.png]]
+
+- 
+  
+* Load packages
+#+name: load_packages
+#+begin_src R
+load_packages <- function() {
+    library(tm)
+    library(qdap)
+    library(SnowballC)
+    library(wordcloud)
+    search()
+}
+load_packages()
+#+end_src
 * Footnotes
 
 [fn:1] Funnily enough, I had no idea until I looked into the raw ~CSV~
