@@ -724,6 +724,27 @@ Tue:
 3. 
 
 Thu:
+* TODO The Plan! Yes, we've got one!
+#+attr_latex: :width 400px
+#+caption: State Library of NSW - A.W.A. exhibition Sydney 1940
+ [[../img/plan.jpg]]
+
+- You'll plough through the remainder of "bag of words" on your own
+- I'll cover "sentiment analysis" in lectures and practice:
+  1. Visualize polarity in messages with ~qdap~
+  2. Subjectivity lexicons with ~tidytext~
+  3. Visualize sentiments with ~ggplot2~
+  4. Case study: AirBnB review analysis
+
+* TODO Wordclouds continued
+#+attr_latex: :width 400px
+[[../img/berlinclouds.jpg]]
+
+- Download ~8_wordclouds_practice.org~ again (I changed it)
+- Open the file in Emacs and start a shell with ~M-x R~
+- Download ~corpora.R~ again (I changed it)
+- Run ~corpora.R~ as batch job on the shell
+- Load ~Downloads/.RData~ 
 
 * TODO Week 12: Word clustering and dendograms
 * TODO Week 13: N-gram tokenization

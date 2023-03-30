@@ -46,77 +46,113 @@
 
 * Intro to word clouds
 
-- Our starting point is the cleaned corpus of "Chardonnay" tweets,
-  ~clean_chardonnay~.
+- Look at the corpus:
+  #+begin_src R
+    clean_chardonnay
+  #+end_src
 
-- Convert Chardonnay TDM to matrix and check its dimensions with ~dim~:
+  #+RESULTS:
+  : <<VCorpus>>
+  : Metadata:  corpus specific: 0, document level (indexed): 0
+  : Content:  documents: 1000
+
+* Convert TDM to matrix
+
+- Convert Chardonnay TDM to a matrix and check its dimensions:
   #+name: chardonnay_m
   #+begin_src R
-    
+    library(tm)
+    chardonnay_tdm <- TermDocumentMatrix(clean_chardonnay)
+    chardonnay_m <- as.matrix(chardonnay_tdm)
+    dim(chardonnay_m)
   #+end_src
 
-- Getting frequencies:
-  1) Sum rows of ~chardonnay_m~ into vector ~term_frequency~
-  2) ~sort~ the vector with decreasing values
-  3) create data frame ~word.freq~ with two columns: ~term~ from the ~names~
-     of ~term_frequency~, and ~num~ with the values from ~term_frequency~
-  4) Overwrite the ~rownames~ of ~word_freq~ with ~NULL~
-  5) Print the first six values
+  #+RESULTS: chardonnay_m
+  : [1] 3067 1000
+
+* Create the frequency table
+
+- The starting point of any visualization is a frequency table - it
+  only has two columns: terms (~term~) and their counts (~num~).
+
+- Sum rows and sort by frequency:
   #+name: word_freq
   #+begin_src R
-
+    term_frequency <- rowSums(chardonnay_m)
+    term_frequency <- sort(term_frequency, decreasing=TRUE)
+    word_freq <- data.frame(term = names(term_frequency),
+                            num = term_frequency)
+    rownames(word_freq) <- NULL
+    head(word_freq,n=10)
   #+end_src
+
+  #+RESULTS: word_freq
+  #+begin_example
+           term num
+  1  chardonnay 822
+  2         amp 120
+  3      marvin 104
+  4        wine  83
+  5        gaye  76
+  6        just  75
+  7       glass  63
+  8        like  55
+  9      bottle  47
+  10        lol  43
+  #+end_example
+
+* NEXT Add stop words and re-run the cleaning code
 
 - The words ~amp~, ~wine~ and ~glass~ do not help much - how can we get rid
   of them at this stage of our investigation? Do you know what "amp"
   means in this context?[fn:1]
   #+begin_quote
-  Answer: add these words to the stopwords cleaning function in
-  ~corpora.R~, then run the batch job and re-load ~.RData~ in this
-  file. You'll see that the number of words (records) has gone down
-  and the list of top frequency words is changed.
+  Answer:
+  1) download the latest version of ~corpora.R~ from GitHub.
+  2) add these words to the stopwords cleaning function in ~corpora.R~
+  3) run the batch job with ~R CMD BATCH~
+  4) re-load ~.RData~ in this file.
+  You'll see that the number of words (records) has gone down and the
+  list of top frequency words is changed.
   #+end_quote
 
 - After cleaning out the additional words, reload the data, create the
   TDM and the word frequency data frame:
-    #+begin_src R
-
-    <<chardonnay_m>>
-    <<word_freq>>
-  #+end_src
-
-- Is there a ~wordcloud~ function in ~tm~ or ~qdap~ or ~base~?
-  1) load each package
-  2) check for the ~wordcloud~ function
-  3) the answer should be three ~logical~ values
-  #+begin_src R
-
-  #+end_src
-
-- Use the column vectors ~term~ and ~num~ for the ~words~ and ~freq~
-  parameters, respectively:
-  #+begin_src R :results graphics file :file wordcloud1.png
-
-  #+end_src
-
-- Adjust cleaning function: remove the words "amp", "chardonnay",
-  "wine" and "glass". Do this in ~corpora.R~ directly. Then run the
-  batch job again with ~R CMD BATCH~ to generate ~.RData~ which you can
-  load directly here with ~load~. You'll have to rerun the matrix
-  creation from above:
   #+begin_src R
     load("~/Downloads/.RData")
     <<chardonnay_m>>
     <<word_freq>>
   #+end_src
 
-- Print out frirst 10 entries of ~term_frequency~:
+* Using the ~wordcloud~ function
+
+- We want to create word clouds. Is there a ~wordcloud~ function in ~tm~
+  or ~qdap~ or ~base~? How can you find out? Load these packages (again,
+  just in case) and check each of them for the function:
   #+begin_src R
-    term_frequency[1:10]
+ 
   #+end_src
 
-- Extract the terms 2 to 11 using ~names~ on ~term_frequency~ and call the
-  vector of strings ~terms_vec~. Show the entries 2 to 11:
+- To create a wordcloud, use the ~wordcloud~ function. Look at the ~help~!
+  (Go to the R console buffer ~*R*~ and type ~?wordcloud~.)
+
+- Use the column vectors ~term~ and ~num~ for the ~words~ and ~freq~
+  parameters, respectively:
+  #+begin_src R :results graphics file :file wordcloud1.png
+    library(wordcloud)
+    wordcloud(words=
+              freq=
+              max.words=
+              color= )
+  #+end_src
+
+- Print out frirst 10 entries of ~term_frequency~:
+  #+begin_src R
+
+  #+end_src
+
+- Extract the terms 2 to 11 using ~names~ on ~term_frequency~ and save
+  them to an object ~terms_vec~. Look at its values 2 through 11:
   #+begin_src R
 
   #+end_src
@@ -125,46 +161,120 @@
   (defined earlier before creating the data frame ~word_freq~) as the
   values. Add ~max.words=50~ and ~colors="red"~:
   #+begin_src R :results graphics file :file termcloud.png
-
+    wordcloud(words=
+              freq=
+              max.words=
+              colors= )
   #+end_src
 
 - Review a cleaned tweet: do you remember how to index corpus tweets?
-  Print tweet number 24:
+  Print ~clean_chardonnay~ tweet no. 24:
   #+begin_src R
 
   #+end_src
-
-- You can add to the ~stopwords~, and run ~tm_map~ with ~removeWords~ on the
-  clean corpus to remove additional words:
+  
+- Define a vector ~stops~ with the stop words from ~stopwords("en")~ and
+  the words 'just' and 'like':
   #+begin_src R
     stops <- c(stopwords("en"), 'just','like')
-    tail(stops)
-    clean_chardonnay_corpus <- tm_map(clean_chardonnay,
-                                      removeWords,
-                                      stops)
   #+end_src
 
-  #+RESULTS:
-  : [1] "so"   "than" "too"  "very" "just" "like"
-
-- To see the updated word cloud, re-run the code chunks from before
-  with the new, cleaner corpus (overwrite it), then go back and rerun
-  the last plot:
+- Create a corpus ~cc~ by applying ~tm_map~ to ~clean_chardonnay~ with the
+  function ~removeWords~ and the additional argument ~stops~.
   #+begin_src R
 
+  #+end_src
+
+- Now print tweet 24 from the corpus ~ccc~:
+  #+begin_src R
+
+  #+end_src
+  
+- To see the updated word cloud, re-run the code chunks from before
+  with the new, cleaner corpus, then go back and rerun the last plot:
+  #+begin_src R
+    clean_chardonnay <- ccc
     <<chardonnay_m>>
     <<word_freq>>
   #+end_src
 
-* TODO Improve word clouds with different colors
+* Improve word clouds with different colors
 
-Bonus assignment based on the DataCamp exercise!
+- The available colors are stored in a ~character~ vector ~colors()~. Look
+  at the ~head~ of this vector:
+  #+begin_src R
 
-* Footnotes
+  #+end_src
 
-[fn:1] Funnily enough, I had no idea until I looked into the raw ~CSV~
-file: ~amp~ is a remnant of ~&amp~ after ~removePunctuation~, and it's the
-HTML short code for ~&~, which is frequent in tweets (saves 2
-letters). As an interesting aside: I am already so dependent on
-ChatGPT that instead of checking the data, I went and asked the bot
-about "amp in the context of Chardonnay" but to no avail, of course.
+- Verify that there are 657 available colors:
+  #+begin_src R
+
+  #+end_src
+
+- Look at the arguments of ~wordcloud~:
+  #+begin_src R
+    <<load_packages>>
+
+  #+end_src
+
+- Check the structure of ~word_freq~ which you defined above:
+  #+begin_src R
+
+  #+end_src
+
+- Create a ~wordcloud~ for ~word_freq~:    
+  1) as ~words~, use the ~term~ column
+  2) as ~freq~, use the ~num~ column
+  3) limit ~max.words~ to 100
+  4) for ~colors~, select ~grey80~, ~darkgoldenrod1~ and ~tomato~ 
+  #+begin_src R :results graphics file :file wordcloud_color.png
+    <<word_freq>>
+
+  #+end_src
+
+* Using prebuilt color palettes: ~viridisLite~
+
+- Install ~viridisLite~ in the R console, load it and ~search~ for it:
+  #+begin_src R
+
+  #+end_src
+
+- Using ~ls~, look at the contents of the ~viridisLite~ package:
+  #+begin_src R
+
+  #+end_src
+
+- Check the arguments of ~viridisLite::cividis~:
+  #+begin_src R
+
+  #+end_src
+
+- Select 5 colors from the ~turbo~ color map and store them in a vector
+  ~color_pal~:
+  #+begin_src R :results silent
+
+  #+end_src
+
+- Print the hex-codes for ~color_pal~ to the console:
+  #+begin_src R 
+
+  #+end_src  
+
+- Create a word cloud from the Chardonnay tweets ~word_freq~, include
+  100 terms, and set the ~colors~ to the ~color_pal~ palette:
+  #+begin_src R :results graphics file :file colorcloud.png
+
+  #+end_src
+
+* Load packages
+#+name: load_packages
+#+begin_src R
+load_packages <- function() {
+    library(tm)
+    library(qdap)
+    library(SnowballC)
+    library(wordcloud)
+    search()
+}
+load_packages()
+#+end_src

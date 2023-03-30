@@ -84,7 +84,7 @@
   #+RESULTS:
   : -rwx------+ 1 birkenkrahe Domain Users 659656 Mar 28 15:53 .RData
 
-* IN PROGRESS Intro to word clouds
+* Intro to word clouds
 
 - Our starting point is the cleaned corpus of "Chardonnay" tweets,
   ~clean_chardonnay~.
@@ -280,7 +280,7 @@
   10    get  32
   #+end_example
 
-* TODO Improve word clouds with different colors
+* Improve word clouds with different colors
 
 - The available colors are stored in a ~character~ vector ~colors()~. Look
   at the ~head~ of the vector, and verify that 657 colors are available:
