@@ -1,0 +1,41 @@
+
+R version 4.2.2 (2022-10-31 ucrt) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+*** Loaded .Rprofile ***
+> ## Download coffee.csv and chardonnay.csv from GitHub to your PC:
+> ## 1) raw.githubusercontent.com/birkenkrahe/tm/main/data/coffee.csv
+> ## 2) raw.githubusercontent.com/birkenkrahe/tm/main/data/chardonnay.csv
+> library(tm)
+Loading required package: NLP
+
+Attaching package: 'NLP'
+
+The following object is masked from 'package:httr':
+
+    content
+
+Warning message:
+package 'tm' was built under R version 4.2.3 
+> coffee_df <- read.csv("coffee.csv")
+Error in file(file, "rt") : cannot open the connection
+Calls: read.csv -> read.table -> file
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'coffee.csv': No such file or directory
+Execution halted

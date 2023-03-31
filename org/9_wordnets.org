@@ -33,52 +33,61 @@ Time-stamp: <2023-03-30 08:51:10 Birkenkrahe>
     ls -al .RData
   #+end_src
 
+  #+RESULTS:
+  : -rwx------+ 1 Birkenkrahe LYONNET+Group(513) 1105229 Mar 30 11:30 .RData
+
 - Load the ~.RData~ file in your current R session and check that
   packages and user-defined objects were loaded:
   #+begin_src R
     <<load_packages>>
     load("c:/Users/birkenkrahe/Downloads/.RData")
-    search()
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] ".GlobalEnv"               "package:wordcloud"       
+   [3] "package:SnowballC"        "package:qdap"            
+   [5] "package:RColorBrewer"     "package:qdapTools"       
+   [7] "package:qdapRegex"        "package:qdapDictionaries"
+   [9] "package:tm"               "package:NLP"             
+  [11] "ESSR"                     "package:stats"           
+  [13] "package:graphics"         "package:grDevices"       
+  [15] "package:utils"            "package:datasets"        
+  [17] "package:stringr"          "package:httr"            
+  [19] "package:methods"          "Autoloads"               
+  [21] "package:base"
+  #+end_example
+
+- You need the ~clean_coffee~ and ~clean_chardonnay~ corpora:
+  #+begin_src R
     ls()
   #+end_src
 
   #+RESULTS:
   #+begin_example
-   [1] ".GlobalEnv"               "package:wordcloud"
-   [3] "package:SnowballC"        "package:qdap"
-   [5] "package:RColorBrewer"     "package:qdapTools"
-   [7] "package:qdapRegex"        "package:qdapDictionaries"
-   [9] "package:tm"               "package:NLP"
-  [11] "ESSR"                     "package:stats"
-  [13] "package:graphics"         "package:grDevices"
-  [15] "package:utils"            "package:datasets"
-  [17] "package:stringr"          "package:httr"
-  [19] "package:methods"          "Autoloads"
-  [21] "package:base"
-   [1] ".GlobalEnv"               "package:wordcloud"
-   [3] "package:SnowballC"        "package:qdap"
-   [5] "package:RColorBrewer"     "package:qdapTools"
-   [7] "package:qdapRegex"        "package:qdapDictionaries"
-   [9] "package:tm"               "package:NLP"
-  [11] "ESSR"                     "package:stats"
-  [13] "package:graphics"         "package:grDevices"
-  [15] "package:utils"            "package:datasets"
-  [17] "package:stringr"          "package:httr"
-  [19] "package:methods"          "Autoloads"
-  [21] "package:base"
-   [1] "api_key"                 "ask_chatgpt"
-   [3] "chardonnay_corpus"       "chardonnay_df"
-   [5] "chardonnay_m"            "chardonnay_src"
-   [7] "chardonnay_tdm"          "chardonnay_vec"
-   [9] "clean_chardonnay"        "clean_chardonnay_corpus"
-  [11] "clean_coffee"            "clean_coffee_corpus"
-  [13] "coffee_corpus"           "coffee_df"
-  [15] "coffee_src"              "coffee_vec"
-  [17] "load_packages"           "M"
-  [19] "term_frequency"          "word_freq"
+   [1] "all_chardonnay"          "all_clean"              
+   [3] "all_coffee"              "all_corpus"             
+   [5] "all_m"                   "all_tdm"                
+   [7] "all_tweets"              "api_key"                
+   [9] "ask_chatgpt"             "chardonnay_corpus"      
+  [11] "chardonnay_df"           "chardonnay_m"           
+  [13] "chardonnay_src"          "chardonnay_tdm"         
+  [15] "chardonnay_vec"          "clean_chardonnay"       
+  [17] "clean_chardonnay_corpus" "clean_coffee"           
+  [19] "clean_coffee_corpus"     "clean_corpus"           
+  [21] "coffee_corpus"           "coffee_df"              
+  [23] "coffee_m"                "coffee_src"             
+  [25] "coffee_tdm"              "coffee_vec"             
+  [27] "color_pal"               "idx"                    
+  [29] "load_packages"           "m"                      
+  [31] "M"                       "max"                    
+  [33] "sms_corpus"              "sms_corpus_clean"       
+  [35] "sms_dtm"                 "sms_dtm2"               
+  [37] "sms_raw"                 "stops"                  
+  [39] "term_frequency"          "terms"                  
+  [41] "terms_vec"               "top25_df"               
+  [43] "word_freq"
   #+end_example
-
-- You need the ~clean_coffee~ and ~clean_chardonnay~ corpora.
 
 - If we don't finish with a session, save your data from now on:
   #+begin_src R

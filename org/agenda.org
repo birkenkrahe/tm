@@ -505,7 +505,7 @@ ChatGPT using standard text mining functions.
  - Print copy distributed to you for easier access
  - Collect the main points of the article and your questions
 
-* IN PROGRESS Week 11: Visualization III - wordclouds
+* Week 11: Visualization III - wordclouds
 #+attr_latex: :width 400px
 n[[../img/clouds.jpg]]
 
@@ -525,7 +525,7 @@ n[[../img/clouds.jpg]]
 - Intro to word clouds and word networks
 - Finding common words and visualizing networks
 
-* DONE Test preview:
+** Test preview:
 
 1) The Document-Term-Matrix (and the Term-Document-Matrix) is
    generated from a document /corpus/.
@@ -650,7 +650,7 @@ n[[../img/clouds.jpg]]
        #+RESULTS:
        [[file:../img/fooplot.png]]
 
-* DONE Getting the corpus data (again!)
+** Getting the corpus data (again!)
 #+attr_latex: :width 300px
 #+caption: J.D. Estes at Naval Air Base, Corpus Christi TX (Source: Flickr.com/LOC)
 [[../img/torpedoes.jpg]]
@@ -705,7 +705,7 @@ n[[../img/clouds.jpg]]
   [21] "package:base"
   #+end_example
 
-* DONE Bonus points for job fair experience report!
+** Bonus points for job fair experience report!
 #+attr_latex: :width 400px
 [[../img/fair_flickr_color.jpg]]
 
@@ -716,19 +716,7 @@ n[[../img/clouds.jpg]]
 - Motivate each other by going as a pair, a group, a team.
 - Post your experience report [[https://lyon.instructure.com/courses/1015/assignments/9613][here in Canvas]].
 
-* TODO What did you learn this week?
-
-Tue:
-1. How to save and load a complete interactive R session
-2. Run an R file in batch mode (R CMD BATCH)
-3. To make a wordcloud you need to sum over the rows of a TDM
-
-Thu:
-1.
-2.
-3.
-   
-* CANCELED The Plan! Yes, we've got one!
+** The Plan! Yes, we've got one!
 #+attr_latex: :width 400px
 #+caption: State Library of NSW - A.W.A. exhibition Sydney 1940
  [[../img/plan.jpg]]
@@ -740,7 +728,7 @@ Thu:
   3. Visualize sentiments with ~ggplot2~
   4. Case study: AirBnB review analysis
 
-* TODO Wordclouds continued
+** Wordclouds continued
 #+attr_latex: :width 400px
 [[../img/berlinclouds.jpg]]
 
@@ -750,6 +738,18 @@ Thu:
 - Run ~corpora.R~ as batch job on the shell
 - Load ~Downloads/.RData~ 
 
+** What did you learn this week?
+
+Tue:
+1. How to save and load a complete interactive R session
+2. Run an R file in batch mode (R CMD BATCH)
+3. To make a wordcloud you need to sum over the rows of a TDM
+
+Thu:
+1. How to use the ~wordcloud~ function
+2. How to improve word clouds with different ~colors~
+3. How to use prebuilt color palettes like ~viridisLite~
+   
 * TODO Week 12: Word clustering and dendograms
 * TODO Week 13: N-gram tokenization
 * TODO Week 14: Bag-of-words case study
