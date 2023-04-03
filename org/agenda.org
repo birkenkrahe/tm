@@ -751,6 +751,10 @@ Thu:
 3. How to use prebuilt color palettes like ~viridisLite~
    
 * TODO Week 12: Word clustering and dendograms
+
+- Useful: feed [[https://lyon.instructure.com/calendar][Canvas calendar]] to your Google calendar ([[https://community.canvaslms.com/t5/Student-Guide/How-do-I-subscribe-to-the-Calendar-feed-using-Google-Calendar-as/ta-p/535][instructions]])
+- Look at [[https://elanmarkowitz.github.io/USC-CS662/][this advanced NLP course]] (USC) - you recognize our topics!
+  
 * TODO Week 13: N-gram tokenization
 * TODO Week 14: Bag-of-words case study
 * TODO Week 15: Projects and summary
