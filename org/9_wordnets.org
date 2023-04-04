@@ -24,39 +24,13 @@ Time-stamp: <2023-03-30 08:51:10 Birkenkrahe>
 
 * Get the corpus data and the R packages
 
-- If you didn't do it yet: download ~corpora.R~ from GitHub
-  ([[https://bit.ly/tm-corpora][bit.ly/tm-corpora]])
-
-- Run the file on the shell (~M-x eshell~) as a batch job:
-  #+begin_src sh
-    R CMD BATCH corpora.R
-    ls -al .RData
-  #+end_src
-
-  #+RESULTS:
-  : -rwx------+ 1 Birkenkrahe LYONNET+Group(513) 1105229 Mar 30 11:30 .RData
-
-- Load the ~.RData~ file in your current R session and check that
-  packages and user-defined objects were loaded:
+- Load the ~.RData~ file [[https://bit.ly/tm_rdata][from GitHub]] (*bit.ly/tm_rdata*) in your current R
+  session and check that packages and user-defined objects were
+  loaded (load from the right location):
   #+begin_src R
     <<load_packages>>
     load("c:/Users/birkenkrahe/Downloads/.RData")
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-   [1] ".GlobalEnv"               "package:wordcloud"       
-   [3] "package:SnowballC"        "package:qdap"            
-   [5] "package:RColorBrewer"     "package:qdapTools"       
-   [7] "package:qdapRegex"        "package:qdapDictionaries"
-   [9] "package:tm"               "package:NLP"             
-  [11] "ESSR"                     "package:stats"           
-  [13] "package:graphics"         "package:grDevices"       
-  [15] "package:utils"            "package:datasets"        
-  [17] "package:stringr"          "package:httr"            
-  [19] "package:methods"          "Autoloads"               
-  [21] "package:base"
-  #+end_example
 
 - You need the ~clean_coffee~ and ~clean_chardonnay~ corpora:
   #+begin_src R
@@ -65,35 +39,29 @@ Time-stamp: <2023-03-30 08:51:10 Birkenkrahe>
 
   #+RESULTS:
   #+begin_example
-   [1] "all_chardonnay"          "all_clean"              
-   [3] "all_coffee"              "all_corpus"             
-   [5] "all_m"                   "all_tdm"                
-   [7] "all_tweets"              "api_key"                
-   [9] "ask_chatgpt"             "chardonnay_corpus"      
-  [11] "chardonnay_df"           "chardonnay_m"           
-  [13] "chardonnay_src"          "chardonnay_tdm"         
-  [15] "chardonnay_vec"          "clean_chardonnay"       
-  [17] "clean_chardonnay_corpus" "clean_coffee"           
-  [19] "clean_coffee_corpus"     "clean_corpus"           
-  [21] "coffee_corpus"           "coffee_df"              
-  [23] "coffee_m"                "coffee_src"             
-  [25] "coffee_tdm"              "coffee_vec"             
-  [27] "color_pal"               "idx"                    
-  [29] "load_packages"           "m"                      
-  [31] "M"                       "max"                    
-  [33] "sms_corpus"              "sms_corpus_clean"       
-  [35] "sms_dtm"                 "sms_dtm2"               
-  [37] "sms_raw"                 "stops"                  
-  [39] "term_frequency"          "terms"                  
-  [41] "terms_vec"               "top25_df"               
-  [43] "word_freq"
+   [1] "api_key"                 "ask_chatgpt"            
+   [3] "bar"                     "chardonnay_corpus"      
+   [5] "chardonnay_df"           "chardonnay_src"         
+   [7] "chardonnay_vec"          "clean_chardonnay"       
+   [9] "clean_chardonnay_corpus" "clean_coffee"           
+  [11] "clean_coffee_corpus"     "coffee_corpus"          
+  [13] "coffee_df"               "coffee_src"             
+  [15] "coffee_vec"              "convert_counts"         
+  [17] "foo"                     "ham"                    
+  [19] "load_packages"           "m"                      
+  [21] "sms_classifier"          "sms_classifier_"        
+  [23] "sms_classifier2"         "sms_corpus"             
+  [25] "sms_corpus_clean"        "sms_dtm"                
+  [27] "sms_dtm_freq_test"       "sms_dtm_freq_train"     
+  [29] "sms_dtm_test"            "sms_dtm_train"          
+  [31] "sms_dtm2"                "sms_freq_words"         
+  [33] "sms_raw"                 "sms_test"               
+  [35] "sms_test_labels"         "sms_test_pred"          
+  [37] "sms_test_pred2"          "sms_train"              
+  [39] "sms_train_labels"        "spam"                   
+  [41] "string"                  "stringX"                
+  [43] "text_df"                 "tokens"
   #+end_example
-
-- If we don't finish with a session, save your data from now on:
-  #+begin_src R
-    save.image(file=".RData")
-    shell("ls -al .RData")
-  #+end_src
 
 * The workflow
 
@@ -126,11 +94,6 @@ common (the disjoint). To do this, we must:
     args(commonality.cloud)
   #+end_src
 
-  #+RESULTS:
-  : function (term.matrix, comonality.measure = min, max.words = 300,
-  :     ...)
-  : NULL
-
 - Use ~paste~ with ~collapse=" "~ to separate the tweets in both data
   frames containing the tweets, ~coffee_df~ and ~chardonnay_df~.
 
@@ -141,12 +104,20 @@ common (the disjoint). To do this, we must:
     nchar(all_coffee)
   #+end_src
 
+  #+RESULTS:
+  :  chr "@ayyytylerb that is so true drink lots of coffee RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the S"| __truncated__
+  : [1] 88230
+
 - Paste Chardonnay tweets, look at structure, count characters:
   #+begin_src R
     all_chardonnay <- paste(chardonnay_df$text, collapse=" ")
     str(all_chardonnay)
     nchar(all_chardonnay)
   #+end_src
+
+  #+RESULTS:
+  :  chr "RT @oceanclub: @eilisohanlon @stonyjim @vonprond Eilis, I'm from Pearse St and even I can tell a Chardonnay (sm"| __truncated__
+  : [1] 96880
 
 - Combine all tweets from ~all_coffee~ and ~all_chardonnay~ in one vector
   ~all_tweets~, show structure and number of characters:
@@ -155,6 +126,10 @@ common (the disjoint). To do this, we must:
     str(all_tweets)
     nchar(all_tweets)
   #+end_src
+
+  #+RESULTS:
+  :  chr [1:2] "@ayyytylerb that is so true drink lots of coffee RT @bryzy_brib: Senior March tmw morning at 7:25 A.M. in the S"| __truncated__ ...
+  : [1] 88230 96880
 
 - Create the corpus from vector and source and ~inspect~ it:
   #+begin_src R
@@ -192,6 +167,23 @@ common (the disjoint). To do this, we must:
     inspect(all_clean)
   #+end_src
 
+  #+RESULTS: all_clean
+  #+begin_example
+  <<VCorpus>>
+  Metadata:  corpus specific: 0, document level (indexed): 0
+  Content:  documents: 2
+
+  [[1]]
+  <<PlainTextDocument>>
+  Metadata:  7
+  Content:  chars: 55271
+
+  [[2]]
+  <<PlainTextDocument>>
+  Metadata:  7
+  Content:  chars: 57999
+  #+end_example
+
   #+RESULTS:
   #+begin_example
   <<VCorpus>>
@@ -216,9 +208,9 @@ common (the disjoint). To do this, we must:
     all_tdm
   #+end_src
 
-  #+RESULTS:
-  : <<TermDocumentMatrix (terms: 5409, documents: 2)>>
-  : Non-/sparse entries: 6094/4724
+  #+RESULTS: all_tdm
+  : <<TermDocumentMatrix (terms: 5406, documents: 2)>>
+  : Non-/sparse entries: 6089/4723
   : Sparsity           : 44%
   : Maximal term length: 266
   : Weighting          : term frequency (tf)
@@ -229,6 +221,12 @@ common (the disjoint). To do this, we must:
     all_m <- as.matrix(all_tdm)
     str(all_m)
   #+end_src
+
+  #+RESULTS: all_m
+  :  num [1:5406, 1:2] 0 1 1 1 1 1 1 1 1 1 ...
+  :  - attr(*, "dimnames")=List of 2
+  :   ..$ Terms: chr [1:5406] "aaliyahmaxwell" "abasc" "abbslovesfed" "abbycastro" ...
+  :   ..$ Docs : chr [1:2] "1" "2"
 
   #+RESULTS:
   :  num [1:5409, 1:2] 0 1 1 1 1 1 1 1 1 1 ...
@@ -271,10 +269,42 @@ common (the disjoint). To do this, we must:
     <<all_tdm>>
   #+end_src
 
+  #+RESULTS:
+  #+begin_example
+  <<VCorpus>>
+  Metadata:  corpus specific: 0, document level (indexed): 0
+  Content:  documents: 2
+
+  [[1]]
+  <<PlainTextDocument>>
+  Metadata:  7
+  Content:  chars: 55271
+
+  [[2]]
+  <<PlainTextDocument>>
+  Metadata:  7
+  Content:  chars: 57999
+  <<TermDocumentMatrix (terms: 5406, documents: 2)>>
+  Non-/sparse entries: 6089/4723
+  Sparsity           : 44%
+  Maximal term length: 266
+  Weighting          : term frequency (tf)
+  #+end_example
+
 - The ~tdm~ is organized neatly in two columns:
   #+begin_src R
     as.matrix(all_tdm)[200:205,]
   #+end_src
+
+  #+RESULTS:
+  :            Docs
+  : Terms       1 2
+  :   asia      1 0
+  :   asian     1 1
+  :   ask       6 4
+  :   asked     3 1
+  :   asking    0 6
+  :   askorange 2 0
 
 - Use ~colnames~ to rename each distinct corpora within ~all_tdm~ so that
   we can keep track of the contributions from either corpus:
@@ -283,6 +313,16 @@ common (the disjoint). To do this, we must:
     colnames(all_tdm) <- c("coffee","chardonnay")
     as.matrix(all_tdm)[200:205,]
   #+end_src
+
+  #+RESULTS: colnames
+  :            Docs
+  : Terms       coffee chardonnay
+  :   asia           1          0
+  :   asian          1          1
+  :   ask            6          4
+  :   asked          3          1
+  :   asking         0          6
+  :   askorange      2          0
 
   #+RESULTS:
   :            Docs
@@ -312,7 +352,7 @@ common (the disjoint). To do this, we must:
   
 - Create a comparison cloud with ~max.words=50~ and the ~colors~ "orange"
   and "blue":
-  #+begin_src R :results graphics file :file comparisoncloud.png
+  #+begin_src R :results graphics file :file ../img/comparisoncloud.png
     <<all_clean>>
     <<all_tdm>>
     <<colnames>>
@@ -322,7 +362,7 @@ common (the disjoint). To do this, we must:
   #+end_src
 
   #+RESULTS:
-  [[file:comparisoncloud.png]]
+  [[file:../img/comparisoncloud.png]]
 
 * Compare word commonality with ~pyramid_plot~
 
@@ -335,11 +375,11 @@ common (the disjoint). To do this, we must:
   #+end_src
 
   #+RESULTS:
-  : function (lx, rx, labels = NA, top.labels = c("Male", "Age",
-  :     "Female"), main = "", laxlab = NULL, raxlab = NULL, unit = "%",
-  :     lxcol, rxcol, gap = 1, space = 0.2, ppmar = c(4, 2, 4, 2),
-  :     labelcex = 1, add = FALSE, xlim, show.values = FALSE, ndig = 1,
-  :     do.first = NULL)
+  : function (lx, rx, labels = NA, top.labels = c("Male", "Age", 
+  :     "Female"), main = "", laxlab = NULL, raxlab = NULL, unit = "%", 
+  :     lxcol, rxcol, gap = 1, space = 0.2, ppmar = c(4, 2, 4, 2), 
+  :     labelcex = 1, add = FALSE, xlim, show.values = FALSE, ndig = 1, 
+  :     do.first = NULL) 
   : NULL
 
 - Data transformation: we need a data frame with three columns, the

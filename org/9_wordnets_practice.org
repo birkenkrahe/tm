@@ -24,39 +24,13 @@ Time-stamp: <2023-03-30 08:51:10 Birkenkrahe>
 
 * Get the corpus data and the R packages
 
-- If you didn't do it yet: download ~corpora.R~ from GitHub
-  ([[https://bit.ly/tm-corpora][bit.ly/tm-corpora]])
-
-- Run the file on the shell (~M-x eshell~) as a batch job:
-  #+begin_src sh
-    R CMD BATCH corpora.R
-    ls -al .RData
-  #+end_src
-
-  #+RESULTS:
-  : -rwx------+ 1 Birkenkrahe LYONNET+Group(513) 1105229 Mar 30 11:30 .RData
-
-- Load the ~.RData~ file in your current R session and check that
-  packages and user-defined objects were loaded:
+- Load the ~.RData~ file [[https://bit.ly/tm_rdata][from GitHub]] (*bit.ly/tm_rdata*) in your current R
+  session and check that packages and user-defined objects were
+  loaded (load from the right location):
   #+begin_src R
     <<load_packages>>
     load("c:/Users/birkenkrahe/Downloads/.RData")
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-   [1] ".GlobalEnv"               "package:wordcloud"       
-   [3] "package:SnowballC"        "package:qdap"            
-   [5] "package:RColorBrewer"     "package:qdapTools"       
-   [7] "package:qdapRegex"        "package:qdapDictionaries"
-   [9] "package:tm"               "package:NLP"             
-  [11] "ESSR"                     "package:stats"           
-  [13] "package:graphics"         "package:grDevices"       
-  [15] "package:utils"            "package:datasets"        
-  [17] "package:stringr"          "package:httr"            
-  [19] "package:methods"          "Autoloads"               
-  [21] "package:base"
-  #+end_example
 
 - You need the ~clean_coffee~ and ~clean_chardonnay~ corpora:
   #+begin_src R
@@ -65,205 +39,107 @@ Time-stamp: <2023-03-30 08:51:10 Birkenkrahe>
 
   #+RESULTS:
   #+begin_example
-   [1] "all_chardonnay"          "all_clean"              
-   [3] "all_coffee"              "all_corpus"             
-   [5] "all_m"                   "all_tdm"                
-   [7] "all_tweets"              "api_key"                
-   [9] "ask_chatgpt"             "chardonnay_corpus"      
-  [11] "chardonnay_df"           "chardonnay_m"           
-  [13] "chardonnay_src"          "chardonnay_tdm"         
-  [15] "chardonnay_vec"          "clean_chardonnay"       
-  [17] "clean_chardonnay_corpus" "clean_coffee"           
-  [19] "clean_coffee_corpus"     "clean_corpus"           
-  [21] "coffee_corpus"           "coffee_df"              
-  [23] "coffee_m"                "coffee_src"             
-  [25] "coffee_tdm"              "coffee_vec"             
-  [27] "color_pal"               "idx"                    
-  [29] "load_packages"           "m"                      
-  [31] "M"                       "max"                    
-  [33] "sms_corpus"              "sms_corpus_clean"       
-  [35] "sms_dtm"                 "sms_dtm2"               
-  [37] "sms_raw"                 "stops"                  
-  [39] "term_frequency"          "terms"                  
-  [41] "terms_vec"               "top25_df"               
-  [43] "word_freq"
+   [1] "api_key"                 "ask_chatgpt"            
+   [3] "bar"                     "chardonnay_corpus"      
+   [5] "chardonnay_df"           "chardonnay_src"         
+   [7] "chardonnay_vec"          "clean_chardonnay"       
+   [9] "clean_chardonnay_corpus" "clean_coffee"           
+  [11] "clean_coffee_corpus"     "coffee_corpus"          
+  [13] "coffee_df"               "coffee_src"             
+  [15] "coffee_vec"              "convert_counts"         
+  [17] "foo"                     "ham"                    
+  [19] "load_packages"           "m"                      
+  [21] "sms_classifier"          "sms_classifier_"        
+  [23] "sms_classifier2"         "sms_corpus"             
+  [25] "sms_corpus_clean"        "sms_dtm"                
+  [27] "sms_dtm_freq_test"       "sms_dtm_freq_train"     
+  [29] "sms_dtm_test"            "sms_dtm_train"          
+  [31] "sms_dtm2"                "sms_freq_words"         
+  [33] "sms_raw"                 "sms_test"               
+  [35] "sms_test_labels"         "sms_test_pred"          
+  [37] "sms_test_pred2"          "sms_train"              
+  [39] "sms_train_labels"        "spam"                   
+  [41] "string"                  "stringX"                
+  [43] "text_df"                 "tokens"
   #+end_example
-
-- If we don't finish with a session, save your data from now on:
-  #+begin_src R
-    save.image(file=".RData")
-    shell("ls -al .RData")
-  #+end_src
-
-* The workflow
-
-We're looking at two corpora at a time to find out which words they
-have in common (the intersection), and which words they do not have in
-common (the disjoint). To do this, we must:
-
-1. Paste datasets
-2. Collapse datasets into one
-3. Make clean corpus
-4. Make TDM
-5. Make term matrix
-6. Visualize term matrix
-
-* Common and disjoint word sets
-
-- Think of your corpora as sets and visualize them in Venn diagrams
-  #+attr_latex: :width 400px
-  #+caption: Visualizing common words as Venn diagram
-  [[../img/dc_commonality_clouds1.png]]
-  #+attr_latex: :width 400px
-  #+caption: Visualizing comparison of disjoint words as Venn diagram
-  [[../img/dc_comparison_cloud1.png]]
 
 * Find common words
 
 - We're going to use ~wordcloud::commonality.cloud~: the function
   requires a TDM of the terms from both datasets:
   #+begin_src R
-    args(commonality.cloud)
+    
   #+end_src
 
-  #+RESULTS:
-  : function (term.matrix, comonality.measure = min, max.words = 300,
-  :     ...)
-  : NULL
-
-- Use ~paste~ with ~collapse=" "~ to separate the tweets in both data
-  frames containing the tweets, ~coffee_df~ and ~chardonnay_df~.
-
-- Paste coffee tweets, look at structure of result, count characters:
+- Paste *coffee* tweets with ~collapse=" "~, look at structure of result
+  with ~str~, and count characters with ~nchar~:
   #+begin_src R
-    all_coffee <- paste(coffee_df$text, collapse=" ")
-    str(all_coffee)
-    nchar(all_coffee)
+    all_coffee <- paste()
+    str()
+    nchar()
   #+end_src
 
-- Paste Chardonnay tweets, look at structure, count characters:
+- Paste *Chardonnay* tweets with ~collapse=" "~, look at structure of result
+  with ~str~, and count characters with ~nchar~:
   #+begin_src R
-    all_chardonnay <- paste(chardonnay_df$text, collapse=" ")
-    str(all_chardonnay)
-    nchar(all_chardonnay)
+    all_chardonnay <- paste()
+    str()
+    nchar()
   #+end_src
 
 - Combine all tweets from ~all_coffee~ and ~all_chardonnay~ in one vector
   ~all_tweets~, show structure and number of characters:
   #+begin_src R
-    all_tweets <- c(all_coffee, all_chardonnay)
-    str(all_tweets)
-    nchar(all_tweets)
+    all_tweets <- c()
+    str()
+    nchar()
   #+end_src
 
-- Create the corpus from vector and source and ~inspect~ it:
+- Create the corpus from vector and source with ~VectorSource~ and
+  ~VCorpus~ and ~inspect~ it:
   #+begin_src R
-    all_corpus <- VCorpus(VectorSource(all_tweets))
-    inspect(all_corpus)
+    all_corpus <- 
+
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  <<VCorpus>>
-  Metadata:  corpus specific: 0, document level (indexed): 0
-  Content:  documents: 2
-
-  [[1]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 88230
-
-  [[2]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 96880
-  #+end_example
 
 * Visualize common words with ~commonality.cloud~
-
-- You need to clean the corpus, create a TDM that you can then
-  visualize using ~commonality.cloud~ from the ~wordcloud~ package
 
 - Clean the corpus by applying ~clean_corpus~ to ~all_corpus~
   #+name: all_clean
   #+begin_src R
     <<clean_corpus>>
-    all_clean <- clean_corpus(all_corpus)
-    inspect(all_clean)
+    all_clean <- 
+
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  <<VCorpus>>
-  Metadata:  corpus specific: 0, document level (indexed): 0
-  Content:  documents: 2
-
-  [[1]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 55960
-
-  [[2]]
-  <<PlainTextDocument>>
-  Metadata:  7
-  Content:  chars: 58470
-  #+end_example
 
 - Create a TDM ~all_tdm~ for the corpus ~all_clean~:
   #+name: all_tdm
   #+begin_src R
-    all_tdm <- TermDocumentMatrix(all_clean)
-    all_tdm
+    all_tdm <- 
   #+end_src
 
-  #+RESULTS:
-  : <<TermDocumentMatrix (terms: 5409, documents: 2)>>
-  : Non-/sparse entries: 6094/4724
-  : Sparsity           : 44%
-  : Maximal term length: 266
-  : Weighting          : term frequency (tf)
-
-- Convert ~all_tdm~ to a ~matrix~ object ~all_m~
+- Convert ~all_tdm~ to a ~matrix~ object ~all_m~ and display its structure:
   #+name: all_m
   #+begin_src R
-    all_m <- as.matrix(all_tdm)
-    str(all_m)
+    all_m <- 
   #+end_src
-
-  #+RESULTS:
-  :  num [1:5409, 1:2] 0 1 1 1 1 1 1 1 1 1 ...
-  :  - attr(*, "dimnames")=List of 2
-  :   ..$ Terms: chr [1:5409] "aaliyahmaxwell" "abasc" "abbslovesfed" "abbycastro" ...
-  :   ..$ Docs : chr [1:2] "1" "2"
 
 - Create a commonality cloud from ~all_m~ with ~max.words=100~ and
   ~colors="steelblue1"~:
-  #+begin_src R :results graphics file :file ../img/commonality.png
+  #+begin_src R :results graphics file :file commonality.png
     <<all_clean>>
     <<all_tdm>>
     <<all_m>>
-    commonality.cloud(term.matrix=all_m,
-                      max.words=100,
-                      colors="steelblue1")
+    commonality.cloud()
   #+end_src
-
-  #+RESULTS:
-  [[file:../img/commonality.png]]
 
 * Visualize dissimilar words with ~comparison.cloud~
 
 - To visualize dissimilar words, you can use ~comparison.cloud~, which
   has quite a few more arguments:
   #+begin_src R
-    args(comparison.cloud)
-  #+end_src
 
-  #+RESULTS:
-  : function (term.matrix, scale = c(4, 0.5), max.words = 300, random.order = FALSE,
-  :     rot.per = 0.1, colors = brewer.pal(max(3, ncol(term.matrix)),
-  :         "Dark2"), use.r.layout = FALSE, title.size = 3, title.colors = NULL,
-  :     match.colors = FALSE, title.bg.colors = "grey90", ...)
-  : NULL
+  #+end_src
 
 - Clean the corpus, create TDM:
   #+begin_src R
@@ -273,15 +149,15 @@ common (the disjoint). To do this, we must:
 
 - The ~tdm~ is organized neatly in two columns:
   #+begin_src R
-    as.matrix(all_tdm)[200:205,]
+    as.matrix()
   #+end_src
 
 - Use ~colnames~ to rename each distinct corpora within ~all_tdm~ so that
   we can keep track of the contributions from either corpus:
   #+name: colnames
   #+begin_src R
-    colnames(all_tdm) <- c("coffee","chardonnay")
-    as.matrix(all_tdm)[200:205,]
+    colnames(all_tdm) <-
+    as.matrix()
   #+end_src
 
   #+RESULTS:
@@ -296,51 +172,29 @@ common (the disjoint). To do this, we must:
 
 - Create a matrix ~all_m~ from ~all_tdm~:
   #+begin_src R
-    all_m <- as.matrix(all_tdm)
-    all_m[200:205,]
+    all_m <- 
   #+end_src
 
-  #+RESULTS:
-  :            Docs
-  : Terms       coffee chardonnay
-  :   asia           1          0
-  :   asian          1          1
-  :   ask            6          4
-  :   asked          3          1
-  :   asking         0          6
-  :   askorange      2          0
-  
 - Create a comparison cloud with ~max.words=50~ and the ~colors~ "orange"
   and "blue":
   #+begin_src R :results graphics file :file comparisoncloud.png
     <<all_clean>>
     <<all_tdm>>
     <<colnames>>
-    comparison.cloud(term.matrix=all_m,
-                     max.words=50,
-                     colors=c("orange","blue"))
+    comparison.cloud()
   #+end_src
-
-  #+RESULTS:
-  [[file:comparisoncloud.png]]
 
 * Compare word commonality with ~pyramid_plot~
 
 - We want to see which common words appear more often in which
   dataset: the ~pyramid.plot~ from the ~plotrix~ package delivers an
   aligned bargraph that shows this:
+  1) (install and) load the ~plotrix~ package
+  2) Which methods does ~plotrix~ have?
+  3) show the arguments of the ~pyramid.plot~ function
   #+begin_src R
-    library(plotrix)
-    args(pyramid.plot)
-  #+end_src
 
-  #+RESULTS:
-  : function (lx, rx, labels = NA, top.labels = c("Male", "Age",
-  :     "Female"), main = "", laxlab = NULL, raxlab = NULL, unit = "%",
-  :     lxcol, rxcol, gap = 1, space = 0.2, ppmar = c(4, 2, 4, 2),
-  :     labelcex = 1, add = FALSE, xlim, show.values = FALSE, ndig = 1,
-  :     do.first = NULL)
-  : NULL
+  #+end_src
 
 - Data transformation: we need a data frame with three columns, the
   words contained in each document, and the counts from each:
@@ -368,7 +222,7 @@ common (the disjoint). To do this, we must:
   1) set the left count to the ~chardonnay~ column
   2) set the right count to the ~coffee~ column
   3) set the labels to the ~word~ column
-  #+begin_src R :results graphics file :file ../img/pyramidplot.png
+  #+begin_src R :results graphics file :file pyramidplot.png
     pyramid.plot(
       ## Chardonnay counts
       top25_df$chardonnay, 
@@ -379,188 +233,40 @@ common (the disjoint). To do this, we must:
       top.labels = c("Chardonnay", "Words", "Coffee"), 
       main = "Words in Common", 
       unit = NULL,
-      gap = 8,
-      )
+      gap = 8, )
   #+end_src
-
-  #+RESULTS:
-  [[file:../img/pyramidplot.png]]
   
 * Visualize word networks
 
-- Word networks show term association (with a link) and cohesion
-  (neighborhoods and density of links), like a social network.
-
-- In a network graph, the circles are called /nodes/ and represent
-  individual terms, while the lines connecting the circles are called
-  /edges/ and represent the connections between the terms.
-
-- The ~qdap~ package contains ~word_network_plot~ and ~word_associate~ to
-  create word networks.
-
 - This code constructs a word network for words associated with
   "Marvin", a dominant word in the Chardonnay tweets:
-  #+begin_src R :results graphics file :file ../img/marvinnet.png
+  #+begin_src R :results graphics file :file marvinnet.png
     ## Word association
-    word_associate(chardonnay_df$text,
-                   match.string = "marvin", 
-                   stopwords = c(Top200Words, "chardonnay", "amp"), 
-                   network.plot = TRUE,
-                   cloud.colors = c("gray85", "darkred"))
+    word_associate(
+                   match.string = 
+                   stopwords = 
+                   network.plot = 
+                   cloud.colors =
+                     )
     ## Add title
     title(main = "Chardonnay Tweets Associated with Marvin")
   #+end_src
-
-  #+RESULTS:
-  [[file:../img/marvinnet.png]]
 
 - To get the printed output information, run the code block again
-  without graphics - the graph will open in a separate window:
-  #+begin_src R 
-    ## Word association
-    word_associate(chardonnay_df$text,
-                   match.string = "marvin", 
-                   stopwords = c(Top200Words, "chardonnay", "amp"), 
-                   network.plot = TRUE,
-                   cloud.colors = c("gray85", "darkred"))
-    ## Add title
-    title(main = "Chardonnay Tweets Associated with Marvin")
-  #+end_src
-
-  #+RESULTS:
-  #+begin_example
-      row group unit text                                                                                                                                                                                     
-  1    14   all   14 This was all inspired by a little Marvin Gaye and Chardonnay...                                                                                                                          
-  2    16   all   16 @LilLakers JUST TO SET THE MOOD GIRL I BROUGHT SOME MARVIN GAYE AND CHARDONNAY SO JUST LET THE SONG PLAAAY                                                                               
-  3    17   all   17 RT @_barneywynne_: Just to set the mood girl i brought some marvin gaye and chardonnay                                                                                                   
-  4    18   all   18 @TylerHickok was it inspired by a little Marvin gaye abs chardonnay?                                                                                                                     
-  5    19   all   19 Just to set the mood girl i brought some marvin gaye and chardonnay                                                                                                                      
-  6    23   all   23 Marvin Gaye and Chardonnay                                                                                                                                                               
-  7    24   all   24 I brought some Marvin Gaye and Chardonnay.                                                                                                                                               
-  8    26   all   26 RT @NowOnRadio1Xtra: <U+266B> Marvin &amp; Chardonnay (feat. Kanye West &amp; Roscoe Dash) - by Big Sean #bbc #radio1xtra                                                                
-  9    27   all   27 <U+266B> Marvin &amp; Chardonnay (feat. Kanye West &amp; Roscoe Dash) - by Big Sean #bbc #radio1xtra                                                                                     
-  10   48   all   48 Marvin Gaye and Chardonnay                                                                                                                                                               
-  11   67   all   67 Just to set the mood, girl i brought some marvin gaye and Chardonnay                                                                                                                     
-  12  101   all  101 Marvin gay and Chardonnay <ed><U+00A0><U+00BD><ed><U+00B8><U+0099><ed><U+00A0><U+00BC><ed><U+00BE><U+00B6>                                                                               
-  13  126   all  126 This was all inspired by a little Marvin Gaye and Chardonnay <ed><U+00A0><U+00BC><ed><U+00BE><U+00B6>                                                                                    
-  14  143   all  143 RT @Leinyy_Nicole: and this was all inspired by a little Marvin Gaye and Chardonnay..                                                                                                    
-  15  144   all  144 and this was all inspired by a little Marvin Gaye and Chardonnay..                                                                                                                       
-  16  146   all  146 Marvin Gaye and Chardonnay                                                                                                                                                               
-  17  170   all  170 Guess ill Just Hit the Hay After a Lil Marvin Gaye &amp; Chardonnay Okay Hoooomay.                                                                                                       
-  18  175   all  175 Marvin Gaye and Chardonnay                                                                                                                                                               
-  19  195   all  195 Marvin Gay &amp; Chardonnay                                                                                                                                                              
-  20  196   all  196 Marvin Gaye and Chardonnay                                                                                                                                                               
-  21  201   all  201 Marvin Gaye &amp; Chardonnay, was my shxt, I Use To Play It Before I Step Out .                                                                                                          
-  22  204   all  204 ?@rarias_453: Hol up give me that gimme that Marvin Gaye and Chardonnay shit but wait my conversation to complicated this bitch to basic<ed><U+00A0><U+00BD><ed><U+00B8><U+0082><U+270C>?
-  23  205   all  205 Hol up give me that gimme that Marvin Gaye and Chardonnay shit but wait my conversation to complicated this bitch to basic<ed><U+00A0><U+00BD><ed><U+00B8><U+0082><U+270C>               
-  24  209   all  209 Big Sean x Roscoe Dash x Marvin Gaye N Chardonnay                                                                                                                                        
-  25  211   all  211 RT @LunaBasquiat: This was all inspired by a little Marvin Gaye &amp; Chardonnay                                                                                                         
-  26  212   all  212 This was all inspired by a little Marvin Gaye &amp; Chardonnay                                                                                                                           
-  27  225   all  225 RT @FreeChiill: Y'all remember when Big Sean's "Ass" &amp; "Marvin Gaye &amp; Chardonnay" was everywhere? Smh, what were y'all thinking?                                                 
-  28  226   all  226 RT @FreeChiill: Y'all remember when Big Sean's "Ass" &amp; "Marvin Gaye &amp; Chardonnay" was everywhere? Smh, what were y'all thinking?                                                 
-  29  227   all  227 Y'all remember when Big Sean's "Ass" &amp; "Marvin Gaye &amp; Chardonnay" was everywhere? Smh, what were y'all thinking?                                                                 
-  30  238   all  238 It's to set the mood girl I bought some Marvin and Chardonnay.                                                                                                                           
-  31  246   all  246 Just to set the mood he put some Marvin Gaye and Chardonnay <ed><U+00A0><U+00BD><ed><U+00B8><U+008C>                                                                                     
-  32  249   all  249 RT @Contract_cKilla: ?@_FuckTheHype_: Anytime I listen to Marvin Gaye and Chardonnay or She Will.. I Think Of Michael?sap ass                                                            
-  33  252   all  252 RT @Contract_cKilla: ?@_FuckTheHype_: Anytime I listen to Marvin Gaye and Chardonnay or She Will.. I Think Of Michael? weed and pizza make ?                                             
-  34  253   all  253 ?@_FuckTheHype_: Anytime I listen to Marvin Gaye and Chardonnay or She Will.. I Think Of Michael? weed and pizza make me think of him bread2                                             
-  35  256   all  256 ?@_FuckTheHype_: Anytime I listen to Marvin Gaye and Chardonnay or She Will.. I Think Of Michael?sap ass                                                                                 
-  36  258   all  258 Anytime I listen to Marvin Gaye and Chardonnay or She Will.. I Think Of Michael                                                                                                          
-  37  260   all  260 A little Marvin Gaye &amp; Chardonnay..                                                                                                                                                  
-  38  273   all  273 What dat nigga Big Sean say.. we can do it off this Marvin Gaye and Chardonnay                                                                                                           
-  39  347   all  347 Still jam out to Marvin Gaye and Chardonnay like it's the first time I've heard it every single time.                                                                                    
-  40  363   all  363 RT @Dyl_Tha_Thryll: Marvin Gaye and Chardonnay                                                                                                                                           
-  41  364   all  364 Marvin Gaye and Chardonnay                                                                                                                                                               
-  42  379   all  379 This was all inspired by ah lil Marvin Gaye and Chardonnay                                                                                                                               
-  43  385   all  385 Marvin Gaye and Chardonnay                                                                                                                                                               
-  44  386   all  386 ?@Stand__Grand: @kathleen_brock but....but...he hates Marvin and Chardonnay <ed><U+00A0><U+00BD><ed><U+00B8><U+0094>? Fuck your Marvin and Chardonnay                                    
-  45  388   all  388 @kathleen_brock but....but...he hates Marvin and Chardonnay <ed><U+00A0><U+00BD><ed><U+00B8><U+0094>                                                                                     
-  46  390   all  390 ?@JDubbbbbbs: #confessyourunpopularopinion I HATE Marvin &amp; Chardonnay? now its 0. That's my favorite song. But hey, your opinion, not mine.                                          
-  47  392   all  392 #confessyourunpopularopinion I HATE Marvin &amp; Chardonnay                                                                                                                              
-  48  401   all  401 Marvin gay and Chardonnay                                                                                                                                                                
-  49  404   all  404 ?@Tanner_Patsko40: Little Marvin Gaye a Chardonnay? the key to my heart                                                                                                                  
-  50  408   all  408 Little Marvin Gaye a Chardonnay                                                                                                                                                          
-  51  413   all  413 @VVLovee haha Marvin Gaye and Chardonnay? Lol I've really sat down and drank a glass of wine.                                                                                            
-  52  427   all  427 RT @MiTae_: Big sean x Marvin and chardonnay                                                                                                                                             
-  53  430   all  430 Big sean x Marvin and chardonnay                                                                                                                                                         
-  54  433   all  433 @PackAustin Marvin Gaye and Chardonnay                                                                                                                                                   
-  55  435   all  435 Marvin &amp; chardonnay - Big Sean                                                                                                                                                       
-  56  450   all  450 A little Marvin Gaye and Chardonnay                                                                                                                                                      
-  57  486   all  486 ?@pacsexy: Marvin Gaye &amp; Chardonnay&gt;&gt;&gt;? talk about a throwback...<ed><U+00A0><U+00BD><ed><U+00B8><U+00B3>                                                                   
-  58  490   all  490 Marvin gaye and chardonnay                                                                                                                                                               
-  59  497   all  497 This was all inspired by a little Marvin Gaye and Chardonnay                                                                                                                             
-  60  500   all  500 this was all inspired by a little Marvin Gaye and Chardonnay                                                                                                                             
-  61  502   all  502 and this was all inspired by a little Marvin Gaye and Chardonnay                                                                                                                         
-  62  507   all  507 Marvin gaye and chardonnay by @BigSean ft @kanyewest @roscoedash love this song on a throw back                                                                                          
-  63  521   all  521 "This was all inspired by a little Marvin Gaye and Chardonnay" Little old, but still bangin @BigSean @kanyewest @Roscoedash #finallyfamous                                               
-  64  525   all  525 @Franc__OHH Wait for me, marvin and chardonnay, high and I do it will always be favorites to                                                                                             
-  65  554   all  554 And this was all inspired by a little Marvin Gaye and Chardonnay.                                                                                                                        
-  66  587   all  587 RT @_iPreach: Just to set the mood I bought some Marvin Gay and Chardonnay                                                                                                               
-  67  614   all  614 Just to set the mood I bought some Marvin Gay and Chardonnay                                                                                                                             
-  68  637   all  637 "Marvin and Chardonnay" by Big Sean has a nice beat tbh                                                                                                                                  
-  69  638   all  638 @JMoney814MP marvin GAYe and chardonnay                                                                                                                                                  
-  70  658   all  658 i can not listen to unthinkable, work out, or marvin gaye &amp; chardonnay.. like at all.                                                                                                
-  71  669   all  669 This was all inspired by a little Marvin Gaye and Chardonnay                                                                                                                             
-  72  679   all  679 Marvin Gaye and Chardonnay <ed><U+00A0><U+00BC><ed><U+00BE><U+00B6><ed><U+00A0><U+00BC><ed><U+00BE><U+00B6>                                                                              
-  73  694   all  694 Marvin gaye and chardonnay                                                                                                                                                               
-  74  696   all  696 Gimmie dat Chardonnay &amp; that Marvin Gaye shxt .. but hol'up.. My conversation too complicated this bxtch to basic.                                                                   
-  75  718   all  718 "This was all inspired by a little Marvin Gaye an Chardonnay "                                                                                                                           
-  76  727   all  727 Just to set the mood girl I brought some Marvin Gay and Chardonnay                                                                                                                       
-  77  749   all  749 @Chlo_Raines Marvin Gaye and Chardonnay                                                                                                                                                  
-  78  752   all  752 Marvin and Chardonnay will forever be my pump up song                                                                                                                                    
-  79  763   all  763 Do it how we want ! Just to set the mood girl I brought some Marvin Gaye &amp; Chardonnay !:) #MTVHottest Justin Bieber                                                                  
-  80  764   all  764 #Np Marvin &amp; Chardonnay ! #BigSean ! #MTVHottest Justin Bieber                                                                                                                       
-  81  789   all  789 Girl i brought some MARVIN GAYE AND CHARDONNAY                                                                                                                                           
-  82  800   all  800 <U+2728><ed><U+00A0><U+00BD><ed><U+00B2><U+00A8><ed><U+00A0><U+00BD><ed><U+00B2><U+008E> this was all inspired by a little Marvin Gaye and chardonnay                                    
-  83  803   all  803 I seen God today.. we had a deep discussion over Marvin Gaye and chardonnay..                                                                                                            
-  84  808   all  808 Marvin Gaye and Chardonnay                                                                                                                                                               
-  85  813   all  813 just to set the mood girl I bought some marvin gaye and chardonnay                                                                                                                       
-  86  829   all  829 Marvin gaye and chardonnay                                                                                                                                                               
-  87  849   all  849 RT @14DaysAWeek_: Marvin Gaye and Chardonnay                                                                                                                                             
-  88  871   all  871 Marvin Gaye and Chardonnay                                                                                                                                                               
-  89  885   all  885 Marvin Gaye and Chardonnay                                                                                                                                                               
-  90  895   all  895 ?@LoParoYaKnowXD: Just to set the mood girl I brought some Marvin Gaye and Chardonnay<ed><U+00A0><U+00BC><ed><U+00BD><U+00B8>?                                                           
-  91  896   all  896 Just to set the mood girl I brought some Marvin Gaye and Chardonnay<ed><U+00A0><U+00BC><ed><U+00BD><U+00B8>                                                                              
-  92  899   all  899 This was all inspired by a little Marvin Gaye and Chardonnay.                                                                                                                            
-  93  904   all  904 Marvin &amp; Chardonnay(:                                                                                                                                                                
-  94  908   all  908 @K_Carterr35 REMEMBER WHEN YOU WAS SINGING MARVIN &amp; CHARDONNAY &amp; GOT SENT TOO S.A.P OR WHATEVER AT SCHOOL! #GoodTimesAtCD                                                        
-  95  909   all  909 I was sad 'af but then 'Marvin Gay &amp; Chardonnay' just came on!!! Lawdy...<ed><U+00A0><U+00BD><ed><U+00B8><U+0081>                                                                    
-  96  910   all  910 Marvin &amp; Chardonnay was my song!                                                                                                                                                     
-  97  911   all  911 - Just to set the mood girl I bought Marvin &amp; Chardonnay .                                                                                                                           
-  98  913   all  913 Oh shiiii Marvin &amp; Chardonnay really just came on?! Ayee <ed><U+00A0><U+00BD><ed><U+00B2><U+0083>                                                                                    
-  99  926   all  926 We had a deep discussion over Marvin Gaye and Chardonnay                                                                                                                                 
-  100 935   all  935 I liked a @YouTube video http://t.co/waDAbwYR14 Marvin Gaye and Chardonnay- Brian Puspos ft Chachi Gonzalez                                                                              
-  101 939   all  939 Marvin Gay &amp; Chardonnay                                                                                                                                                              
-  102 947   all  947 "And this was all inspired by a little Marvin Gaye and Chardonnay"                                                                                                                       
-  103 951   all  951 Just to set the mood I bought some Marvin Gaye &amp; Chardonnay.                                                                                                                         
-
-  Match Terms
-  ===========
-
-  List 1:
-  marvin, 'marvin
-
-
-  Warning message:
-  In text2color(words = V(g)$label, recode.words = target.words, colors = label.colors) :
-    length of colors should be 1 more than length of recode.words
-  #+end_example
+  without graphics - the graph will open in a separate window.
   
 - This code constructs a word network for words associated with
   "barista", a word in the coffee tweets:
-  #+begin_src R :results graphics file :file ../img/baristanet.png
+  #+begin_src R :results graphics file :file baristanet.png
     ## Word association
     word_associate(coffee_df$text,
-                   match.string = "barista", 
+                   match.string = 
                    stopwords = c(Top200Words, "coffee", "amp"), 
                    network.plot = TRUE,
                    cloud.colors = c("gray85", "darkred"))
     ## Add title
     title(main = "Barista Coffee Tweet Associations")
   #+end_src
-
-  #+RESULTS:
-  [[file:../img/baristanet.png]]
   
 * Resources
 ** ~load_packages~
