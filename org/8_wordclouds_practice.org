@@ -1,4 +1,4 @@
-#+TITLE: Text mining in practice - Bag of Words - Intro to word clouds
+#+TITLE: Text mining in practice - Bag of Words - Intro to word clouds - PRACTICE
 #+AUTHOR: [name...] (...)
 #+SUBTITLE: Digital Humanities DSC 105 Spring 2023
 #+STARTUP:overview hideblocks indent inlineimages
