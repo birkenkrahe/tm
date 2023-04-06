@@ -507,7 +507,7 @@ ChatGPT using standard text mining functions.
 
 * Week 11: Visualization III - wordclouds
 #+attr_latex: :width 400px
-n[[../img/clouds.jpg]]
+[[../img/clouds.jpg]]
 
 *Reading review: "The False Promise of ChatGPT"*
 - What's your take on the article?
@@ -754,10 +754,22 @@ Thu:
 
 - Useful: feed [[https://lyon.instructure.com/calendar][Canvas calendar]] to your Google calendar ([[https://community.canvaslms.com/t5/Student-Guide/How-do-I-subscribe-to-the-Calendar-feed-using-Google-Calendar-as/ta-p/535][instructions]])
 - Look at [[https://elanmarkowitz.github.io/USC-CS662/][this advanced NLP course]] (USC) - you recognize our topics!
+
+** What did you learn this week?
+
+Tue:
+1. How to visualize common and dissimilar words with ~wordcloud~
+2. How to visualize common words from two datasets with ~plotrix~
+3. How to visualize word networks with ~qdap~
+
+Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
   
-* TODO Week 13: N-gram tokenization
-* TODO Week 14: Bag-of-words case study
-* TODO Week 15: Projects and summary
+* TODO Week 13: Polarity scoring
+
+
+
+* TODO Week 14: Visualizing sentiment
+* TODO Week 15: Case study: Airbnb reviews
 * References
 
 - Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)

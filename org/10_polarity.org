@@ -1,0 +1,24 @@
+#+TITLE: Sentiment analysis in R - Fast & Dirty: Polarity Scoring
+#+AUTHOR: Marcus Birkenkrahe
+#+SUBTITLE: Digital Humanities DSC 105 Spring 2023
+#+STARTUP:overview hideblocks indent inlineimages
+#+OPTIONS: toc:nil num:nil ^:nil
+#+PROPERTY: header-args:R :session *R* :results output :exports both :noweb yes
+* README
+
+- This lecture closely follows the DataCamp lesson "Sentiment analysis
+  in R" by Ted Kwartler and the book "Text mining in Practice" by the
+  same author.
+
+- Download and open the practice file ~10_polarity_practice.org~ from
+  GitHub to code along.
+
+- In this lecture & practice:
+  1)
+     
+* Free online tools
+ 
+- I tested a free sentiment analysis tool, [[https://text2data.com/?lnk=518443938][text2data.com]] with one of
+  my own tweets:
+  #+attr_latex: :width 400px
+  [[../img/10_mesmer.png]]
