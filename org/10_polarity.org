@@ -13,12 +13,857 @@
 - Download and open the practice file ~10_polarity_practice.org~ from
   GitHub to code along.
 
-- In this lecture & practice:
-  1)
-     
+- What you will learn:
+  1) What is sentiment analysis
+  2) What is polarity
+  3) How to visualize polarity
+  4) What are subjectivity lexicons
+  5) What is Zipf's law
+
+- Featured R packages:
+  1. Sentiment scoring with ~qdap::polarity~
+  2. The archived ~sentiment~ analysis package
+  3. Sentiment scoring with ~tidytext~
+
 * Free online tools
- 
+
 - I tested a free sentiment analysis tool, [[https://text2data.com/?lnk=518443938][text2data.com]] with one of
   my own tweets:
   #+attr_latex: :width 400px
   [[../img/10_mesmer.png]]
+
+* What is sentiment analysis?
+#+attr_latex: :width 400px
+#+caption: "Two hearts that beat as one" - US Pres. Cleveland w/bride (1886)
+[[../img/10_cleveland.jpg]]
+
+- *Sentiment analysis* is the process of extracting an author's
+  emotional intent from text.
+
+- What are the challenges of sentiment analysis as defined this way?
+  #+begin_quote
+  1) the human condition knows many different emotional states
+  2) emotional states aren't always (ever?) clearly separated
+  3) product reviews e.g. contain mixed emotions
+  4) strong analyst or modeling bias
+  5) why would you want to extract an author's emotion?
+  #+end_quote
+
+- A reductionist's fantasy? Plutchik (2001) believed that there are
+  only 8 evolutionary created emotions:
+  1) anger
+  2) fear
+  3) sadness
+  4) disgust
+  5) surprise
+  6) anticipation
+  7) trust
+  8) joy
+
+- Plutchik's wheel of emotions is one of many frameworks:
+  #+attr_latex: :width 400px
+  #+caption: Plutchik's Wheel of Emotions
+  [[../img/10_plutchik.png]]
+
+* Scoring sentiment as polarity
+
+- *Polarity* of a document is reduction of sentiment to positive,
+  neutral or negative:
+
+- Positive surprise: "I just found out I won the lottery!"
+- Negative surprise: "I was just robbed at gunpoint!"
+
+- Sentiment scoring does not always have a tangible value and the
+  insights are not actionable: it is less valuable to say "that was
+  negative" than "that was negative because of so-and-so."
+
+- ~qdap::polarity~ is based on *subjectivity lexicons*, a list of words
+  associated with emotional states:
+
+* Subjectivity lexicons
+#+attr_latex: :width 400px
+#+caption: Excerpt from U Pittsburgh's MQPA Subjectivity Lexicon
+[[../img/10_subjectivity.png]]
+
+- The lexicon used by ~polarity~ contains ca. 6,800 labeled words[fn:2]
+
+- It is important to understand the validity and size of any
+  subjectivity lexicons used in polarity scoring (errors, bias).
+
+- Simple approach: add up positive words in a passage and subtract the
+  number of negative words. The net result is the sentiment score.
+
+- Examples:
+  | SENTENCE                                           | POLARITY |
+  |----------------------------------------------------+----------|
+  | "Sentiment analysis in R is /good/ yet /challenging/." |        0 |
+  | "Sentiment analysis in Python is /not good/."        |       -1 |
+  | "Sentiment analysis in R is /very good/."            |       +2 |
+
+- Challenges:
+  1) word groups can shift the score - like "not" or "very"
+  2) word choice is not universal - cp. "wicked" in UK vs. US
+  3) social media terms are not in lexicons - e.g. "lol"
+
+- Functions ought to allow you to change the subjectivity lexicon
+  (like adding to the ~stopwords~ dictionary when cleaning data).
+
+- Here are some others because it may be necessary to swap lexica:
+  #+attr_latex: :width 400px
+  #+caption: Different subjectivity lexicons in use
+  [[../img/10_lexicons.png]]
+
+* Context clusters
+
+- The function ~polarity~ creates a /context cluster/ around each word
+  found in the lexicon: "The DataCamp sentiment course is very GOOD for
+  learning." Only the word "GOOD" is found in the lexicon.
+
+- The cluster contains the four words before and the two words after
+  the word found - this means that removing stopwords affects the
+  score.
+
+- The evaluation of the sentence yields: 
+  #+attr_latex: :width 400px
+  #+caption: context cluster example
+  [[../img/10_context_cluster1.png]]  
+
+- The cluster words are classified according to different categories:
+  #+attr_latex: :width 400px
+  #+caption: context cluster example
+  [[../img/10_context_cluster2.png]]
+
+* Subjectivity lexicons in ~qdap~ and ~tidytext~
+
+- ~qdap::polarity~ uses a lexicon from ~hash_sentiment_huliu~, a
+  ~data.table~ dataset ([[https://search.r-project.org/CRAN/refmans/lexicon/html/hash_sentiment_huliu.html][Hu/Liu, 2004]]).
+
+- The ~tidytext~ package has a ~sentiments~ ~tibble~ with 3 lexicons:
+  1) NRC - words according to 8 emotions and positive/negative
+  2) Bing - words labelled positive or negative
+  3) AFINN - words scored from -5 to +5
+  #+begin_src R
+    library(tidytext)
+    ls('package:tidytext')
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   [1] "augment"                   "bind_tf_idf"              
+   [3] "cast_dfm"                  "cast_dtm"                 
+   [5] "cast_sparse"               "cast_tdm"                 
+   [7] "get_sentiments"            "get_stopwords"            
+   [9] "glance"                    "nma_words"                
+  [11] "parts_of_speech"           "reorder_func"             
+  [13] "reorder_within"            "scale_x_reordered"        
+  [15] "scale_y_reordered"         "sentiments"               
+  [17] "stop_words"                "tidy"                     
+  [19] "unnest_character_shingles" "unnest_characters"        
+  [21] "unnest_lines"              "unnest_ngrams"            
+  [23] "unnest_paragraphs"         "unnest_ptb"               
+  [25] "unnest_regex"              "unnest_sentences"         
+  [27] "unnest_skip_ngrams"        "unnest_tokens"            
+  [29] "unnest_tweets"
+  #+end_example
+
+- To look at the lexicons you must:
+  1) install the ~textdata~ package
+  2) run ~get_sentiments~ with the lexicon as argument
+  3) as an example: NRC ([[http://saifmohammad.com/WebPages/lexicons.html][link]])
+  #+begin_src R
+    library(tidytext)
+    library(textdata)
+    ## you must first download the lexicon with get_sentiment("nrc")
+    nrc <- get_sentiments("nrc")
+    str(nrc)
+    head(nrc)
+    tail(nrc)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  tibble [13,872 × 2] (S3: tbl_df/tbl/data.frame)
+   $ word     : chr [1:13872] "abacus" "abandon" "abandon" "abandon" ...
+   $ sentiment: chr [1:13872] "trust" "fear" "negative" "sadness" ...
+  # A tibble: 6 × 2
+    word      sentiment
+    <chr>     <chr>    
+  1 abacus    trust    
+  2 abandon   fear     
+  3 abandon   negative 
+  4 abandon   sadness  
+  5 abandoned anger    
+  6 abandoned fear
+  # A tibble: 6 × 2
+    word    sentiment   
+    <chr>   <chr>       
+  1 zealous trust       
+  2 zest    anticipation
+  3 zest    joy         
+  4 zest    positive    
+  5 zest    trust       
+  6 zip     negative
+  #+end_example
+  
+* Scoring in ~qdap::polarity~
+#+attr_latex: :width 400px
+#+caption: qdap's polarity function equals 0.68 on this sentence
+[[../img/10_polarity.png]]
+
+1) The function ~polarity~ scans for positive and negative words
+2) When a polarity word is found, a cluster of terms is created,
+   including the four preceding and the two following words.
+3) Within the cluster, neutral/positive/negative words are counted as
+   0, 1 and -1 respectively.
+4) The remaining non-neutral and non-polarity words are /valence
+   shifters/: they give a weight to amplify/detract from polar words.
+5) The weight is 0.8 - amplifiers add 0.8, detractors subtract 0.8.
+6) All values in the 7-word cluster are summed to created total
+   polarity with amplification or negation effects.
+7) The total polarity is divided by the square root of all words in
+   the cluster to measure the density of the keywords (more closely
+   packed keywords have a greater impact on the overall polarity).
+   #+begin_src R
+     1.8/sqrt(7)
+   #+end_src
+
+   #+RESULTS:
+   : [1] 0.6803361
+
+- Some of the arguments of the ~polarity~ function should make sense now:
+  #+begin_src R
+    args(polarity)
+  #+end_src
+
+  #+RESULTS:
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
+  : NULL
+
+* Visualize polarity
+
+- We'll store statements from a conversation among four people as a
+  data frame. We'll apply ~polarity~ to all sentences for an "average
+  sentiment", and then we'll ~plot~ the whole conversation.
+
+- Create data frame with a ~person~ and a ~text~ column:
+  #+begin_src R :results silent
+    text_df <- data.frame(
+      person=c("Nick", "Jonathan", "Martijn","Nicole",
+               "Nick", "Jonathan", "Martijn", "Nicole"),
+      text=c("DataCamp courses are the best",
+             "I like talking to students",
+             "Other online data science curricula are boring.",
+             "What is for lunch?",
+             "DataCamp has lots of great content!",
+             "Students are passionate and are excited to learn",
+             "Other data science curriculum is hard to learn and difficult to understand",
+             "I think the food here is good."))
+  #+end_src
+
+- Remove punctuation (otherwise ~polarity~ will complain about it):
+  #+begin_src R :results silent
+    library(tm)
+    text_df$text <- removePunctuation(text_df$text)
+  #+end_src
+
+- Examine the text data:
+  #+begin_src R
+    text_df
+    str(text_df)
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+      person
+  1     Nick
+  2 Jonathan
+  3  Martijn
+  4   Nicole
+  5     Nick
+  6 Jonathan
+  7  Martijn
+  8   Nicole
+                                                                          text
+  1                                              DataCamp courses are the best
+  2                                                 I like talking to students
+  3                             Other online data science curricula are boring
+  4                                                          What is for lunch
+  5                                         DataCamp has lots of great content
+  6                           Students are passionate and are excited to learn
+  7 Other data science curriculum is hard to learn and difficult to understand
+  8                                              I think the food here is good
+  'data.frame':	8 obs. of  2 variables:
+   $ person: chr  "Nick" "Jonathan" "Martijn" "Nicole" ...
+   $ text  : chr  "DataCamp courses are the best" "I like talking to students" "Other online data science curricula are boring" "What is for lunch" ...
+  #+end_example
+
+- Approximate the sentiment (polarity) of text by grouping variables:
+  #+begin_src R
+    library(qdap)
+    args(polarity)
+  #+end_src
+
+  #+RESULTS:
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
+  : NULL
+
+- Compute polarity on the ~text~:
+  #+begin_src R
+    polarity(text.var=text_df$text)
+  #+end_src
+
+  #+RESULTS:
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               8          54        0.179       0.452              0.396
+
+- Group by the ~person~ column and save the result:
+  #+begin_src R
+    polarity(text.var=text_df$text,
+             grouping.var=text_df$person) -> datacamp_conversation
+    datacamp_conversation
+  #+end_src
+
+  #+RESULTS:
+  :     person total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 Jonathan               2          13        0.577       0.184              3.141
+  : 2  Martijn               2          19       -0.478       0.141             -3.388
+  : 3     Nick               2          11        0.428       0.028             15.524
+  : 4   Nicole               2          11        0.189       0.267              0.707
+
+- Apply ~qdap::counts~ to print the specific emotional words that were
+  found:
+  #+begin_src R
+    counts(datacamp_conversation)
+  #+end_src
+
+  #+RESULTS:
+  :     person wc polarity           pos.words       neg.words                                                                   text.var
+  : 1     Nick  5    0.447                best               -                                              DataCamp courses are the best
+  : 2 Jonathan  5    0.447                like               -                                                 I like talking to students
+  : 3  Martijn  7   -0.378                   -          boring                             Other online data science curricula are boring
+  : 4   Nicole  4    0.000                   -               -                                                          What is for lunch
+  : 5     Nick  6    0.408               great               -                                         DataCamp has lots of great content
+  : 6 Jonathan  8    0.707 passionate, excited               -                           Students are passionate and are excited to learn
+  : 7  Martijn 12   -0.577                   - hard, difficult Other data science curriculum is hard to learn and difficult to understand
+  : 8   Nicole  7    0.378                good               -                                              I think the food here is good
+    
+- Plot the ~datacamp_conversation~ with ~plot~ (which has a suitable
+  method for polarity output already):
+  #+begin_src R :results graphics file :file ../img/dc_conversation.png
+    plot(datacamp_conversation)
+  #+end_src
+
+  #+RESULTS:
+  [[file:../img/dc_conversation.png]]
+
+- Let's interpret the plot:
+  1) Lower plot: Martijn is negative, all the others are positive,
+     Jonathan most of all, Nicole less.
+  2) Upper plot: shows the timeline - looks as if Martijn was getting
+     more negative, and Jonathan more positive as time went on.
+  3) If you compare with the original statements you can see that the
+     function did not capture the "Other" in Martijn's sentences: he
+     actually was complimenting DataCamp!
+
+* Components of ~polarity~
+
+- For later, it might be useful to be able to extract parts of the
+  ~polarity~ result: look at the structure of ~datacamp_conversation~:
+  #+begin_src R
+    str(datacamp_conversation)
+  #+end_src
+
+- Extract the positive and negative words, the text, and the people:  
+  #+begin_src R
+    unlist(datacamp_conversation$all[["pos.words"]])
+    unlist(datacamp_conversation$all[["neg.words"]])
+    unlist(datacamp_conversation$all[["text.var"]])
+    unlist(datacamp_conversation$all[["person"]])
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [1] "best"       "like"       "-"          "-"          "great"     
+  [6] "passionate" "excited"    "-"          "good"
+  [1] "-"         "-"         "boring"    "-"         "-"         "-"        
+  [7] "hard"      "difficult" "-"
+  [1] "DataCamp courses are the best"                                             
+  [2] "I like talking to students"                                                
+  [3] "Other online data science curricula are boring"                            
+  [4] "What is for lunch"                                                         
+  [5] "DataCamp has lots of great content"                                        
+  [6] "Students are passionate and are excited to learn"                          
+  [7] "Other data science curriculum is hard to learn and difficult to understand"
+  [8] "I think the food here is good"
+  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn" 
+  [8] "Nicole"
+  #+end_example
+  
+* Adding terms to the subjectivity lexicon
+
+- The polarity scoring is highly sensitive to the lexicon used. If we
+  already know that our subjects (people who talk or write) are using
+  special words not in the lexicon, then we need to add them.
+
+- Here, we're doing that to show the impact of a few words missing on
+  the polarity scoring with ~polarity~.
+  
+- To add new terms, define a vector ~new.pos~:
+  #+begin_src R
+    new.pos <- c('rofl', 'lol')
+  #+end_src
+
+  #+RESULTS:
+
+- Load ~qdap~. Its basic subjectivity lexicon is held in a list
+  ~key.pol~ - it contains 6779 terms ~x~ and their polarity labels ~y~.
+  #+begin_src R
+    library(qdap)
+    str(key.pol)
+  #+end_src
+
+  #+RESULTS:
+  : Classes 'qdap_hash', 'data.table' and 'data.frame':	6779 obs. of  2 variables:
+  :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
+  :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+  :  - attr(*, ".internal.selfref")=<externalptr> 
+  :  - attr(*, "sorted")= chr "x"
+  :  - attr(*, "mode")=function (x, ...)
+
+- Put terms 'rofl' and 'lol' into a vector ~new.pos~:
+  #+begin_src R :results silent
+    c('rofl', 'lol') -> new.pos  # new positive terms
+  #+end_src
+  
+- Use the ~subset(x,pattern)~ function to retain only the original
+  ~key.pol~ terms that have polarity 1 and store them in ~old.pos~:
+  #+begin_src R
+    subset(as.data.frame(key.pol), key.pol$y==1) -> old.pos
+    str(old.pos)
+  #+end_src
+
+  #+RESULTS:
+  : 'data.frame':	2003 obs. of  2 variables:
+  :  $ x: chr  "a plus" "abound" "abounds" "abundance" ...
+  :  $ y: num  1 1 1 1 1 1 1 1 1 1 ...
+
+- Add ~new.pos~ to ~old.pos~ and create ~all.pos~:
+  #+begin_src R :results silent
+    all.pos <- c(new.pos, old.pos[,1]) # only the terms, not the scores
+  #+end_src
+
+- Proceed accordingly with the negative portion of the subjectivity
+  lexicon. For example to include the terms 'kappa' (used among gamers
+  to express sarcasm) and 'meh' (unenthusiastic):
+  #+begin_src R :results silent
+    new.neg <- c('kappa','meh')
+    old.neg <- subset(as.data.frame(key.pol),key.pol$y==-1)
+    all.neg <- c(new.neg,old.neg[,1])
+  #+end_src
+
+- To compute polarity score, ~polarity~ uses a sentiment lookup table as
+  a function of vectors of ~positives~ and ~negatives~ and their weights:
+  #+begin_src R
+    args(sentiment_frame)
+  #+end_src
+
+  #+RESULTS:
+  : function (positives, negatives, pos.weights = 1, neg.weights = -1) 
+  : NULL
+
+- We need to create a new sentiment data frame ~all.polarity~ replacing
+  ~key.pol~ using ~sentiment_frame~:
+  #+begin_src R
+    all.polarity <- sentiment_frame(all.pos,all.neg,1,-1)
+    str(all.polarity)
+  #+end_src
+
+  #+RESULTS:
+  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':	6783 obs. of  2 variables:
+  :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
+  :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
+  :  - attr(*, ".internal.selfref")=<externalptr> 
+  :  - attr(*, "sorted")= chr "x"
+  :  - attr(*, "mode")=function (x, ...)
+
+- You can see that there are four more words included:
+  #+begin_src R
+  c('rofl','lol','meh','kappa') %in% all.polarity$x
+  #+end_src
+
+  #+RESULTS:
+  : [1] TRUE TRUE TRUE TRUE
+
+* Using the extended subjectivity lexicon
+
+- Consider the sample sentences:
+  #+begin_src R :results silent
+    foo <- 'ROFL, look at that!'
+    bar <- 'Whatever you say - Kappa.'
+  #+end_src
+   
+- Applying ~polarity~ returns the polarity scores:
+  #+begin_src R
+    polarity(foo, polarity.frame=all.polarity)
+  #+end_src
+
+  #+RESULTS:
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           4          0.5          NA                 NA
+
+- There is no grouping variable (~all~), one sentence only with 4 words
+  (hence no stats), and the polarity is 0.5 = 1/sqrt(4) because 'ROFL'
+  counts as 1.
+
+- When computing the polarity with the standard lexicon, polarity is
+  zero or neutral, because 'ROFL' was not found in the lexicon:x
+  #+begin_src R
+    polarity(foo)
+  #+end_src
+
+  #+RESULTS:
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           4            0          NA                 NA
+
+- Applying ~polarity~ and ~all.polarity~ to the second sentence:
+  #+begin_src R
+    polarity(bar,polarity.frame=all.polarity)
+    polarity(bar)
+  #+end_src
+
+  #+RESULTS:
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           4         -0.5          NA                 NA
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           4            0          NA                 NA
+
+- 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
+  lexicon, Kappa is not found and considered neutral.
+  
+* Why do subjectivity lexicons work at all?
+#+attr_latex: :width 400px
+#+caption: Sentiments by Viktoriia Vidal (Flickr.com)
+[[../img/10_sentiment.jpg]]
+
+- How can such a short list of only several thousand words deliver
+  somewhat accurate sentiment readings?
+
+- An average person has tens of thousands of words in their personal
+  vocabulary, and any list would miss many of these words.
+
+- The number of unique words varies by gender, age, and demography,
+  making a "hit" on one of only 6,800 words very unlikely.
+
+* Zipf's law and the principle of least effort
+#+attr_latex: :width 400px
+#+caption: Top 5 terms in word frequency matrix and top 50 from 2.5mio tweets
+[[../img/10_zipf.png]]
+
+- *[[https://en.wikipedia.org/wiki/Zipf's_law][Zipf's law]]* asserts that any word in a document is *inversely
+  proportional to its rank* when looking at term frequency.
+
+- The most frequent word will occur about twice as often as the 2nd
+  most frequent word, three times as often as the third, and so on.
+
+- Zipf's law outside of linguistics - city populations:
+  #+attr_latex: :width 400px
+  #+caption: Zipf's power law for city populations based on rank
+  [[../img/10_zipf_cities.png]]
+
+- One explanation of Zipf's law is the *principle of least effort*:
+  humans will choose the path of least resistance and minimize effort.
+
+- Once some minimum threshold of understanding has occurred, the
+  effort exerted in searching for meaning will decrease or cease.
+
+- While humans may know many words, they often use only a few thousand
+  distinct terms when communicating to minimize effort.[fn:1]
+
+* Observing Zipf's law for a big data set
+
+- To prove it, let's construct a visual from 3 million tweets
+  mentioning "#sb" (SuperBowl).
+
+- Keep in mind that the visual doesn't follow Zipf's law perfectly,
+  the tweets all mentioned the same hashtag so it is a bit
+  skewed.
+
+- The visual follows a steep decline showing a small lexical diversity
+  among the millions of tweets.
+
+- In this exercise, we use the package ~metricsgraphics~. The main
+  function of the package ~metricsgraphics~ is the ~mjs_plot()~ function
+  which is the first step in creating a JavaScript plot
+
+- An example ~metricsgraphics~ workflow is below:
+  #+begin_example R
+     ## make basic JavaScript plot for mouse-over action
+     metro_plot <- mjs_plot(data, x = x_axis_name,
+                                  y = y_axis_name,
+                                  show_rollover_text = FALSE)
+     ## add lines
+     metro_plot <- mjs_line(metro_plot)
+     metro_plot <- mjs_add_line(metro_plot,
+                                line_one_values)
+     ## add a legend
+     metro_plot <- mjs_add_legend(metro_plot,
+                                  legend = c('names', 'more_names'))
+     metro_plot
+  #+end_example
+
+- Getting the data and reviewing the top words:
+  #+begin_src R
+    sb_words=read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSr1GbdxxFhoZcAqH_pkr-E61NMiKnffJdAPlbfLv5FrfJkTgOeDq8KCv1-WolHMf0N0K-5nUcMH3Ta/pub?gid=842100586&single=true&output=csv")
+    ## Examine sb_words
+    head(sb_words)
+    str(sb_words) # three columns: word, freq and rank
+  #+end_src  
+
+  #+RESULTS:
+  #+begin_example
+    word    freq rank
+  1   sb 1984423    1
+  2   rt 1700564    2
+  3  the 1101899    3
+  4   to  588803    4
+  5    a  428598    5
+  6  for  388390    6
+  'data.frame':	159 obs. of  3 variables:
+   $ word: chr  "sb" "rt" "the" "to" ...
+   $ freq: int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
+   $ rank: int  1 2 3 4 5 6 7 8 9 10 ...
+  #+end_example
+
+- Create a new column expectations by dividing the largest word
+  frequency, ~freq[1]~, by the ~rank~ column:
+  #+begin_src R
+    sb_words$expectations <- sb_words$freq[1]/sb_words$rank
+    str(sb_words)
+  #+end_src
+
+  #+RESULTS:
+  : 'data.frame':	159 obs. of  4 variables:
+  :  $ word        : chr  "sb" "rt" "the" "to" ...
+  :  $ freq        : int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
+  :  $ rank        : int  1 2 3 4 5 6 7 8 9 10 ...
+  :  $ expectations: num  1984423 992212 661474 496106 396885 ...
+
+- Load ~metricsgraphics~ (must be installed). Start ~sb_plot~ using
+  ~mjs_plot~, and pass in ~data=sb_words~ with ~x = rank~, ~y = freq~ and
+  set ~show_rollover_text~ to ~FALSE~:
+  #+begin_src R :results silent
+    library(metricsgraphics)
+    sb_plot <- mjs_plot(data=sb_words,
+                        x=rank,
+                        y=freq,
+                        show_rollover_text=FALSE)
+  #+end_src
+
+- Add first line to ~sb_plot~:
+  #+begin_src R :results silent
+    sb_plot <- mjs_line(sb_plot)
+  #+end_src
+
+- Add 2nd line to ~sb_plot~ with ~mjs_add_line()~. Pass in the previous
+  ~sb_plot~ object and the vector, ~expectations~:
+  #+begin_src R :results silent
+    sb_plot <- mjs_add_line(sb_plot,
+                            expectations)
+  #+end_src
+
+- Place a legend on a new ~sb_plot~ object using ~mjs_add_legend~:
+  1) pass in the previous ~sb_plot~ object
+  2) The legend ~labels~ should consist of "Frequency" and
+     "Expectation":
+  #+begin_src R :results silent
+    sb_plot <- mjs_add_legend(sb_plot,
+                              legend=c("Frequency","Expectation"))
+  #+end_src
+
+- Call ~sb_plot~ to display the plot. Mouseover a point to
+  simultaneously highlight a ~freq~ and Expectation point:
+  #+begin_src R :results graphics :file ./img/sb_plot.png
+    sb_plot  # This will open an interactive plot in the browser
+  #+end_src
+
+  #+RESULTS:
+
+- Screenshot:
+  #+attr_latex: :width 400px
+  [[../img/sb_plot_js.png]]
+
+* Exercise: ~polarity~ scoring
+
+- ~polarity~ scans the text to identify words in the lexicon. It then
+  creates a /cluster/ around an identified /subjectivity word/. Within the
+  cluster /valence shifters/ adjust the score.
+
+- Valence shifters are words that amplify or negate the emotional
+  intent of the subjectivity word. For example, "well known" is
+  positive while "not well known" is negative. Here "not" is a
+  negating term and reverses the emotional intent of "well known." In
+  contrast, "very well known" employs an /amplifier/ increasing the
+  positive intent.
+
+- The ~polarity~ function then calculates a score using subjectivity
+  terms, valence shifters and the total number of words in the
+  passage. This exercise demonstrates a simple polarity calculation.
+
+1) Calculate the ~polarity~ of the string ~positive~ in a new object
+   called ~pos_score~, then print it:
+   #+begin_src R
+     positive <- "DataCamp courses are good for learning"
+     # Calculate polarity of statement
+
+   #+end_src
+
+   #+RESULTS:
+
+2) Manually perform the same polarity calculation:
+
+   1. Get a word count object ~pos_counts~ by calling ~counts~ on the polarity
+      object ~pos_score~, then print it:
+      #+begin_src R
+
+      #+end_src
+
+      #+RESULTS:
+
+   2. All the identified subjectivity words are part of count object's
+      list. Specifically, positive words are in the ~$pos.words~ element
+      vector of ~pos_counts~. Print the structure of ~pos_counts~:
+      #+begin_src R
+
+      #+end_src
+
+      #+RESULTS:
+
+   3. Find the number of positive words by calling ~length~ on the first
+      member of the ~$pos_words~ element of ~pos_counts~ and store it in
+      ~n_good~:
+      #+begin_src R :results silent
+
+      #+end_src
+
+   4. Capture the total number of words and assign it to ~n_words~. This
+      value is stored in ~pos_count~ as the ~wc~ (word count) element:
+      #+begin_src R :results silent
+
+      #+end_src
+
+   5. De-construct the ~polarity~ calculation by dividing ~n_good~ by ~sqrt~
+      of ~n_words~ and save the result as ~pos_pol~. Compare ~pos_pol~ to
+      ~pos_score~ calculated with ~polarity~ earlier using ~identical~:
+      #+begin_src R
+
+      #+end_src
+
+      #+RESULTS:
+
+* Exercise: ~qdap~'s lexicon
+
+- Of course just positive and negative words aren't enough. In this
+  exercise you will learn about valence shifters which tell you about
+  the author's emotional intent. Previously you applied ~polarity()~ to
+  text without valence shifters. In this example you will see
+  amplification and negation words in action.
+
+- Recall that an amplifying word adds 0.8 to a positive word in
+  polarity() so the positive score becomes 1.8. For negative words 0.8
+  is subtracted so the total becomes -1.8. Then the score is divided
+  by the square root of the total number of words.
+
+- Consider the following example from Frank Sinatra:
+  #+begin_example R
+    "It was a very good year"
+  #+end_example
+  "Good" equals 1 and "very" adds another 0.8. So, 1.8/sqrt(6) results
+  in 0.73 polarity.
+
+- A negating word such as "not" will inverse the subjectivity
+  score. Consider the following example from Bobby McFerrin:
+  #+begin_src R
+    "Don't worry Be Happy"  
+  #+end_src
+  "worry is now 1 due to the negation "don't." Adding the "happy", +1,
+  equals 2. With 4 total words, 2 / sqrt(4) equals a polarity score
+  of 1.
+
+  Exercise:  
+  1) Load the ~conversation~ data frame and display its structure:
+     #+begin_src R
+       conversation <- data.frame( "student"=c("Martijn","Nick","Nicole"),
+         "text"=c("This restaurant is never bad", "The lunch was very good",
+         "It was awful I got food poisoning and was extremely ill"))
+       str(conversation)
+     #+end_src
+
+  2) Examine the ~conversation~ data frame by printing it.
+     #+begin_src R
+
+     #+end_src
+
+  3) What context cluster category is "never"?
+     #+begin_quote
+     Answer: ...
+     #+end_quote
+
+  4) Apply ~polarity()~ to the text column of conversation to calculate
+     the polarity for the entire conversation:
+     #+begin_src R
+
+     #+end_src
+
+  5) Calculate the polarity scores for the ~text~ by ~student~ using the
+     ~grouping.var~ argument, and assign the result to ~student_pol~:
+     #+begin_src R
+       
+     #+end_src
+
+  8) To see the ~student~ level results, use ~scores()~ on ~student_pol~:
+     #+begin_src R
+
+     #+end_src
+
+  9) The ~counts()~ function applied to ~student_pol~ will print the
+     sentence level polarity for the entire data frame along with
+     lexicon words identified:
+     #+begin_src R
+
+     #+end_src
+
+  10) The polarity object, ~student_pol~, can be plotted with ~plot()~:
+      #+begin_src R :results graphics file :file ../img/student_pol.png
+
+      #+end_src
+  
+* Exercise: examine and adjust the lexicon
+
+- [[https://campus.datacamp.com/courses/sentiment-analysis-in-r/fast-dirty-polarity-scoring?ex=11][[ADD LOL, THIS SONG IS WICKED GOOD]​]]
+- [[https://campus.datacamp.com/courses/sentiment-analysis-in-r/fast-dirty-polarity-scoring?ex=12][[ADD STRESSED OUT]​]]
+
+* References
+
+- Plutchik, Robert: The Nature of Emotions: Human emotions have deep
+  evolutionary roots, a fact that may explain their complexity and
+  provide tools for clinical practice. In: American Scientist,
+  Vol. 89, No. 4 (JULY-AUGUST 2001), pp. 344-350. URL: [[https://ui.adsabs.harvard.edu/abs/2001AmSci..89..344P/abstract][harvard.edu]].
+
+* Footnotes
+[fn:2]Another popular (with 8,000 terms a little larger) lexicon is
+the [[https://mpqa.cs.pitt.edu/][MPQA lexicon from the University of Pittsburgh]].  
+
+[fn:1]I don't find this argument compelling. It seems to me that there
+are many more factors present when humans communicate - efficiency of
+expression being only one of them. Rather, this could be an artefact
+of digital communication - and hence potentially another example where
+we mistake relationships between humans mediated by machines for true
+relationships.

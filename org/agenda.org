@@ -750,11 +750,15 @@ Thu:
 2. How to improve word clouds with different ~colors~
 3. How to use prebuilt color palettes like ~viridisLite~
    
-* TODO Week 12: Word clustering and dendograms
+* TODO Week 12: Word dendograms & polarity scoring
+#+attr_latex: :width 400px
+#+caption: Polarity scoring of a conversation
+[[../img/10_conversation.png]]
 
 - Useful: feed [[https://lyon.instructure.com/calendar][Canvas calendar]] to your Google calendar ([[https://community.canvaslms.com/t5/Student-Guide/How-do-I-subscribe-to-the-Calendar-feed-using-Google-Calendar-as/ta-p/535][instructions]])
 - Look at [[https://elanmarkowitz.github.io/USC-CS662/][this advanced NLP course]] (USC) - you recognize our topics!
 
+** Review: Dendrograms and N-gram tokenization
 ** What did you learn this week?
 
 Tue:
