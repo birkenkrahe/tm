@@ -123,10 +123,10 @@
   the word found - this means that removing stopwords affects the
   score.
 
-- The evaluation of the sentence yields: 
+- The evaluation of the sentence yields:
   #+attr_latex: :width 400px
   #+caption: context cluster example
-  [[../img/10_context_cluster1.png]]  
+  [[../img/10_context_cluster1.png]]
 
 - The cluster words are classified according to different categories:
   #+attr_latex: :width 400px
@@ -149,20 +149,20 @@
 
   #+RESULTS:
   #+begin_example
-   [1] "augment"                   "bind_tf_idf"              
-   [3] "cast_dfm"                  "cast_dtm"                 
-   [5] "cast_sparse"               "cast_tdm"                 
-   [7] "get_sentiments"            "get_stopwords"            
-   [9] "glance"                    "nma_words"                
-  [11] "parts_of_speech"           "reorder_func"             
-  [13] "reorder_within"            "scale_x_reordered"        
-  [15] "scale_y_reordered"         "sentiments"               
-  [17] "stop_words"                "tidy"                     
-  [19] "unnest_character_shingles" "unnest_characters"        
-  [21] "unnest_lines"              "unnest_ngrams"            
-  [23] "unnest_paragraphs"         "unnest_ptb"               
-  [25] "unnest_regex"              "unnest_sentences"         
-  [27] "unnest_skip_ngrams"        "unnest_tokens"            
+   [1] "augment"                   "bind_tf_idf"
+   [3] "cast_dfm"                  "cast_dtm"
+   [5] "cast_sparse"               "cast_tdm"
+   [7] "get_sentiments"            "get_stopwords"
+   [9] "glance"                    "nma_words"
+  [11] "parts_of_speech"           "reorder_func"
+  [13] "reorder_within"            "scale_x_reordered"
+  [15] "scale_y_reordered"         "sentiments"
+  [17] "stop_words"                "tidy"
+  [19] "unnest_character_shingles" "unnest_characters"
+  [21] "unnest_lines"              "unnest_ngrams"
+  [23] "unnest_paragraphs"         "unnest_ptb"
+  [25] "unnest_regex"              "unnest_sentences"
+  [27] "unnest_skip_ngrams"        "unnest_tokens"
   [29] "unnest_tweets"
   #+end_example
 
@@ -187,24 +187,24 @@
    $ sentiment: chr [1:13872] "trust" "fear" "negative" "sadness" ...
   # A tibble: 6 × 2
     word      sentiment
-    <chr>     <chr>    
-  1 abacus    trust    
-  2 abandon   fear     
-  3 abandon   negative 
-  4 abandon   sadness  
-  5 abandoned anger    
+    <chr>     <chr>
+  1 abacus    trust
+  2 abandon   fear
+  3 abandon   negative
+  4 abandon   sadness
+  5 abandoned anger
   6 abandoned fear
   # A tibble: 6 × 2
-    word    sentiment   
-    <chr>   <chr>       
-  1 zealous trust       
+    word    sentiment
+    <chr>   <chr>
+  1 zealous trust
   2 zest    anticipation
-  3 zest    joy         
-  4 zest    positive    
-  5 zest    trust       
+  3 zest    joy
+  4 zest    positive
+  5 zest    trust
   6 zip     negative
   #+end_example
-  
+
 * Scoring in ~qdap::polarity~
 #+attr_latex: :width 400px
 #+caption: qdap's polarity function equals 0.68 on this sentence
@@ -236,11 +236,11 @@
   #+end_src
 
   #+RESULTS:
-  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
-  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
-  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
-  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
-  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol,
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words,
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words,
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4,
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...)
   : NULL
 
 * Visualize polarity
@@ -296,7 +296,7 @@
   6                           Students are passionate and are excited to learn
   7 Other data science curriculum is hard to learn and difficult to understand
   8                                              I think the food here is good
-  'data.frame':	8 obs. of  2 variables:
+  'data.frame': 8 obs. of  2 variables:
    $ person: chr  "Nick" "Jonathan" "Martijn" "Nicole" ...
    $ text  : chr  "DataCamp courses are the best" "I like talking to students" "Other online data science curricula are boring" "What is for lunch" ...
   #+end_example
@@ -308,11 +308,11 @@
   #+end_src
 
   #+RESULTS:
-  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
-  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
-  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
-  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
-  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol,
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words,
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words,
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4,
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...)
   : NULL
 
 - Compute polarity on the ~text~:
@@ -354,7 +354,7 @@
   : 6 Jonathan  8    0.707 passionate, excited               -                           Students are passionate and are excited to learn
   : 7  Martijn 12   -0.577                   - hard, difficult Other data science curriculum is hard to learn and difficult to understand
   : 8   Nicole  7    0.378                good               -                                              I think the food here is good
-    
+
 - Plot the ~datacamp_conversation~ with ~plot~ (which has a suitable
   method for polarity output already):
   #+begin_src R :results graphics file :file ../img/dc_conversation.png
@@ -381,7 +381,7 @@
     str(datacamp_conversation)
   #+end_src
 
-- Extract the positive and negative words, the text, and the people:  
+- Extract the positive and negative words, the text, and the people:
   #+begin_src R
     unlist(datacamp_conversation$all[["pos.words"]])
     unlist(datacamp_conversation$all[["neg.words"]])
@@ -391,22 +391,22 @@
 
   #+RESULTS:
   #+begin_example
-  [1] "best"       "like"       "-"          "-"          "great"     
+  [1] "best"       "like"       "-"          "-"          "great"
   [6] "passionate" "excited"    "-"          "good"
-  [1] "-"         "-"         "boring"    "-"         "-"         "-"        
+  [1] "-"         "-"         "boring"    "-"         "-"         "-"
   [7] "hard"      "difficult" "-"
-  [1] "DataCamp courses are the best"                                             
-  [2] "I like talking to students"                                                
-  [3] "Other online data science curricula are boring"                            
-  [4] "What is for lunch"                                                         
-  [5] "DataCamp has lots of great content"                                        
-  [6] "Students are passionate and are excited to learn"                          
+  [1] "DataCamp courses are the best"
+  [2] "I like talking to students"
+  [3] "Other online data science curricula are boring"
+  [4] "What is for lunch"
+  [5] "DataCamp has lots of great content"
+  [6] "Students are passionate and are excited to learn"
   [7] "Other data science curriculum is hard to learn and difficult to understand"
   [8] "I think the food here is good"
-  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn" 
+  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn"
   [8] "Nicole"
   #+end_example
-  
+
 * Adding terms to the subjectivity lexicon
 
 - The polarity scoring is highly sensitive to the lexicon used. If we
@@ -415,7 +415,7 @@
 
 - Here, we're doing that to show the impact of a few words missing on
   the polarity scoring with ~polarity~.
-  
+
 - To add new terms, define a vector ~new.pos~:
   #+begin_src R
     new.pos <- c('rofl', 'lol')
@@ -431,18 +431,79 @@
   #+end_src
 
   #+RESULTS:
-  : Classes 'qdap_hash', 'data.table' and 'data.frame':	6779 obs. of  2 variables:
+  : Classes 'qdap_hash', 'data.table' and 'data.frame': 6779 obs. of  2 variables:
   :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
   :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr> 
+  :  - attr(*, ".internal.selfref")=<externalptr>
   :  - attr(*, "sorted")= chr "x"
   :  - attr(*, "mode")=function (x, ...)
+
+- How can you get the list of all dictionaries in ~qdap~? You can see
+  all ~qdap~ packages in the ~search()~ vector:
+  #+begin_src R
+    search()[grep('qdap*',search())]
+  #+end_src
+
+  #+RESULTS:
+  : [1] "package:qdap"             "package:qdapTools"
+  : [3] "package:qdapRegex"        "package:qdapDictionaries"
+
+- Now use ~data~ to list the dictionaries in ~qdapDictionaries~:
+  #+begin_src R
+    data(package='qdapDictionaries')
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  Data sets in package 'qdapDictionaries':
+
+  BuckleySaltonSWL        Buckley & Salton Stopword List
+  DICTIONARY              Nettalk Corpus Syllable Data Set
+  Dolch                   Dolch List of 220 Common Words
+  Fry_1000                Fry's 1000 Most Commonly Used English Words
+  GradyAugmented          Augmented List of Grady Ward's English Words
+                          and Mark Kantrowitz's Names List
+  Leveled_Dolch           Leveled Dolch List of 220 Common Words
+  NAMES                   First Names and Gender (U.S.)
+  NAMES_LIST              First Names and Predictive Gender (U.S.) List
+  NAMES_SEX               First Names and Predictive Gender (U.S.)
+  OnixTxtRetToolkitSWL1   Onix Text Retrieval Toolkit Stopword List 1
+  Top100Words             Fry's 100 Most Commonly Used English Words
+  Top200Words             Fry's 200 Most Commonly Used English Words
+  Top25Words              Fry's 25 Most Commonly Used English Words
+  abbreviations           Small Abbreviations Data Set
+  action.verbs            Action Word List
+  adverb                  Adverb Word List
+  amplification.words     Amplifying Words
+  contractions            Contraction Conversions
+  deamplification.words   De-amplifying Words
+  discourse.markers.alemany
+                          Alemany's Discourse Markers
+  emoticon                Emoticons Data Set
+  function.words          Function Words
+  interjections           Interjections
+  key.pol                 Polarity Lookup Key
+  key.power               Power Lookup Key
+  key.strength            Strength Lookup Key
+  key.syl                 Syllable Lookup Key
+  key.syn                 Synonym Lookup Key
+  labMT                   Language Assessment by Mechanical Turk (labMT)
+                          Sentiment Words
+  negation.words          Negating Words
+  negative.words          Negative Words
+  positive.words          Positive Words
+  power.words             Words that Indicate Power
+  preposition             Preposition Words
+  strong.words            Words that Indicate Strength
+  submit.words            Words that Indicate Submission
+  weak.words              Words that Indicate Weakness
+  #+end_example
 
 - Put terms 'rofl' and 'lol' into a vector ~new.pos~:
   #+begin_src R :results silent
     c('rofl', 'lol') -> new.pos  # new positive terms
   #+end_src
-  
+
 - Use the ~subset(x,pattern)~ function to retain only the original
   ~key.pol~ terms that have polarity 1 and store them in ~old.pos~:
   #+begin_src R
@@ -451,7 +512,7 @@
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':	2003 obs. of  2 variables:
+  : 'data.frame':       2003 obs. of  2 variables:
   :  $ x: chr  "a plus" "abound" "abounds" "abundance" ...
   :  $ y: num  1 1 1 1 1 1 1 1 1 1 ...
 
@@ -476,7 +537,7 @@
   #+end_src
 
   #+RESULTS:
-  : function (positives, negatives, pos.weights = 1, neg.weights = -1) 
+  : function (positives, negatives, pos.weights = 1, neg.weights = -1)
   : NULL
 
 - We need to create a new sentiment data frame ~all.polarity~ replacing
@@ -487,16 +548,16 @@
   #+end_src
 
   #+RESULTS:
-  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':	6783 obs. of  2 variables:
+  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':  6783 obs. of  2 variables:
   :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
   :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr> 
+  :  - attr(*, ".internal.selfref")=<externalptr>
   :  - attr(*, "sorted")= chr "x"
   :  - attr(*, "mode")=function (x, ...)
 
 - You can see that there are four more words included:
   #+begin_src R
-  c('rofl','lol','meh','kappa') %in% all.polarity$x
+    c('rofl','lol','meh','kappa') %in% all.polarity$x
   #+end_src
 
   #+RESULTS:
@@ -509,7 +570,7 @@
     foo <- 'ROFL, look at that!'
     bar <- 'Whatever you say - Kappa.'
   #+end_src
-   
+
 - Applying ~polarity~ returns the polarity scores:
   #+begin_src R
     polarity(foo, polarity.frame=all.polarity)
@@ -547,7 +608,7 @@
 
 - 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
   lexicon, Kappa is not found and considered neutral.
-  
+
 * Why do subjectivity lexicons work at all?
 #+attr_latex: :width 400px
 #+caption: Sentiments by Viktoriia Vidal (Flickr.com)
@@ -625,7 +686,7 @@
     ## Examine sb_words
     head(sb_words)
     str(sb_words) # three columns: word, freq and rank
-  #+end_src  
+  #+end_src
 
   #+RESULTS:
   #+begin_example
@@ -636,7 +697,7 @@
   4   to  588803    4
   5    a  428598    5
   6  for  388390    6
-  'data.frame':	159 obs. of  3 variables:
+  'data.frame': 159 obs. of  3 variables:
    $ word: chr  "sb" "rt" "the" "to" ...
    $ freq: int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
    $ rank: int  1 2 3 4 5 6 7 8 9 10 ...
@@ -650,7 +711,7 @@
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':	159 obs. of  4 variables:
+  : 'data.frame':       159 obs. of  4 variables:
   :  $ word        : chr  "sb" "rt" "the" "to" ...
   :  $ freq        : int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
   :  $ rank        : int  1 2 3 4 5 6 7 8 9 10 ...
@@ -700,7 +761,7 @@
   #+attr_latex: :width 400px
   [[../img/sb_plot_js.png]]
 
-* Exercise: ~polarity~ scoring
+* Exercise: manual ~polarity~ scoring
 
 - ~polarity~ scans the text to identify words in the lexicon. It then
   creates a /cluster/ around an identified /subjectivity word/. Within the
@@ -721,7 +782,7 @@
    called ~pos_score~, then print it:
    #+begin_src R
      positive <- "DataCamp courses are good for learning"
-     # Calculate polarity of statement
+                                             # Calculate polarity of statement
 
    #+end_src
 
@@ -768,7 +829,7 @@
 
       #+RESULTS:
 
-* Exercise: ~qdap~'s lexicon
+* Exercise: apply valence shifters
 
 - Of course just positive and negative words aren't enough. In this
   exercise you will learn about valence shifters which tell you about
@@ -777,7 +838,7 @@
   amplification and negation words in action.
 
 - Recall that an amplifying word adds 0.8 to a positive word in
-  polarity() so the positive score becomes 1.8. For negative words 0.8
+  ~polarity()~ so the positive score becomes 1.8. For negative words 0.8
   is subtracted so the total becomes -1.8. Then the score is divided
   by the square root of the total number of words.
 
@@ -791,65 +852,189 @@
 - A negating word such as "not" will inverse the subjectivity
   score. Consider the following example from Bobby McFerrin:
   #+begin_src R
-    "Don't worry Be Happy"  
+    "Don't worry Be Happy"
   #+end_src
   "worry is now 1 due to the negation "don't." Adding the "happy", +1,
   equals 2. With 4 total words, 2 / sqrt(4) equals a polarity score
   of 1.
 
-  Exercise:  
-  1) Load the ~conversation~ data frame and display its structure:
-     #+begin_src R
-       conversation <- data.frame( "student"=c("Martijn","Nick","Nicole"),
-         "text"=c("This restaurant is never bad", "The lunch was very good",
-         "It was awful I got food poisoning and was extremely ill"))
-       str(conversation)
-     #+end_src
+-----
+1) Load the ~conversation~ data frame and display its structure:
+   #+begin_src R
+     conversation <- data.frame( "student"=c("Martijn","Nick","Nicole"),
+                                "text"=c("This restaurant is never bad", "The lunch was very good",
+                                         "It was awful I got food poisoning and was extremely ill"))
+     str(conversation)
+   #+end_src
 
-  2) Examine the ~conversation~ data frame by printing it.
-     #+begin_src R
+2) Examine the ~conversation~ data frame by printing it.
+   #+begin_src R
 
-     #+end_src
+   #+end_src
 
-  3) What context cluster category is "never"?
-     #+begin_quote
-     Answer: ...
-     #+end_quote
+3) What context cluster category is "never"?
+   #+begin_quote
+   Answer: ...
+   #+end_quote
 
-  4) Apply ~polarity()~ to the text column of conversation to calculate
-     the polarity for the entire conversation:
-     #+begin_src R
+4) Apply ~polarity()~ to the text column of conversation to calculate
+   the polarity for the entire conversation:
+   #+begin_src R
 
-     #+end_src
+   #+end_src
 
-  5) Calculate the polarity scores for the ~text~ by ~student~ using the
-     ~grouping.var~ argument, and assign the result to ~student_pol~:
-     #+begin_src R
-       
-     #+end_src
+5) Calculate the polarity scores for the ~text~ by ~student~ using the
+   ~grouping.var~ argument, and assign the result to ~student_pol~:
+   #+begin_src R
 
-  8) To see the ~student~ level results, use ~scores()~ on ~student_pol~:
-     #+begin_src R
+   #+end_src
 
-     #+end_src
+8) To see the ~student~ level results, use ~scores()~ on ~student_pol~:
+   #+begin_src R
 
-  9) The ~counts()~ function applied to ~student_pol~ will print the
-     sentence level polarity for the entire data frame along with
-     lexicon words identified:
-     #+begin_src R
+   #+end_src
 
-     #+end_src
+9) The ~counts()~ function applied to ~student_pol~ will print the
+   sentence level polarity for the entire data frame along with
+   lexicon words identified:
+   #+begin_src R
 
-  10) The polarity object, ~student_pol~, can be plotted with ~plot()~:
-      #+begin_src R :results graphics file :file ../img/student_pol.png
+   #+end_src
 
-      #+end_src
-  
-* Exercise: examine and adjust the lexicon
+10) The polarity object, ~student_pol~, can be plotted with ~plot()~:
+    #+begin_src R :results graphics file :file ../img/student_pol.png
 
-- [[https://campus.datacamp.com/courses/sentiment-analysis-in-r/fast-dirty-polarity-scoring?ex=11][[ADD LOL, THIS SONG IS WICKED GOOD]​]]
-- [[https://campus.datacamp.com/courses/sentiment-analysis-in-r/fast-dirty-polarity-scoring?ex=12][[ADD STRESSED OUT]​]]
+    #+end_src
 
+* Exercise: examine and use ~qdap~'s lexicon
+
+- Even with Zipf's law in action, you will still need to adjust
+  lexicons to fit the text source (for example twitter versus legal
+  documents) or the author's demographics (teenager versus the
+  elderly). This exercise demonstrates the explicit components of
+  ~polarity()~ so you can change it if needed.
+
+- In Trey Songz "Lol :)" song there is a lyric "LOL smiley face, LOL
+  smiley face." In the basic ~polarity()~ function, "LOL" is not defined
+  as positive. However, "LOL" stands for "Laugh Out Loud" and should
+  be positive. As a result, you should adjust the lexicon to fit the
+  text's context which includes pop-culture slang. If your analysis
+  contains text from a specific channel (Twitter's "LOL"), location
+  (Boston's "Wicked Good"), or age group (teenagers' "sick") you will
+  likely have to adjust the lexicon.
+
+- In the first exercise, you are examining the existing word data
+  frame objects so you can change them in the following exercise.
+
+-----
+
+1) As a sample text, here are two excerpts from Beyoncé's "Crazy in
+   Love" lyrics for the exercise - run the code and print the data
+   frame's structure:
+   #+begin_src R
+     text <- data.frame(
+       "speaker"=c("beyonce","jay_z"),
+       "words"=c("I know I dont understand Just how your love can do what no one else can",
+                 "They cant figure him out they like hey, is he insane"))
+
+   #+end_src
+
+2) Print ~qdapDictionaries::key.pol~ to see a portion of the subjectivity
+   words and values:
+   #+begin_src R
+
+   #+end_src
+   
+3) Examine the predefined ~negation.words~ to print all the negating terms:
+   #+begin_src R
+
+   #+end_src
+
+4) Print the amplifiers in ~amplification.words~ to see the words that
+   add values to the lexicon:
+   #+begin_src R
+
+   #+end_src
+
+5) Check the ~deamplification.words~ that reduce the lexicon values:
+   #+begin_src R
+
+   #+end_src
+
+6) Now, calculate the ~polarity~ of ~text~ as follows and save it in ~text_pol~:
+   1. Set ~text.var~ to ~text$words~.
+   2. Set ~grouping.var~ to ~text$speaker~.
+   3. Set ~polarity.frame~ to ~key.pol~.
+   4. Set ~negators~ to ~negation.words~.
+   5. Set ~amplifiers~ to ~amplification.words~.
+   6. Set ~deamplifiers to deamplification.words~.
+   #+begin_src R
+
+   #+end_src
+
+7) Print the positive and negative words alongside the ~text~ with the
+   ~all~ element of ~text_pol~:
+   #+begin_src R
+
+   #+end_src
+
+8) Why is the polarity of Beyonce's lyrics 0.25, and why is the
+   polarity of Jay Z's lyrics 0?
+   #+begin_quote
+   Answer:
+   #+end_quote
+
+* TODO Exercise: amplification and negation words
+
+- Here you will adjust the negative words to account for the specific
+  text. You will then compare the basic and custom ~polarity()~ scores.
+
+- A popular song from Twenty One Pilots is called [[https://youtu.be/pXRviuL6vMY]["Stressed Out"]]
+  (2015). If you scan the song lyrics, you will observe the song is
+  about youthful nostalgia. Overall, most people would say the
+  polarity is negative. Repeatedly the lyrics mention stress, fears
+  and pretending.
+
+- Let's compare the song lyrics using the default subjectivity lexicon
+  and also a custom one.
+
+- To start, you need to verify the key.pol subjectivity lexicon does
+  not already have the term you want to add. One way to check is with
+  ~grep()~. The ~grep()~ function returns the row containing characters
+  that match a search pattern. Here is an example used while indexing:
+  #+begin_example R
+
+  #+end_example
+data_frame[grep("search_pattern", data_frame$column), ]
+
+- After verifying the slang or new word is not already in the key.pol
+  lexicon you need to add it.
+
+-----
+
+1) Add [[https://www.google.com/search?q=twenty+one+pilots+stressed+out+lyrics][the lyrics]] as a string from the file ~stressed_out.txt~
+   #+begin_src R
+     stressed_out <- readLines("https://bit.ly/stressed_out")
+     nchar(stressed_out)
+   #+end_src
+
+   #+RESULTS:
+   : [1] 2652
+
+The code below uses sentiment_frame() to
+  construct the new lexicon. Within the code sentiment_frame() accepts
+  the original positive word vector, positive.words. Next, the
+  original negative.words are concatenated to "smh" and "kappa", both
+  considered negative slang. Although you can declare the positive and
+  negative weights, the default is 1 and -1 so they are not included
+  below.
+
+custom_pol <- sentiment_frame(positive.words, c(negative.words, "hate", "pain"))
+Now you are ready to apply polarity and it will reference the custom subjectivity lexicon!
+
+* TODO Summary
+* TODO Glossary of concepts
+* TODO Glossary of code
 * References
 
 - Plutchik, Robert: The Nature of Emotions: Human emotions have deep
@@ -859,7 +1044,7 @@
 
 * Footnotes
 [fn:2]Another popular (with 8,000 terms a little larger) lexicon is
-the [[https://mpqa.cs.pitt.edu/][MPQA lexicon from the University of Pittsburgh]].  
+the [[https://mpqa.cs.pitt.edu/][MPQA lexicon from the University of Pittsburgh]].
 
 [fn:1]I don't find this argument compelling. It seems to me that there
 are many more factors present when humans communicate - efficiency of
