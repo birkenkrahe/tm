@@ -785,7 +785,11 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
 
 *TUTORIAL:*  
 - [[https://ladal.edu.au/sentiment.html#Introduction][Tutorial for Sentiment Analysis in R using "Tidyverse" functions]]
-  
+
+*Exercises:*
+- Download the raw file ~10_polarity_exercises.org~ from GitHub
+- Open the file in Emacs, complete and submit it for points in Canvas
+
 * TODO Week 14: Visualizing sentiment
 ** Review: Dendrograms and N-gram tokenization
 
