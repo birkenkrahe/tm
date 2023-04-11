@@ -29,7 +29,7 @@
 
 - Arguments of the ~polarity~ function:
   #+begin_src R
-    args(polarity)
+
   #+end_src
 
 * Visualize polarity
@@ -81,195 +81,82 @@
 
   #+end_src
 
-
 * Components of ~polarity~
 
 - Look at the structure of ~datacamp_conversation~:
   #+begin_src R
-    str(datacamp_conversation)
+
   #+end_src
 
 - Extract the positive and negative words, the text, and the people:
+  type each of the answers and run it before typing the next one!
   #+begin_src R
-    unlist(datacamp_conversation$all[["pos.words"]])
-    unlist(datacamp_conversation$all[["neg.words"]])
-    unlist(datacamp_conversation$all[["text.var"]])
-    unlist(datacamp_conversation$all[["person"]])
-  #+end_src
 
-  #+RESULTS:
-  #+begin_example
-  [1] "best"       "like"       "-"          "-"          "great"
-  [6] "passionate" "excited"    "-"          "good"
-  [1] "-"         "-"         "boring"    "-"         "-"         "-"
-  [7] "hard"      "difficult" "-"
-  [1] "DataCamp courses are the best"
-  [2] "I like talking to students"
-  [3] "Other online data science curricula are boring"
-  [4] "What is for lunch"
-  [5] "DataCamp has lots of great content"
-  [6] "Students are passionate and are excited to learn"
-  [7] "Other data science curriculum is hard to learn and difficult to understand"
-  [8] "I think the food here is good"
-  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn"
-  [8] "Nicole"
-  #+end_example
+  #+end_src
 
 * Adding terms to the subjectivity lexicon
 
-- The polarity scoring is highly sensitive to the lexicon used. If we
-  already know that our subjects (people who talk or write) are using
-  special words not in the lexicon, then we need to add them.
-
-- Here, we're doing that to show the impact of a few words missing on
-  the polarity scoring with ~polarity~.
-
 - To add new terms, define a vector ~new.pos~:
-  #+begin_src R
-    new.pos <- c('rofl', 'lol')
-  #+end_src
+  #+begin_src R :results silent
 
-  #+RESULTS:
+  #+end_src
 
 - Load ~qdap~. Its basic subjectivity lexicon is held in a list
   ~key.pol~ - it contains 6779 terms ~x~ and their polarity labels ~y~.
   #+begin_src R
-    library(qdap)
-    str(key.pol)
-  #+end_src
 
-  #+RESULTS:
-  : Classes 'qdap_hash', 'data.table' and 'data.frame': 6779 obs. of  2 variables:
-  :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
-  :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr>
-  :  - attr(*, "sorted")= chr "x"
-  :  - attr(*, "mode")=function (x, ...)
+  #+end_src
 
 - How can you get the list of all dictionaries in ~qdap~? You can see
   all ~qdap~ packages in the ~search()~ vector:
   #+begin_src R
-    search()[grep('qdap*',search())]
-  #+end_src
 
-  #+RESULTS:
-  : [1] "package:qdap"             "package:qdapTools"
-  : [3] "package:qdapRegex"        "package:qdapDictionaries"
+  #+end_src
 
 - Now use ~data~ to list the dictionaries in ~qdapDictionaries~:
   #+begin_src R
-    data(package='qdapDictionaries')
+
   #+end_src
-
-  #+RESULTS:
-  #+begin_example
-  Data sets in package 'qdapDictionaries':
-
-  BuckleySaltonSWL        Buckley & Salton Stopword List
-  DICTIONARY              Nettalk Corpus Syllable Data Set
-  Dolch                   Dolch List of 220 Common Words
-  Fry_1000                Fry's 1000 Most Commonly Used English Words
-  GradyAugmented          Augmented List of Grady Ward's English Words
-                          and Mark Kantrowitz's Names List
-  Leveled_Dolch           Leveled Dolch List of 220 Common Words
-  NAMES                   First Names and Gender (U.S.)
-  NAMES_LIST              First Names and Predictive Gender (U.S.) List
-  NAMES_SEX               First Names and Predictive Gender (U.S.)
-  OnixTxtRetToolkitSWL1   Onix Text Retrieval Toolkit Stopword List 1
-  Top100Words             Fry's 100 Most Commonly Used English Words
-  Top200Words             Fry's 200 Most Commonly Used English Words
-  Top25Words              Fry's 25 Most Commonly Used English Words
-  abbreviations           Small Abbreviations Data Set
-  action.verbs            Action Word List
-  adverb                  Adverb Word List
-  amplification.words     Amplifying Words
-  contractions            Contraction Conversions
-  deamplification.words   De-amplifying Words
-  discourse.markers.alemany
-                          Alemany's Discourse Markers
-  emoticon                Emoticons Data Set
-  function.words          Function Words
-  interjections           Interjections
-  key.pol                 Polarity Lookup Key
-  key.power               Power Lookup Key
-  key.strength            Strength Lookup Key
-  key.syl                 Syllable Lookup Key
-  key.syn                 Synonym Lookup Key
-  labMT                   Language Assessment by Mechanical Turk (labMT)
-                          Sentiment Words
-  negation.words          Negating Words
-  negative.words          Negative Words
-  positive.words          Positive Words
-  power.words             Words that Indicate Power
-  preposition             Preposition Words
-  strong.words            Words that Indicate Strength
-  submit.words            Words that Indicate Submission
-  weak.words              Words that Indicate Weakness
-  #+end_example
 
 - Put terms 'rofl' and 'lol' into a vector ~new.pos~:
   #+begin_src R :results silent
-    c('rofl', 'lol') -> new.pos  # new positive terms
+    ## new positive terms 
   #+end_src
 
 - Use the ~subset(x,pattern)~ function to retain only the original
   ~key.pol~ terms that have polarity 1 and store them in ~old.pos~:
   #+begin_src R
-    subset(as.data.frame(key.pol), key.pol$y==1) -> old.pos
-    str(old.pos)
-  #+end_src
 
-  #+RESULTS:
-  : 'data.frame':       2003 obs. of  2 variables:
-  :  $ x: chr  "a plus" "abound" "abounds" "abundance" ...
-  :  $ y: num  1 1 1 1 1 1 1 1 1 1 ...
+  #+end_src
 
 - Add ~new.pos~ to ~old.pos~ and create ~all.pos~:
   #+begin_src R :results silent
-    all.pos <- c(new.pos, old.pos[,1]) # only the terms, not the scores
+
   #+end_src
 
 - Proceed accordingly with the negative portion of the subjectivity
   lexicon. For example to include the terms 'kappa' (used among gamers
   to express sarcasm) and 'meh' (unenthusiastic):
   #+begin_src R :results silent
-    new.neg <- c('kappa','meh')
-    old.neg <- subset(as.data.frame(key.pol),key.pol$y==-1)
-    all.neg <- c(new.neg,old.neg[,1])
+
   #+end_src
 
 - To compute polarity score, ~polarity~ uses a sentiment lookup table as
   a function of vectors of ~positives~ and ~negatives~ and their weights:
   #+begin_src R
-    args(sentiment_frame)
-  #+end_src
 
-  #+RESULTS:
-  : function (positives, negatives, pos.weights = 1, neg.weights = -1)
-  : NULL
+  #+end_src
 
 - We need to create a new sentiment data frame ~all.polarity~ replacing
   ~key.pol~ using ~sentiment_frame~:
   #+begin_src R
-    all.polarity <- sentiment_frame(all.pos,all.neg,1,-1)
-    str(all.polarity)
+
   #+end_src
-
-  #+RESULTS:
-  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':  6783 obs. of  2 variables:
-  :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
-  :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr>
-  :  - attr(*, "sorted")= chr "x"
-  :  - attr(*, "mode")=function (x, ...)
-
+  
 - You can see that there are four more words included:
   #+begin_src R
-    c('rofl','lol','meh','kappa') %in% all.polarity$x
-  #+end_src
 
-  #+RESULTS:
-  : [1] TRUE TRUE TRUE TRUE
+  #+end_src
 
 * Using the extended subjectivity lexicon
 
@@ -281,171 +168,51 @@
 
 - Applying ~polarity~ returns the polarity scores:
   #+begin_src R
-    polarity(foo, polarity.frame=all.polarity)
+
   #+end_src
-
-  #+RESULTS:
-  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
-  : 1 all               1           4          0.5          NA                 NA
-
-- There is no grouping variable (~all~), one sentence only with 4 words
-  (hence no stats), and the polarity is 0.5 = 1/sqrt(4) because 'ROFL'
-  counts as 1.
 
 - When computing the polarity with the standard lexicon, polarity is
-  zero or neutral, because 'ROFL' was not found in the lexicon:x
+  zero or neutral, because 'ROFL' was not found in the lexicon:
   #+begin_src R
-    polarity(foo)
-  #+end_src
 
-  #+RESULTS:
-  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
-  : 1 all               1           4            0          NA                 NA
+  #+end_src
 
 - Applying ~polarity~ and ~all.polarity~ to the second sentence:
   #+begin_src R
-    polarity(bar,polarity.frame=all.polarity)
-    polarity(bar)
+
   #+end_src
 
-  #+RESULTS:
-  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
-  : 1 all               1           4         -0.5          NA                 NA
-  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
-  : 1 all               1           4            0          NA                 NA
-
-- 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
-  lexicon, Kappa is not found and considered neutral.
-
-* Why do subjectivity lexicons work at all?
-#+attr_latex: :width 400px
-#+caption: Sentiments by Viktoriia Vidal (Flickr.com)
-[[../img/10_sentiment.jpg]]
-
-- How can such a short list of only several thousand words deliver
-  somewhat accurate sentiment readings?
-
-- An average person has tens of thousands of words in their personal
-  vocabulary, and any list would miss many of these words.
-
-- The number of unique words varies by gender, age, and demography,
-  making a "hit" on one of only 6,800 words very unlikely.
-
-* Zipf's law and the principle of least effort
-#+attr_latex: :width 400px
-#+caption: Top 5 terms in word frequency matrix and top 50 from 2.5mio tweets
-[[../img/10_zipf.png]]
-
-- *[[https://en.wikipedia.org/wiki/Zipf's_law][Zipf's law]]* asserts that any word in a document is *inversely
-  proportional to its rank* when looking at term frequency.
-
-- The most frequent word will occur about twice as often as the 2nd
-  most frequent word, three times as often as the third, and so on.
-
-- Zipf's law outside of linguistics - city populations:
-  #+attr_latex: :width 400px
-  #+caption: Zipf's power law for city populations based on rank
-  [[../img/10_zipf_cities.png]]
-
-- One explanation of Zipf's law is the *principle of least effort*:
-  humans will choose the path of least resistance and minimize effort.
-
-- Once some minimum threshold of understanding has occurred, the
-  effort exerted in searching for meaning will decrease or cease.
-
-- While humans may know many words, they often use only a few thousand
-  distinct terms when communicating to minimize effort.[fn:1]
-
 * Observing Zipf's law for a big data set
-
-- To prove it, let's construct a visual from 3 million tweets
-  mentioning "#sb" (SuperBowl).
-
-- Keep in mind that the visual doesn't follow Zipf's law perfectly,
-  the tweets all mentioned the same hashtag so it is a bit
-  skewed.
-
-- The visual follows a steep decline showing a small lexical diversity
-  among the millions of tweets.
-
-- In this exercise, we use the package ~metricsgraphics~. The main
-  function of the package ~metricsgraphics~ is the ~mjs_plot()~ function
-  which is the first step in creating a JavaScript plot
-
-- An example ~metricsgraphics~ workflow is below:
-  #+begin_example R
-     ## make basic JavaScript plot for mouse-over action
-     metro_plot <- mjs_plot(data, x = x_axis_name,
-                                  y = y_axis_name,
-                                  show_rollover_text = FALSE)
-     ## add lines
-     metro_plot <- mjs_line(metro_plot)
-     metro_plot <- mjs_add_line(metro_plot,
-                                line_one_values)
-     ## add a legend
-     metro_plot <- mjs_add_legend(metro_plot,
-                                  legend = c('names', 'more_names'))
-     metro_plot
-  #+end_example
 
 - Getting the data and reviewing the top words:
   #+begin_src R
     sb_words=read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSr1GbdxxFhoZcAqH_pkr-E61NMiKnffJdAPlbfLv5FrfJkTgOeDq8KCv1-WolHMf0N0K-5nUcMH3Ta/pub?gid=842100586&single=true&output=csv")
-    ## Examine sb_words
-    head(sb_words)
-    str(sb_words) # three columns: word, freq and rank
-  #+end_src
+    ## Examine sb_words - use head() and str()
 
-  #+RESULTS:
-  #+begin_example
-    word    freq rank
-  1   sb 1984423    1
-  2   rt 1700564    2
-  3  the 1101899    3
-  4   to  588803    4
-  5    a  428598    5
-  6  for  388390    6
-  'data.frame': 159 obs. of  3 variables:
-   $ word: chr  "sb" "rt" "the" "to" ...
-   $ freq: int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
-   $ rank: int  1 2 3 4 5 6 7 8 9 10 ...
-  #+end_example
+  #+end_src
 
 - Create a new column expectations by dividing the largest word
   frequency, ~freq[1]~, by the ~rank~ column:
   #+begin_src R
-    sb_words$expectations <- sb_words$freq[1]/sb_words$rank
-    str(sb_words)
-  #+end_src
 
-  #+RESULTS:
-  : 'data.frame':       159 obs. of  4 variables:
-  :  $ word        : chr  "sb" "rt" "the" "to" ...
-  :  $ freq        : int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
-  :  $ rank        : int  1 2 3 4 5 6 7 8 9 10 ...
-  :  $ expectations: num  1984423 992212 661474 496106 396885 ...
+  #+end_src
 
 - Load ~metricsgraphics~ (must be installed). Start ~sb_plot~ using
   ~mjs_plot~, and pass in ~data=sb_words~ with ~x = rank~, ~y = freq~ and
   set ~show_rollover_text~ to ~FALSE~:
   #+begin_src R :results silent
-    library(metricsgraphics)
-    sb_plot <- mjs_plot(data=sb_words,
-                        x=rank,
-                        y=freq,
-                        show_rollover_text=FALSE)
+
   #+end_src
 
 - Add first line to ~sb_plot~:
   #+begin_src R :results silent
-    sb_plot <- mjs_line(sb_plot)
+
   #+end_src
 
 - Add 2nd line to ~sb_plot~ with ~mjs_add_line()~. Pass in the previous
   ~sb_plot~ object and the vector, ~expectations~:
   #+begin_src R :results silent
-    sb_plot <- mjs_add_line(sb_plot,
-                            expectations)
+
   #+end_src
 
 - Place a legend on a new ~sb_plot~ object using ~mjs_add_legend~:
@@ -453,353 +220,12 @@
   2) The legend ~labels~ should consist of "Frequency" and
      "Expectation":
   #+begin_src R :results silent
-    sb_plot <- mjs_add_legend(sb_plot,
-                              legend=c("Frequency","Expectation"))
+
   #+end_src
 
 - Call ~sb_plot~ to display the plot. Mouseover a point to
   simultaneously highlight a ~freq~ and Expectation point:
   #+begin_src R :results graphics :file ./img/sb_plot.png
-    sb_plot  # This will open an interactive plot in the browser
+      ## This will open an interactive plot in the browser
   #+end_src
 
-  #+RESULTS:
-
-- Screenshot:
-  #+attr_latex: :width 400px
-  [[../img/sb_plot_js.png]]
-
-* Exercise: manual ~polarity~ scoring
-
-- ~polarity~ scans the text to identify words in the lexicon. It then
-  creates a /cluster/ around an identified /subjectivity word/. Within the
-  cluster /valence shifters/ adjust the score.
-
-- Valence shifters are words that amplify or negate the emotional
-  intent of the subjectivity word. For example, "well known" is
-  positive while "not well known" is negative. Here "not" is a
-  negating term and reverses the emotional intent of "well known." In
-  contrast, "very well known" employs an /amplifier/ increasing the
-  positive intent.
-
-- The ~polarity~ function then calculates a score using subjectivity
-  terms, valence shifters and the total number of words in the
-  passage. This exercise demonstrates a simple polarity calculation.
-
-1) Calculate the ~polarity~ of the string ~positive~ in a new object
-   called ~pos_score~, then print it:
-   #+begin_src R
-     positive <- "DataCamp courses are good for learning"
-                                             # Calculate polarity of statement
-
-   #+end_src
-
-   #+RESULTS:
-
-2) Manually perform the same polarity calculation:
-
-   1. Get a word count object ~pos_counts~ by calling ~counts~ on the polarity
-      object ~pos_score~, then print it:
-      #+begin_src R
-
-      #+end_src
-
-      #+RESULTS:
-
-   2. All the identified subjectivity words are part of count object's
-      list. Specifically, positive words are in the ~$pos.words~ element
-      vector of ~pos_counts~. Print the structure of ~pos_counts~:
-      #+begin_src R
-
-      #+end_src
-
-      #+RESULTS:
-
-   3. Find the number of positive words by calling ~length~ on the first
-      member of the ~$pos_words~ element of ~pos_counts~ and store it in
-      ~n_good~:
-      #+begin_src R :results silent
-
-      #+end_src
-
-   4. Capture the total number of words and assign it to ~n_words~. This
-      value is stored in ~pos_count~ as the ~wc~ (word count) element:
-      #+begin_src R :results silent
-
-      #+end_src
-
-   5. De-construct the ~polarity~ calculation by dividing ~n_good~ by ~sqrt~
-      of ~n_words~ and save the result as ~pos_pol~. Compare ~pos_pol~ to
-      ~pos_score~ calculated with ~polarity~ earlier using ~identical~:
-      #+begin_src R
-
-      #+end_src
-
-      #+RESULTS:
-
-* Exercise: apply valence shifters
-
-- Of course just positive and negative words aren't enough. In this
-  exercise you will learn about valence shifters which tell you about
-  the author's emotional intent. Previously you applied ~polarity()~ to
-  text without valence shifters. In this example you will see
-  amplification and negation words in action.
-
-- Recall that an amplifying word adds 0.8 to a positive word in
-  ~polarity()~ so the positive score becomes 1.8. For negative words 0.8
-  is subtracted so the total becomes -1.8. Then the score is divided
-  by the square root of the total number of words.
-
-- Consider the following example from Frank Sinatra:
-  #+begin_example R
-    "It was a very good year"
-  #+end_example
-  "Good" equals 1 and "very" adds another 0.8. So, 1.8/sqrt(6) results
-  in 0.73 polarity.
-
-- A negating word such as "not" will inverse the subjectivity
-  score. Consider the following example from Bobby McFerrin:
-  #+begin_src R
-    "Don't worry Be Happy"
-  #+end_src
-  "worry is now 1 due to the negation "don't." Adding the "happy", +1,
-  equals 2. With 4 total words, 2 / sqrt(4) equals a polarity score
-  of 1.
-
------
-1) Load the ~conversation~ data frame and display its structure:
-   #+begin_src R
-     conversation <- data.frame( "student"=c("Martijn","Nick","Nicole"),
-                                "text"=c("This restaurant is never bad", "The lunch was very good",
-                                         "It was awful I got food poisoning and was extremely ill"))
-     str(conversation)
-   #+end_src
-
-2) Examine the ~conversation~ data frame by printing it.
-   #+begin_src R
-
-   #+end_src
-
-3) What context cluster category is "never"?
-   #+begin_quote
-   Answer: ...
-   #+end_quote
-
-4) Apply ~polarity()~ to the text column of conversation to calculate
-   the polarity for the entire conversation:
-   #+begin_src R
-
-   #+end_src
-
-5) Calculate the polarity scores for the ~text~ by ~student~ using the
-   ~grouping.var~ argument, and assign the result to ~student_pol~:
-   #+begin_src R
-
-   #+end_src
-
-8) To see the ~student~ level results, use ~scores()~ on ~student_pol~:
-   #+begin_src R
-
-   #+end_src
-
-9) The ~counts()~ function applied to ~student_pol~ will print the
-   sentence level polarity for the entire data frame along with
-   lexicon words identified:
-   #+begin_src R
-
-   #+end_src
-
-10) The polarity object, ~student_pol~, can be plotted with ~plot()~:
-    #+begin_src R :results graphics file :file ../img/student_pol.png
-
-    #+end_src
-
-* Exercise: examine and use ~qdap~'s lexicon
-
-- Even with Zipf's law in action, you will still need to adjust
-  lexicons to fit the text source (for example twitter versus legal
-  documents) or the author's demographics (teenager versus the
-  elderly). This exercise demonstrates the explicit components of
-  ~polarity()~ so you can change it if needed.
-
-- In Trey Songz "Lol :)" song there is a lyric "LOL smiley face, LOL
-  smiley face." In the basic ~polarity()~ function, "LOL" is not defined
-  as positive. However, "LOL" stands for "Laugh Out Loud" and should
-  be positive. As a result, you should adjust the lexicon to fit the
-  text's context which includes pop-culture slang. If your analysis
-  contains text from a specific channel (Twitter's "LOL"), location
-  (Boston's "Wicked Good"), or age group (teenagers' "sick") you will
-  likely have to adjust the lexicon.
-
-- In the first exercise, you are examining the existing word data
-  frame objects so you can change them in the following exercise.
-
------
-
-1) As a sample text, here are two excerpts from Beyoncé's "Crazy in
-   Love" lyrics for the exercise - run the code and print the data
-   frame's structure:
-   #+begin_src R
-     text <- data.frame(
-       "speaker"=c("beyonce","jay_z"),
-       "words"=c("I know I dont understand Just how your love can do what no one else can",
-                 "They cant figure him out they like hey, is he insane"))
-
-   #+end_src
-
-2) Print ~qdapDictionaries::key.pol~ to see a portion of the subjectivity
-   words and values:
-   #+begin_src R
-
-   #+end_src
-
-3) Examine the predefined ~negation.words~ to print all the negating terms:
-   #+begin_src R
-
-   #+end_src
-
-4) Print the amplifiers in ~amplification.words~ to see the words that
-   add values to the lexicon:
-   #+begin_src R
-
-   #+end_src
-
-5) Check the ~deamplification.words~ that reduce the lexicon values:
-   #+begin_src R
-
-   #+end_src
-
-6) Now, calculate the ~polarity~ of ~text~ as follows and save it in ~text_pol~:
-   1. Set ~text.var~ to ~text$words~.
-   2. Set ~grouping.var~ to ~text$speaker~.
-   3. Set ~polarity.frame~ to ~key.pol~.
-   4. Set ~negators~ to ~negation.words~.
-   5. Set ~amplifiers~ to ~amplification.words~.
-   6. Set ~deamplifiers to deamplification.words~.
-   #+begin_src R
-
-   #+end_src
-
-7) Print the positive and negative words alongside the ~text~ with the
-   ~all~ element of ~text_pol~:
-   #+begin_src R
-
-   #+end_src
-
-8) Why is the polarity of Beyonce's lyrics 0.25, and why is the
-   polarity of Jay Z's lyrics 0?
-   #+begin_quote
-   Answer:
-   #+end_quote
-
-* Exercise: amplification and negation words
-
-- Here you will adjust the negative words to account for the specific
-  text. You will then compare the basic and custom ~polarity()~ scores.
-
-- A popular song from Twenty One Pilots is called [[https://youtu.be/pXRviuL6vMY]["Stressed Out"]]
-  (2015). If you scan the song lyrics, you will observe the song is
-  about youthful nostalgia. Overall, most people would say the
-  polarity is negative. Repeatedly the lyrics mention stress, fears
-  and pretending.
-
-- Let's compare the song lyrics using the default subjectivity lexicon
-  and also a custom one.
-
-- To start, you need to verify the ~key.pol~ subjectivity lexicon does
-  not already have the term you want to add. One way to check is with
-  ~grep~. The pattern matching ~grep()~ function returns the row
-  containing characters that match a search ~pattern~. Here is an
-  example where the column ~col~ of ~df~ is searched for "search_pattern":
-  #+begin_example R
-    idx <- grep(pattern="search_pattern", x=df$col)
-  #+end_example
-
-- The vector ~idx~ can now be used to return all elements of ~df~ that
-  match the pattern as ~df[idx, ]~.
-
-- After verifying the slang or new word is not already in the ~key.pol~
-  lexicon you need to add it.
-
------
-
-1) Add [[https://www.google.com/search?q=twenty+one+pilots+stressed+out+lyrics][the lyrics]] as a single string from the file ~stressed_out.txt~
-   and store it in the vector ~stressed_out~, then replace ~\\~ by ~\~ with
-   ~gsub~ and print the lyrics:
-   #+begin_src R
-     stressed_out <- readLines("https://bit.ly/stressed_out_txt")
-     gsub("\\\\n","\n",stressed_out) -> stressed_out
-     stressed_out
-   #+end_src
-
-   #+RESULTS:
-   : [1] "I wish I found some better sounds no one's ever heard\nI wish I had a better voice that sang some better words\nI wish I found some chords in an order that is new\nI wish I didn't have to rhyme every time I sang\nI was told when I get older, all my fears would shrink\nBut now I'm insecure, and I care what people think\nMy name's Blurryface and I care what you think\nMy name's Blurryface and I care what you think\nWish we could turn back time\nTo the good old days\nWhen our mama sang us to sleep\nBut now we're stressed out (oh)\nWish we could turn back time (oh)\nTo the good old days (oh)\nWhen our mama sang us to sleep\nBut now we're stressed out\nWe're stressed out\nSometimes a certain smell will take me back to when I was young\nHow come I'm never able to identify where it's coming from?\nI'd make a candle out of it if I ever found it\nTry to sell it, never sell out of it, I'd probably only sell one\nIt'd be to my brother, 'cause we have the same nose\nSame clothes, homegrown, a stone's throw from a creek we used to roam\nBut it would remind us of when nothing really mattered\nOut of student loans and tree house homes, we all would take the latter\nMy name's Blurryface and I care what you think\nMy name's Blurryface and I care what you think\nWish we could turn back time\nTo the good old days\nWhen our mama sang us to sleep\nBut now we're stressed out (oh)\nWish we could turn back time (oh)\nTo the good old days (oh)\nWhen our mama sang us to sleep\nBut now we're stressed out\nUsed to play pretend, give each other different names\nWe would build a rocket ship and then we'd fly it far away\nUsed to dream of outer space, but now they're laughing at our face saying\n\"Wake up, you need to make money\", yeah\nWe used to play pretend, give each other different names\nWe would build a rocket ship and then we'd fly it far away\nUsed to dream of outer space, but now they're laughing at our face saying\n\"Wake up, you need to make money\", yeah\nWish we could turn back time\nTo the good old days\nWhen our mama sang us to sleep\nBut now we're stressed out (oh)\nWish we could turn back time (oh)\nTo the good old days (oh)\nWhen our mama sang us to sleep\nBut now we're stressed out\nWe used to play pretend, used to play pretend, money\nWe used to play pretend, wake up, you need the money\nUsed to play pretend, used to play pretend, money\nWe used to play pretend, wake up, you need the money\nUsed to play pretend, give each other different names\nWe would build a rocket ship and then we'd fly it far away\nUsed to dream of outer space, but now they're laughing at our face saying\n\"Wake up, you need to make money\", yeah\n"
-
-2) Compute the default ~polarity~ score of ~stressed_out~:
-   #+begin_src R
-
-   #+end_src
-
-3) Bonus question: can you show just the value for the polarity? Tip:
-   ~polarity(stressed_out)~ is a ~list~ and "polarity" is a member of the
-   ~$all~ element of that list (you can check that with ~str~):
-   #+begin_src R
-
-   #+end_src
-   
-4) Check ~key.pol~ for any words containing "stress":
-   1. use ~grep~ to index the data frame by searching in the ~x~ column
-   2. save the result in ~rowindex~
-   #+begin_src R
-
-   #+end_src
-
-5) Construct a new polarity lexicon ~custom_pol~ using
-   ~sentiment_frame~. This function creates a sentiment lookup table for
-   use with the ~polarity.frame~ argument of ~polarity~ (i.e. the
-   lexicon) - check the function's arguments:
-   #+begin_src R
-
-   #+end_src
-
-6) Pass ~positive.words~ as ~positives~ argument to the function
-      ~sentiment_frame~, and for the second argument concatenate (with ~c~)
-      ~negative_words~ and the words "stressed" and "turn back". Save the
-      result in ~custom_pol~
-      #+begin_src R :results silent
-
-      #+end_src
-
-7) Compute the ~polarity~ using the ~custom_pol~ lexicon as
-      ~polarity.frame~:
-      #+begin_src R
-
-      #+end_src
-
-8) You should see that the modified lexicon leads to a more realistic
-   sentiment scoring than the standard lexicon.
-
-* TODO Summary
-* TODO Glossary of concepts
-* TODO Glossary of code
-* References
-
-- Kwartler T (2017). Text mining in R. Wiley.
-  
-- Kwartler T (2019). Sentiment Analysis in R. URL: datacamp.com.
-  
-- Plutchik, Robert: The Nature of Emotions: Human emotions have deep
-  evolutionary roots, a fact that may explain their complexity and
-  provide tools for clinical practice. In: American Scientist,
-  Vol. 89, No. 4 (JULY-AUGUST 2001), pp. 344-350. URL: [[https://ui.adsabs.harvard.edu/abs/2001AmSci..89..344P/abstract][harvard.edu]].
-
-* Footnotes
-[fn:2]Another popular (with 8,000 terms a little larger) lexicon is
-the [[https://mpqa.cs.pitt.edu/][MPQA lexicon from the University of Pittsburgh]].
-
-[fn:1]I don't find this argument compelling. It seems to me that there
-are many more factors present when humans communicate - efficiency of
-expression being only one of them. Rather, this could be an artefact
-of digital communication - and hence potentially another example where
-we mistake relationships between humans mediated by machines for true
-relationships.

@@ -783,10 +783,15 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
 - Dataset: [[https://drive.google.com/file/d/1MfOZea9ylbWN6BwzfI4SA1xYFbnm20gh/view?usp=share_link][twitter-airline-sentiment.csv]] from [[https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment][Kaggle]]. See also [[https://rpubs.com/Nihel/SentimentPredictionUSAirlineTweets][here]]
   for a complete "Tidyverse" sentiment (not bag-of-words) analysis.
 
+*TIMELINE:*
+- Project presentations on Tuesday, 2nd of May
+- Everyone who did the capstone project presents one part of it
+- Those who did not do the capstone project present their results
+
 *TUTORIAL:*  
 - [[https://ladal.edu.au/sentiment.html#Introduction][Tutorial for Sentiment Analysis in R using "Tidyverse" functions]]
 
-*Exercises:*
+*EXERCISES:* on Thursday
 - Download the raw file ~10_polarity_exercises.org~ from GitHub
 - Open the file in Emacs, complete and submit it for points in Canvas
 
