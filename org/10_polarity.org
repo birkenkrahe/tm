@@ -11,7 +11,8 @@
   same author.
 
 - Download and open the practice file ~10_polarity_practice.org~ from
-  GitHub to code along.
+  GitHub to code along. You can also download it with ~M-x eww~~ using
+  the URL ~bit.ly/tm_polarity~.
 
 - What you will learn:
   1) What is sentiment analysis
@@ -50,7 +51,7 @@
   #+end_quote
 
 - A reductionist's fantasy? Plutchik (2001) believed that there are
-  only 8 evolutionary created emotions:
+  only 8 "evolutionary" created emotions:
   1) anger
   2) fear
   3) sadness
@@ -149,20 +150,22 @@
 
   #+RESULTS:
   #+begin_example
-   [1] "augment"                   "bind_tf_idf"
-   [3] "cast_dfm"                  "cast_dtm"
-   [5] "cast_sparse"               "cast_tdm"
-   [7] "get_sentiments"            "get_stopwords"
-   [9] "glance"                    "nma_words"
-  [11] "parts_of_speech"           "reorder_func"
-  [13] "reorder_within"            "scale_x_reordered"
-  [15] "scale_y_reordered"         "sentiments"
-  [17] "stop_words"                "tidy"
-  [19] "unnest_character_shingles" "unnest_characters"
-  [21] "unnest_lines"              "unnest_ngrams"
-  [23] "unnest_paragraphs"         "unnest_ptb"
-  [25] "unnest_regex"              "unnest_sentences"
-  [27] "unnest_skip_ngrams"        "unnest_tokens"
+  Warning message:
+  package 'tidytext' was built under R version 4.2.3
+   [1] "augment"                   "bind_tf_idf"              
+   [3] "cast_dfm"                  "cast_dtm"                 
+   [5] "cast_sparse"               "cast_tdm"                 
+   [7] "get_sentiments"            "get_stopwords"            
+   [9] "glance"                    "nma_words"                
+  [11] "parts_of_speech"           "reorder_func"             
+  [13] "reorder_within"            "scale_x_reordered"        
+  [15] "scale_y_reordered"         "sentiments"               
+  [17] "stop_words"                "tidy"                     
+  [19] "unnest_character_shingles" "unnest_characters"        
+  [21] "unnest_lines"              "unnest_ngrams"            
+  [23] "unnest_paragraphs"         "unnest_ptb"               
+  [25] "unnest_regex"              "unnest_sentences"         
+  [27] "unnest_skip_ngrams"        "unnest_tokens"            
   [29] "unnest_tweets"
   #+end_example
 
@@ -187,21 +190,21 @@
    $ sentiment: chr [1:13872] "trust" "fear" "negative" "sadness" ...
   # A tibble: 6 × 2
     word      sentiment
-    <chr>     <chr>
-  1 abacus    trust
-  2 abandon   fear
-  3 abandon   negative
-  4 abandon   sadness
-  5 abandoned anger
+    <chr>     <chr>    
+  1 abacus    trust    
+  2 abandon   fear     
+  3 abandon   negative 
+  4 abandon   sadness  
+  5 abandoned anger    
   6 abandoned fear
   # A tibble: 6 × 2
-    word    sentiment
-    <chr>   <chr>
-  1 zealous trust
+    word    sentiment   
+    <chr>   <chr>       
+  1 zealous trust       
   2 zest    anticipation
-  3 zest    joy
-  4 zest    positive
-  5 zest    trust
+  3 zest    joy         
+  4 zest    positive    
+  5 zest    trust       
   6 zip     negative
   #+end_example
 
@@ -232,18 +235,19 @@
 
 - Some of the arguments of the ~polarity~ function should make sense now:
   #+begin_src R
+    library(qdap)
     args(polarity)
-  #+end_src
+#+end_src
 
   #+RESULTS:
-  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol,
-  :     constrain = FALSE, negators = qdapDictionaries::negation.words,
-  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words,
-  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4,
-  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...)
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
   : NULL
 
-* Visualize polarity
+* NEXT Visualize polarity
 
 - We'll store statements from a conversation among four people as a
   data frame. We'll apply ~polarity~ to all sentences for an "average

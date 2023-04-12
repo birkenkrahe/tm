@@ -334,7 +334,7 @@ Finish stopwords & TDM/DTM (DataCamp chapter 1)
    3) turn text vector into a source with ~VectorSource~
    4) turn source into volatile (in-memory) corpus with ~VCorpus~
    #+end_notes
-
+   
 2) [X] How do you load the package ~tm~ and check if it contains a
    function named "stopwords"?
    #+begin_src R
