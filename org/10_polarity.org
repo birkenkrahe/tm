@@ -247,7 +247,7 @@
   :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
   : NULL
 
-* NEXT Visualize polarity
+* Visualize polarity
 
 - We'll store statements from a conversation among four people as a
   data frame. We'll apply ~polarity~ to all sentences for an "average
@@ -266,7 +266,7 @@
              "Students are passionate and are excited to learn",
              "Other data science curriculum is hard to learn and difficult to understand",
              "I think the food here is good."))
-  #+end_src
+  #+end_src    
 
 - Remove punctuation (otherwise ~polarity~ will complain about it):
   #+begin_src R :results silent
@@ -319,6 +319,15 @@
   :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...)
   : NULL
 
+- The function does not require a vector:
+  #+begin_src R
+    polarity("Malcolm X is not a student at all.")
+  #+end_src
+
+  #+RESULTS:
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           8            0          NA                 NA
+
 - Compute polarity on the ~text~:
   #+begin_src R
     polarity(text.var=text_df$text)
@@ -341,10 +350,11 @@
   : 2  Martijn               2          19       -0.478       0.141             -3.388
   : 3     Nick               2          11        0.428       0.028             15.524
   : 4   Nicole               2          11        0.189       0.267              0.707
-
+  
 - Apply ~qdap::counts~ to print the specific emotional words that were
   found:
   #+begin_src R
+    library(qdap)
     counts(datacamp_conversation)
   #+end_src
 
@@ -382,34 +392,79 @@
 - For later, it might be useful to be able to extract parts of the
   ~polarity~ result: look at the structure of ~datacamp_conversation~:
   #+begin_src R
-    str(datacamp_conversation)
+    str(datacamp_conversation)  # display structure of a polarity object
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  List of 2
+   $ all  :'data.frame':	8 obs. of  6 variables:
+    ..$ person   : chr [1:8] "Nick" "Jonathan" "Martijn" "Nicole" ...
+    ..$ wc       : int [1:8] 5 5 7 4 6 8 12 7
+    ..$ polarity : num [1:8] 0.447 0.447 -0.378 0 0.408 ...
+    ..$ pos.words:List of 8
+    .. ..$ : chr "best"
+    .. ..$ : chr "like"
+    .. ..$ : chr "-"
+    .. ..$ : chr "-"
+    .. ..$ : chr "great"
+    .. ..$ : chr [1:2] "passionate" "excited"
+    .. ..$ : chr "-"
+    .. ..$ : chr "good"
+    ..$ neg.words:List of 8
+    .. ..$ : chr "-"
+    .. ..$ : chr "-"
+    .. ..$ : chr "boring"
+    .. ..$ : chr "-"
+    .. ..$ : chr "-"
+    .. ..$ : chr "-"
+    .. ..$ : chr [1:2] "hard" "difficult"
+    .. ..$ : chr "-"
+    ..$ text.var : chr [1:8] "DataCamp courses are the best" "I like talking to students" "Other online data science curricula are boring" "What is for lunch" ...
+   $ group:'data.frame':	4 obs. of  6 variables:
+    ..$ person            : chr [1:4] "Jonathan" "Martijn" "Nick" "Nicole"
+    ..$ total.sentences   : int [1:4] 2 2 2 2
+    ..$ total.words       : int [1:4] 13 19 11 11
+    ..$ ave.polarity      : num [1:4] 0.577 -0.478 0.428 0.189
+    ..$ sd.polarity       : num [1:4] 0.1838 0.141 0.0276 0.2673
+    ..$ stan.mean.polarity: num [1:4] 3.141 -3.388 15.524 0.707
+   - attr(*, "class")= chr [1:2] "polarity" "list"
+   - attr(*, "digits")= num 3
+   - attr(*, "constrained")= logi FALSE
+   - attr(*, "unconstrained.polarity")= num [1:8] 0.447 0.447 -0.378 0 0.408 ...
+  #+end_example
 
 - Extract the positive and negative words, the text, and the people:
   #+begin_src R
     unlist(datacamp_conversation$all[["pos.words"]])
-    unlist(datacamp_conversation$all[["neg.words"]])
+    unlist(datacamp_conversation$all[["neg.words"]]) -> negative
     unlist(datacamp_conversation$all[["text.var"]])
     unlist(datacamp_conversation$all[["person"]])
   #+end_src
 
   #+RESULTS:
   #+begin_example
-  [1] "best"       "like"       "-"          "-"          "great"
-  [6] "passionate" "excited"    "-"          "good"
-  [1] "-"         "-"         "boring"    "-"         "-"         "-"
-  [7] "hard"      "difficult" "-"
-  [1] "DataCamp courses are the best"
-  [2] "I like talking to students"
-  [3] "Other online data science curricula are boring"
-  [4] "What is for lunch"
-  [5] "DataCamp has lots of great content"
-  [6] "Students are passionate and are excited to learn"
+  [1] "best"       "like"       "-"          "-"          "great"      "passionate"
+  [7] "excited"    "-"          "good"
+  [1] "DataCamp courses are the best"                                             
+  [2] "I like talking to students"                                                
+  [3] "Other online data science curricula are boring"                            
+  [4] "What is for lunch"                                                         
+  [5] "DataCamp has lots of great content"                                        
+  [6] "Students are passionate and are excited to learn"                          
   [7] "Other data science curriculum is hard to learn and difficult to understand"
   [8] "I think the food here is good"
-  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn"
+  [1] "Nick"     "Jonathan" "Martijn"  "Nicole"   "Nick"     "Jonathan" "Martijn" 
   [8] "Nicole"
   #+end_example
+
+- Did any of the people find DataCamp "boring"?
+  #+begin_src R
+    any(negative=="boring")
+  #+end_src
+
+  #+RESULTS:
+  : [1] TRUE
 
 * Adding terms to the subjectivity lexicon
 
@@ -435,10 +490,10 @@
   #+end_src
 
   #+RESULTS:
-  : Classes 'qdap_hash', 'data.table' and 'data.frame': 6779 obs. of  2 variables:
+  : Classes 'qdap_hash', 'data.table' and 'data.frame':	6779 obs. of  2 variables:
   :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
   :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr>
+  :  - attr(*, ".internal.selfref")=<externalptr> 
   :  - attr(*, "sorted")= chr "x"
   :  - attr(*, "mode")=function (x, ...)
 
@@ -449,64 +504,19 @@
   #+end_src
 
   #+RESULTS:
-  : [1] "package:qdap"             "package:qdapTools"
-  : [3] "package:qdapRegex"        "package:qdapDictionaries"
+  : [1] "package:qdap"             "package:qdapTools"        "package:qdapRegex"       
+  : [4] "package:qdapDictionaries"
 
 - Now use ~data~ to list the dictionaries in ~qdapDictionaries~:
   #+begin_src R
+    library(qdap)
     data(package='qdapDictionaries')
   #+end_src
 
   #+RESULTS:
-  #+begin_example
-  Data sets in package 'qdapDictionaries':
-
-  BuckleySaltonSWL        Buckley & Salton Stopword List
-  DICTIONARY              Nettalk Corpus Syllable Data Set
-  Dolch                   Dolch List of 220 Common Words
-  Fry_1000                Fry's 1000 Most Commonly Used English Words
-  GradyAugmented          Augmented List of Grady Ward's English Words
-                          and Mark Kantrowitz's Names List
-  Leveled_Dolch           Leveled Dolch List of 220 Common Words
-  NAMES                   First Names and Gender (U.S.)
-  NAMES_LIST              First Names and Predictive Gender (U.S.) List
-  NAMES_SEX               First Names and Predictive Gender (U.S.)
-  OnixTxtRetToolkitSWL1   Onix Text Retrieval Toolkit Stopword List 1
-  Top100Words             Fry's 100 Most Commonly Used English Words
-  Top200Words             Fry's 200 Most Commonly Used English Words
-  Top25Words              Fry's 25 Most Commonly Used English Words
-  abbreviations           Small Abbreviations Data Set
-  action.verbs            Action Word List
-  adverb                  Adverb Word List
-  amplification.words     Amplifying Words
-  contractions            Contraction Conversions
-  deamplification.words   De-amplifying Words
-  discourse.markers.alemany
-                          Alemany's Discourse Markers
-  emoticon                Emoticons Data Set
-  function.words          Function Words
-  interjections           Interjections
-  key.pol                 Polarity Lookup Key
-  key.power               Power Lookup Key
-  key.strength            Strength Lookup Key
-  key.syl                 Syllable Lookup Key
-  key.syn                 Synonym Lookup Key
-  labMT                   Language Assessment by Mechanical Turk (labMT)
-                          Sentiment Words
-  negation.words          Negating Words
-  negative.words          Negative Words
-  positive.words          Positive Words
-  power.words             Words that Indicate Power
-  preposition             Preposition Words
-  strong.words            Words that Indicate Strength
-  submit.words            Words that Indicate Submission
-  weak.words              Words that Indicate Weakness
-  #+end_example
-
-- Put terms 'rofl' and 'lol' into a vector ~new.pos~:
-  #+begin_src R :results silent
-    c('rofl', 'lol') -> new.pos  # new positive terms
-  #+end_src
+  : Warning message:
+  : In file.show(outFile, delete.file = TRUE, title = paste("R", tolower(x$title))) :
+  :   '"c:/PROGRA~1/R/R-42~1.2/bin/pager"' not found
 
 - Use the ~subset(x,pattern)~ function to retain only the original
   ~key.pol~ terms that have polarity 1 and store them in ~old.pos~:
@@ -516,7 +526,7 @@
   #+end_src
 
   #+RESULTS:
-  : 'data.frame':       2003 obs. of  2 variables:
+  : 'data.frame':	2003 obs. of  2 variables:
   :  $ x: chr  "a plus" "abound" "abounds" "abundance" ...
   :  $ y: num  1 1 1 1 1 1 1 1 1 1 ...
 
@@ -541,31 +551,33 @@
   #+end_src
 
   #+RESULTS:
-  : function (positives, negatives, pos.weights = 1, neg.weights = -1)
+  : function (positives, negatives, pos.weights = 1, neg.weights = -1) 
   : NULL
 
 - We need to create a new sentiment data frame ~all.polarity~ replacing
   ~key.pol~ using ~sentiment_frame~:
   #+begin_src R
-    all.polarity <- sentiment_frame(all.pos,all.neg,1,-1)
+    all.polarity <- sentiment_frame(all.pos,all.neg,1,-1)  ## this is our new lexicon
     str(all.polarity)
   #+end_src
 
   #+RESULTS:
-  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':  6783 obs. of  2 variables:
+  : Classes 'qdap_hash', 'key', 'data.table' and 'data.frame':	6783 obs. of  2 variables:
   :  $ x: chr  "a plus" "abnormal" "abolish" "abominable" ...
   :  $ y: num  1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...
-  :  - attr(*, ".internal.selfref")=<externalptr>
+  :  - attr(*, ".internal.selfref")=<externalptr> 
   :  - attr(*, "sorted")= chr "x"
   :  - attr(*, "mode")=function (x, ...)
 
 - You can see that there are four more words included:
   #+begin_src R
     c('rofl','lol','meh','kappa') %in% all.polarity$x
+    c('rofl','lol','meh','kappa') %in% key.pol$x
   #+end_src
 
   #+RESULTS:
   : [1] TRUE TRUE TRUE TRUE
+  : [1] FALSE FALSE FALSE FALSE
 
 * Using the extended subjectivity lexicon
 
@@ -582,6 +594,8 @@
 
   #+RESULTS:
   :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+  : 1 all               1           4            0          NA                 NA
+  :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
   : 1 all               1           4          0.5          NA                 NA
 
 - There is no grouping variable (~all~), one sentence only with 4 words
@@ -589,9 +603,9 @@
   counts as 1.
 
 - When computing the polarity with the standard lexicon, polarity is
-  zero or neutral, because 'ROFL' was not found in the lexicon:x
+  zero or neutral, because 'ROFL' was not found in the lexicon:
   #+begin_src R
-    polarity(foo)
+    polarity(foo)  # by default, polarity.frame is key.pol 
   #+end_src
 
   #+RESULTS:
@@ -609,6 +623,7 @@
   : 1 all               1           4         -0.5          NA                 NA
   :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
   : 1 all               1           4            0          NA                 NA
+
 
 - 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
   lexicon, Kappa is not found and considered neutral.

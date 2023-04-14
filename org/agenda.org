@@ -794,7 +794,32 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
 *EXERCISES:* on Thursday
 - Download the raw file ~10_polarity_exercises.org~ from GitHub
 - Open the file in Emacs, complete and submit it for points in Canvas
+* Review and Test Preview: Polarity scoring
 
+- What's emotion? 8 if you believe Dr Plutchik
+
+- What's polarity?
+  1) It's a number
+  2) There's a function ~polarity~ in ~qdap~ package
+  #+begin_src R
+    library(qdap)
+    args(polarity)
+  #+end_src
+
+  #+RESULTS:
+  : function (text.var, grouping.var = NULL, polarity.frame = qdapDictionaries::key.pol, 
+  :     constrain = FALSE, negators = qdapDictionaries::negation.words, 
+  :     amplifiers = qdapDictionaries::amplification.words, deamplifiers = qdapDictionaries::deamplification.words, 
+  :     question.weight = 0, amplifier.weight = 0.8, n.before = 4, 
+  :     n.after = 2, rm.incomplete = FALSE, digits = 3, ...) 
+  : NULL
+
+- How does this polarity thing work? E.g. "Malcolm X is a great student of data science."
+  1) Pass the object whose sentiment I'm interested in to the function
+  2) Positive, negative words are stored in a subjectivity lexicon
+  3) In addition there are de/amplifiers
+  4) Highlight the lexicon words (e.g. "great")
+  5) Check the ~n.before~ and ~n.after~ words 
 * TODO Week 14: Visualizing sentiment
 ** Review: Dendrograms and N-gram tokenization
 
