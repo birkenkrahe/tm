@@ -628,7 +628,7 @@
 - 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
   lexicon, Kappa is not found and considered neutral.
 
-* Why do subjectivity lexicons work at all?
+* NEXT Why do subjectivity lexicons work at all?
 #+attr_latex: :width 400px
 #+caption: Sentiments by Viktoriia Vidal (Flickr.com)
 [[../img/10_sentiment.jpg]]

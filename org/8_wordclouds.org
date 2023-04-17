@@ -237,7 +237,7 @@
   #+RESULTS:
   [[file:../img/wordcloud1.png]]
 
-- Print out frirst 10 entries of ~term_frequency~:
+- Print out the first 10 entries of ~term_frequency~:
   #+begin_src R
     term_frequency[1:10]
   #+end_src
