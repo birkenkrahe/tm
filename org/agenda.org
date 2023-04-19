@@ -794,6 +794,7 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
 *EXERCISES:* on Thursday
 - Download the raw file ~10_polarity_exercises.org~ from GitHub
 - Open the file in Emacs, complete and submit it for points in Canvas
+
 ** Review and Test Preview: Polarity scoring
 
 - What's emotion? 8 if you believe Dr Plutchik
@@ -822,15 +823,35 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
   4) Highlight the lexicon words (e.g. "great")
   5) Check the ~n.before~ and ~n.after~ words 
 
-* TODO Week 14: Visualizing sentiment
+** What did you learn this week?
+
+Tue:
+- What emotion is (not) - see Plutchik's wheel
+- What is polarity?
+- What is polarity scoring? 
+
+Thu:
+- Applied polarity - plotting a conversation
+- grouping of texts by different variables
+- subjectivity lexicon, and how to change it
+
+* TODO Week 14: Zipf's law and Polarity scoring practice
 #+attr_latex: :width 400px
 #+caption: George Cruikshank, HOPE (1862)
 [[../img/hope.png]]
 
-- New test available until April 21 (Friday) for full points
-- Polarity scoring: Zipf's law and three exercises for submission
-  
-** Polarity scoring: exercises
+- [X] New test available until April 21 (Friday) for full points
+- [ ] Preview of next test on Tuesday (test 7 - complete by April 28)
+- [X] What did we do last week?
+- [X] Polarity scoring: Zipf's law and three exercises for submission
+
+* What did you learn this week?
+
+Tue:
+
+Thu:
+
+* Polarity scoring: exercises
 
 - Download the exercise file: ~10_polarity_exercises.org~ from GitHub:
   Open [[https://bit.ly/tm_pol_ex][bit.ly/tm_pol_ex]] in Emacs (~M-x eww~) and write to Org-mode file.
@@ -839,9 +860,17 @@ Thu: NO CLASS - CAPSTONE AND TEST PREPARATION
 
 - Complete exercises and upload to Canvas.
 
-** [P]Review: Dendrograms and N-gram tokenization
+* [P]Review: Dendrograms and N-gram tokenization
 
+* TODO [[https://github.com/birkenkrahe/org/blob/master/grading/Presentation_Assessment_Form.pdf][Rubric for evaluating your presentations]]
+#+attr_latex: :width 400px
+#+caption: Photo: Ian Robertson, Belleville, Ontario (Flickr.com).
+[[../img/presentation.jpg]]
 
+- The rubric covers all aspects of a successful presentation
+- Test the technology before presenting - the devil's in the detail!
+- Zip all materials and upload them to Canvas no later than May 3rd
+- If I don't get your material by that time, you won't get any points
 
 * TODO Week 15: Case study: Airbnb reviews
 * References

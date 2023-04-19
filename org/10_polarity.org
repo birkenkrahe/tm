@@ -628,7 +628,7 @@
 - 'Kappa' counts as -1 and -1/sqrt(4) = -0.5, and with the standard
   lexicon, Kappa is not found and considered neutral.
 
-* NEXT Why do subjectivity lexicons work at all?
+* Why do subjectivity lexicons work at all?
 #+attr_latex: :width 400px
 #+caption: Sentiments by Viktoriia Vidal (Flickr.com)
 [[../img/10_sentiment.jpg]]
@@ -716,7 +716,7 @@
   4   to  588803    4
   5    a  428598    5
   6  for  388390    6
-  'data.frame': 159 obs. of  3 variables:
+  'data.frame':	159 obs. of  3 variables:
    $ word: chr  "sb" "rt" "the" "to" ...
    $ freq: int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
    $ rank: int  1 2 3 4 5 6 7 8 9 10 ...
@@ -728,13 +728,6 @@
     sb_words$expectations <- sb_words$freq[1]/sb_words$rank
     str(sb_words)
   #+end_src
-
-  #+RESULTS:
-  : 'data.frame':       159 obs. of  4 variables:
-  :  $ word        : chr  "sb" "rt" "the" "to" ...
-  :  $ freq        : int  1984423 1700564 1101899 588803 428598 388390 326464 322154 296673 292468 ...
-  :  $ rank        : int  1 2 3 4 5 6 7 8 9 10 ...
-  :  $ expectations: num  1984423 992212 661474 496106 396885 ...
 
 - Load ~metricsgraphics~ (must be installed). Start ~sb_plot~ using
   ~mjs_plot~, and pass in ~data=sb_words~ with ~x = rank~, ~y = freq~ and
@@ -755,8 +748,7 @@
 - Add 2nd line to ~sb_plot~ with ~mjs_add_line()~. Pass in the previous
   ~sb_plot~ object and the vector, ~expectations~:
   #+begin_src R :results silent
-    sb_plot <- mjs_add_line(sb_plot,
-                            expectations)
+    sb_plot <- mjs_add_line(sb_plot, expectations)
   #+end_src
 
 - Place a legend on a new ~sb_plot~ object using ~mjs_add_legend~:
@@ -801,11 +793,14 @@
    called ~pos_score~, then print it:
    #+begin_src R
      positive <- "DataCamp courses are good for learning"
-                                             # Calculate polarity of statement
-
+     ## Calculate polarity of statement
+     library(qdap)
+     polarity(positive)
    #+end_src
 
    #+RESULTS:
+   :   all total.sentences total.words ave.polarity sd.polarity stan.mean.polarity
+   : 1 all               1           6        0.408          NA                 NA
 
 2) Manually perform the same polarity calculation:
 

@@ -34,8 +34,6 @@ Analysis in R. URL: datacamp.com.
 
    #+end_src
 
-   #+RESULTS:
-
 2) Manually perform the same polarity calculation:
 
    1. Get a word count object ~pos_counts~ by calling ~counts~ on the polarity
@@ -44,16 +42,12 @@ Analysis in R. URL: datacamp.com.
 
       #+end_src
 
-      #+RESULTS:
-
    2. All the identified subjectivity words are part of count object's
       list. Specifically, positive words are in the ~$pos.words~ element
       vector of ~pos_counts~. Print the structure of ~pos_counts~:
       #+begin_src R
 
       #+end_src
-
-      #+RESULTS:
 
    3. Find the number of positive words by calling ~length~ on the first
       member of the ~$pos_words~ element of ~pos_counts~ and store it in
