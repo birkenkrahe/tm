@@ -387,6 +387,161 @@
      function did not capture the "Other" in Martijn's sentences: he
      actually was complimenting DataCamp!
 
+- ~plot~ is a generic function and contains methods for different
+  polarity scoring data structures:
+  #+begin_src R
+    library(qdap)
+    methods(plot)
+  #+end_src     
+
+  #+RESULTS:
+  #+begin_example
+    [1] plot,ANY-method                                 
+    [2] plot,color-method                               
+    [3] plot.acf*                                       
+    [4] plot.ACF*                                       
+    [5] plot.animated_character*                        
+    [6] plot.animated_discourse_map*                    
+    [7] plot.animated_formality*                        
+    [8] plot.animated_lexical_classification*           
+    [9] plot.animated_polarity*                         
+   [10] plot.augPred*                                   
+   [11] plot.automated_readability_index*               
+   [12] plot.character_table*                           
+   [13] plot.cm_distance*                               
+   [14] plot.cmspans*                                   
+   [15] plot.cohesiveBlocks*                            
+   [16] plot.coleman_liau*                              
+   [17] plot.combo_syllable_sum*                        
+   [18] plot.communities*                               
+   [19] plot.compareFits*                               
+   [20] plot.cumulative_animated_formality*             
+   [21] plot.cumulative_animated_lexical_classification*
+   [22] plot.cumulative_animated_polarity*              
+   [23] plot.cumulative_combo_syllable_sum*             
+   [24] plot.cumulative_end_mark*                       
+   [25] plot.cumulative_formality*                      
+   [26] plot.cumulative_lexical_classification*         
+   [27] plot.cumulative_polarity*                       
+   [28] plot.cumulative_syllable_freq*                  
+   [29] plot.data.frame*                                
+   [30] plot.decomposed.ts*                             
+   [31] plot.default                                    
+   [32] plot.dendrogram*                                
+   [33] plot.density*                                   
+   [34] plot.discourse_map*                             
+   [35] plot.diversity*                                 
+   [36] plot.DocumentTermMatrix*                        
+   [37] plot.ecdf                                       
+   [38] plot.end_mark*                                  
+   [39] plot.end_mark_by*                               
+   [40] plot.end_mark_by_count*                         
+   [41] plot.end_mark_by_preprocessed*                  
+   [42] plot.end_mark_by_proportion*                    
+   [43] plot.end_mark_by_score*                         
+   [44] plot.factor*                                    
+   [45] plot.flesch_kincaid*                            
+   [46] plot.formality*                                 
+   [47] plot.formality_scores*                          
+   [48] plot.formula*                                   
+   [49] plot.freq_terms*                                
+   [50] plot.function                                   
+   [51] plot.gantt*                                     
+   [52] plot.ggplot*                                    
+   [53] plot.gls*                                       
+   [54] plot.gtable*                                    
+   [55] plot.hcl_palettes*                              
+   [56] plot.hclust*                                    
+   [57] plot.histogram*                                 
+   [58] plot.HoltWinters*                               
+   [59] plot.igraph*                                    
+   [60] plot.intervals.lmList*                          
+   [61] plot.irt                                        
+   [62] plot.isoreg*                                    
+   [63] plot.kullback_leibler*                          
+   [64] plot.lexical*                                   
+   [65] plot.lexical_classification*                    
+   [66] plot.lexical_classification_preprocessed*       
+   [67] plot.lexical_classification_score*              
+   [68] plot.linsear_write*                             
+   [69] plot.linsear_write_count*                       
+   [70] plot.linsear_write_scores*                      
+   [71] plot.lm*                                        
+   [72] plot.lme*                                       
+   [73] plot.lmList*                                    
+   [74] plot.medpolish*                                 
+   [75] plot.mlm*                                       
+   [76] plot.Network*                                   
+   [77] plot.nffGroupedData*                            
+   [78] plot.nfnGroupedData*                            
+   [79] plot.nls*                                       
+   [80] plot.nmGroupedData*                             
+   [81] plot.object_pronoun_type*                       
+   [82] plot.pdMat*                                     
+   [83] plot.polarity*                                  
+   [84] plot.polarity_count*                            
+   [85] plot.polarity_score*                            
+   [86] plot.poly                                       
+   [87] plot.poly.parallel                              
+   [88] plot.pos*                                       
+   [89] plot.pos_by*                                    
+   [90] plot.pos_preprocessed*                          
+   [91] plot.ppr*                                       
+   [92] plot.prcomp*                                    
+   [93] plot.princomp*                                  
+   [94] plot.profile.nls*                               
+   [95] plot.pronoun_type*                              
+   [96] plot.psych                                      
+   [97] plot.question_type*                             
+   [98] plot.question_type_preprocessed*                
+   [99] plot.R6*                                        
+  [100] plot.ranef.lme*                                 
+  [101] plot.ranef.lmList*                              
+  [102] plot.raster*                                    
+  [103] plot.readability_count*                         
+  [104] plot.readability_score*                         
+  [105] plot.reliability                                
+  [106] plot.residuals                                  
+  [107] plot.rmgantt*                                   
+  [108] plot.sent_split*                                
+  [109] plot.shingle*                                   
+  [110] plot.simulate.lme*                              
+  [111] plot.sir*                                       
+  [112] plot.SMOG*                                      
+  [113] plot.spec*                                      
+  [114] plot.stepfun                                    
+  [115] plot.stl*                                       
+  [116] plot.subject_pronoun_type*                      
+  [117] plot.sum_cmspans*                               
+  [118] plot.sums_gantt*                                
+  [119] plot.syllable_freq*                             
+  [120] plot.table*                                     
+  [121] plot.table_count*                               
+  [122] plot.table_proportion*                          
+  [123] plot.table_score*                               
+  [124] plot.termco*                                    
+  [125] plot.TermDocumentMatrix*                        
+  [126] plot.times*                                     
+  [127] plot.trans*                                     
+  [128] plot.trellis*                                   
+  [129] plot.ts                                         
+  [130] plot.tskernel*                                  
+  [131] plot.TukeyHSD*                                  
+  [132] plot.type_token_ratio*                          
+  [133] plot.Variogram*                                 
+  [134] plot.VennDiagram*                               
+  [135] plot.weighted_wfm*                              
+  [136] plot.wfdf*                                      
+  [137] plot.wfm*                                       
+  [138] plot.word_cor*                                  
+  [139] plot.word_length*                               
+  [140] plot.word_position*                             
+  [141] plot.word_proximity*                            
+  [142] plot.word_stats*                                
+  [143] plot.word_stats_counts*                         
+  see '?methods' for accessing help and source code
+  #+end_example
+     
 * Components of ~polarity~
 
 - For later, it might be useful to be able to extract parts of the
@@ -1085,9 +1240,40 @@
 8) You should see that the modified lexicon leads to a more realistic
    sentiment scoring than the standard lexicon.
 
-* TODO Summary
-* TODO Glossary of concepts
-* TODO Glossary of code
+* Summary
+
+- *Sentiment analysis* is the process of extracting an author's
+  emotional intent from text. It is challenging because of the
+  complexity of human emotions and potential modeling bias.
+
+- A prominent method is *polarity scoring*, which categorizes sentiment
+  as positive, neutral or negative, and is based on subjectivity
+  lexicons, lists of words labelled with emotional states.
+
+- To estimate polarity, lexicon words have to be found and context has
+  to be established using knowledge of negators, amplifiers and
+  deamplifiers, which *shift the valence*, and the lexicon may have to
+  be extended by words with special meaning.
+
+- Subjectivity lexicons work well despite their small size because of
+  *Zipf's power law*, which says that a word's frequency is inversely
+  proportional to its rank: the most frequent word will occur n times
+  as often as the n-th most frequent word.
+
+* Glossary of code
+
+| COMMAND               | MEANING                                   |
+|-----------------------+-------------------------------------------|
+| ~qdap::polarity~        | Polarity scoring function                 |
+| ~tm::removePunctuation~ | Remove punctuation before analysing       |
+| ~qdap::counts~          | Print identified emotional words          |
+| ~plot.polarity~         | Generic function that plots polarity      |
+| ~plot.polarity_count~   |                                           |
+| ~plot.polarity_score~   |                                           |
+| ~qdapDictionaries~      | Different lexicons in the ~qdap~ package    |
+| ~key.pol~               | Standard polarity scoring lexicon in ~qdap~ |
+| ~qdap::sentiment_frame~ | Create polarity scoring lexicon           |
+
 * References
 
 - Kwartler T (2017). Text mining in R. Wiley.
