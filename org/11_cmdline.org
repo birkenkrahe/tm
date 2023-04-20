@@ -68,6 +68,7 @@ Command line example[fn:1]: what is data, code, stats and story?
   | tty       | Tele-type/session management |
   |           |                              |
   #+end_quote
+
 * Things to do on the command line
 #+attr_html: :width 500px
 #+caption: Things to do on the command line (Source: Janssens, 2021)
@@ -202,15 +203,6 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 
 * Alternative command line installations
 
-*Victor says...*
-- That you (with your student accounts) can just install the Windows
-  Subsystem for Linux (WSL) from the Microsoft Store without admin
-  rights.
-- Please try it! Now!
-- We're still going to use DataCamp workspaces (because it's a
-  development environment rather than just a shel) but it's good to
-  know that Linux is in reach!
-
 *Alternatives:*
 - Install a Docker container as described [[https://github.com/birkenkrahe/org/blob/master/FAQ.org#how-to-set-up-a-docker-container-for-command-line-work][in this FAQ]] - there is also
   a short explanation what a "docker container" is [[https://github.com/birkenkrahe/org/blob/master/FAQ.org#what-is-a-docker-container][in the FAQ]].
@@ -231,10 +223,7 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 
 * Unix-type commands
 
-- The following sections on ~curl~ and ~wget~ is based on the first
-  chapter of the DataCamp course "Data processing in shell".
-
-- Both commands obey the same Unix-type format:
+- Unix-type utilities always have this format:
   #+begin_example sh
     [command] [options/flags] [targets]
   #+end_example
@@ -452,8 +441,6 @@ More: [[https://support.datacamp.com/hc/en-us/articles/4680790331287-Getting-Sta
 | easy to install across OS | handles multiple file formats |
 
 * Summary
-#+attr_latex: :width 400px
-[[../img/certificate.png]]
 
 - The command line (aka 'shell') is a programming and file management
   interface to the operating system.
