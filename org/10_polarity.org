@@ -668,11 +668,9 @@
     data(package='qdapDictionaries')
   #+end_src
 
-  #+RESULTS:
-  : Warning message:
-  : In file.show(outFile, delete.file = TRUE, title = paste("R", tolower(x$title))) :
-  :   '"c:/PROGRA~1/R/R-42~1.2/bin/pager"' not found
-
+  #+attr_latex: :width 400px
+  [[../img/qdapDictionaries.png]]
+  
 - Use the ~subset(x,pattern)~ function to retain only the original
   ~key.pol~ terms that have polarity 1 and store them in ~old.pos~:
   #+begin_src R

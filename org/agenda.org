@@ -845,12 +845,6 @@ Thu:
 - [X] What did we do last week?
 - [X] Polarity scoring: Zipf's law and three exercises for submission
 
-* What did you learn this week?
-
-Tue:
-
-Thu:
-
 * Polarity scoring: exercises
 
 - Download the exercise file: ~10_polarity_exercises.org~ from GitHub:
