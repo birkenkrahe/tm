@@ -835,7 +835,7 @@ Thu:
 - grouping of texts by different variables
 - subjectivity lexicon, and how to change it
 
-* TODO Week 14: Zipf's law and Polarity scoring practice
+* Week 14: Zipf's law and Polarity scoring practice
 #+attr_latex: :width 400px
 #+caption: George Cruikshank, HOPE (1862)
 [[../img/hope.png]]
@@ -845,7 +845,7 @@ Thu:
 - [X] What did we do last week?
 - [X] Polarity scoring: Zipf's law and three exercises for submission
 
-* Polarity scoring: exercises
+** Polarity scoring: exercises
 
 - Download the exercise file: ~10_polarity_exercises.org~ from GitHub:
   Open [[https://bit.ly/tm_pol_ex][bit.ly/tm_pol_ex]] in Emacs (~M-x eww~) and write to Org-mode file.
@@ -854,9 +854,9 @@ Thu:
 
 - Complete exercises and upload to Canvas.
 
-* [P]Review: Dendrograms and N-gram tokenization
+** Review: Dendrograms and N-gram tokenization
 
-* TODO [[https://github.com/birkenkrahe/org/blob/master/grading/Presentation_Assessment_Form.pdf][Rubric for evaluating your presentations]]
+** [[https://github.com/birkenkrahe/org/blob/master/grading/Presentation_Assessment_Form.pdf][Rubric for evaluating your presentations]]
 #+attr_latex: :width 400px
 #+caption: Photo: Ian Robertson, Belleville, Ontario (Flickr.com).
 [[../img/presentation.jpg]]
@@ -866,7 +866,7 @@ Thu:
 - Zip all materials and upload them to Canvas no later than May 3rd
 - If I don't get your material by that time, you won't get any points
 
-* TODO Week 15: Case study: Airbnb reviews
+* Week 15: PROJECTS
 * References
 
 - Rasmus Bååth (3 March 2023). Call ChatGPT (or really any other API)
